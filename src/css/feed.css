@@ -1,0 +1,19 @@
+/* 
+    Document   : feed.css
+    Created on : Jan 14, 2013, 5:41:15 PM
+    Author     : piccioli
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+.feed-container {
+    margin: 50px;
+    padding: 20px;
+    border: 1px solid #666;
+    background-color: #ddd;
+}

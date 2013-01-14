@@ -1,0 +1,69 @@
+_PUNDIT.vocab.initJsonpVocab({
+    "name": "cito_relations",
+    "label": "CiTO Relations",
+    "description": "A selection of RDF properties defined in the CiTO ontology.",
+    "type": "relations",
+	"items": [
+        {
+            "type":["predicate"],
+            "rdftype":["http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"],
+            "label":"corrects",
+            "domain":[],
+            "range":[],
+            "value":"http://purl.org/spar/cito/corrects"
+        },
+		{
+            "type":["predicate"],
+            "rdftype":["http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"],
+            "label":"critiques",
+            "domain":[],
+            "range":[],
+            "value":"http://purl.org/spar/cito/critiques"
+        },
+		{
+	            "type":["predicate"],
+	            "rdftype":["http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"],
+	            "label":"extends",
+	            "domain":[],
+	            "range":[],
+	            "value":"http://purl.org/spar/cito/extends"
+	    }
+		,
+		{
+	            "type":["predicate"],
+	            "rdftype":["http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"],
+	            "label":"gives background to",
+	            "domain":[],
+	            "range":[],
+	            "value":"http://purl.org/spar/cito/givesBackgroundTo"
+	    }
+		,
+		{
+	            "type":["predicate"],
+	            "rdftype":["http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"],
+	            "label":"includes quotation from",
+	            "domain":[],
+	            "range":[],
+	            "value":"http://purl.org/spar/cito/includesQuotationFrom"
+	    }
+		,
+		{
+	            "type":["predicate"],
+	            "rdftype":["http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"],
+	            "label":"is cited by",
+	            "domain":[],
+	            "range":[],
+	            "value":"http://purl.org/spar/cito/isCitedBy"
+	    }
+		,
+		{
+	            "type":["predicate"],
+	            "rdftype":["http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"],
+	            "label":"reviews",
+	            "domain":[],
+	            "range":[],
+	            "value":"http://purl.org/spar/cito/reviews"
+	    }
+	]
+});
+

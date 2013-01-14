@@ -1,0 +1,25 @@
+{
+	identifier: 'id',
+	label: 'name',
+	items: [
+	        { id: 'http://purl.org/pundit/vocab/author', name:'Authors', type:['http://purl.org/pundit/vocab/category'],
+	        		children:[{_reference:'http://purl.org/pundit/vocab/author/dante-alighieri'}, {_reference:'http://purl.org/pundit/vocab/author/ludovico-ariosto'}, {_reference:'http://purl.org/pundit/vocab/author/giacomo-leopardi'}] },
+	        	{ id: 'http://purl.org/pundit/vocab/author/dante-alighieri', name:'Dante Alighieri', type:['http://purl.org/pundit/vocab/author'] },
+	        	{ id: 'http://purl.org/pundit/vocab/author/ludovico-ariosto', name:'Ludovico Ariosto', type:['http://purl.org/pundit/vocab/author'] },
+	        	{ id: 'http://purl.org/pundit/vocab/author/giacomo-leopardi', name:'Giacomo Leopardi', type: ['http://purl.org/pundit/vocab/author'] },
+	
+				{ id: 'http://purl.org/pundit/vocab/period', name:'Period', type:['http://purl.org/pundit/vocab/category'],
+		        		children:[{_reference:'http://purl.org/pundit/vocab/period/renaissance'}, {_reference:'http://purl.org/pundit/vocab/period/romanticism'}, {_reference:'http://purl.org/pundit/vocab/period/classicism'}] },
+		        	{ id: 'http://purl.org/pundit/vocab/period/renaissance', name:'Renaissance', type:['http://purl.org/pundit/vocab/period'] },
+		        	{ id: 'http://purl.org/pundit/vocab/period/romanticism', name:'Romanticism', type:['http://purl.org/pundit/vocab/period'] },
+		        	{ id: 'http://purl.org/pundit/vocab/period/classicism', name:'Classicism', type: ['http://purl.org/pundit/vocab/priod'] },
+	       
+	
+					{ id: 'http://purl.org/pundit/vocab/topic', name:'Topic', type:['http://purl.org/pundit/vocab/category'],
+			        		children:[{_reference:'http://purl.org/pundit/vocab/topic/love'}, {_reference:'http://purl.org/pundit/vocab/topic/politics'}, {_reference:'http://purl.org/pundit/vocab/topic/religion'}] },
+			        	{ id: 'http://purl.org/pundit/vocab/topic/love', name:'Love', type:['http://purl.org/pundit/vocab/topic'] },
+			        	{ id: 'http://purl.org/pundit/vocab/topic/politics', name:'Politics', type:['http://purl.org/pundit/vocab/topic'] },
+			        	{ id: 'http://purl.org/pundit/vocab/topic/religion', name:'Religion', type: ['http://purl.org/pundit/vocab/topic'] }
+	
+	        		
+]}

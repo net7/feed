@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html dir="ltr">
+    
+    <head>
+        <style type="text/css">
+            body, html { font-family:helvetica,arial,sans-serif; font-size:90%; }
+        </style>
+        <script src="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/dojo.xd.js"
+        djConfig="parseOnLoad: true">
+        </script>
+        <script type="text/javascript">
+            dojo.require("dojo.data.ItemFileReadStore");
+            dojo.require("dijit.Tree");
+        </script>
+		<!--<script type="text/javascript" src="mytree.js"></script>-->
+		<script type="text/javascript">
+			dojo.ready(function(){
+				//tree = new semlib.Tree({debug: true});
+			});
+		</script>
+        <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dijit/themes/claro/claro.css"
+        />
+    </head>
+    
+    <body class=" claro ">
+        <div dojoType="dojo.data.ItemFileReadStore" jsId="continentStore" url="vocab.json">
+        </div>
+        <div dojoType="dijit.tree.ForestStoreModel" jsId="continentModel" store="continentStore"
+        query="{type:'continent'}" rootId="continentRoot" rootLabel="Continents"
+        childrenAttrs="children">
+        </div>
+        <div dojoType="dijit.Tree" id="mytree" model="continentModel" openOnClick="false">
+            <script type="dojo/method" event="onClick" args="item">
+				//var triplesToWrite = item.triples.toString().replace("?page", "<" + document.location.href + ">")
+							var triplesToWrite = item.triples.toString().replace("?page", document.location.href)	;
+							//console.log(triplesToWrite);
+							alert(triplesToWrite);
+             </script>
+        </div>
+        <!-- NOTE: the following script tag is not intended for usage in real
+        world!! it is part of the CodeGlass and you should just remove it when
+        you use the code -->
+        <script type="text/javascript">
+            dojo.addOnLoad(function() {
+                if (document.pub) {
+                    document.pub();
+					
+                }
+            });
+        </script>
+    </body>
+
+</html>

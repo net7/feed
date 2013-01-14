@@ -1,0 +1,37 @@
+(function() {
+    var h = document.getElementsByTagName('head')[0],
+        d = document.createElement('script'),
+        l = document.createElement('link');
+
+    l.rel = 'stylesheet';
+    l.href = '{bm-abs-path}/css/pundit.css';
+    l.type = 'text/css';
+    l.media = 'screen';
+    l.charset = 'utf-8';
+    h.appendChild(l);
+
+    punditConfig = {
+
+        debugAllModules: false,
+        vocabularies: [
+        ],
+
+        useBasicRelations: true,
+    
+        modules: {
+
+        }
+
+    };
+
+    djConfig = {
+        afterOnLoad: true,
+        useXDomain: true,
+        baseUrl: "{bm-abs-path}/bookmarklet_build/dojo/",
+        require: ["dojo.Bookmarklet"]
+    };
+    d.type = 'text/javascript';
+    d.src = '{bm-abs-path}/bookmarklet_build/dojo/dojo.xd.js';
+    h.appendChild(d);
+
+})();
