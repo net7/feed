@@ -320,6 +320,10 @@ dojo.declare("pundit.Configuration", pundit.BaseComponent, {
             'pundit.ImageAnnotationPanel': {
                 active: true
             },
+
+            'pundit.NamedContentHandler': {
+                active: true
+            },
             
             // Used :-)
             // WORNING: cannot deactivate at the moment!

@@ -36,8 +36,10 @@ dojo.declare("pundit.TextFragmentHandler", pundit.BaseComponent, {
                 self.selectable = true;
         });
         dojo.query('body').connect('onmouseup', function(e) {
+
             if (!self.selectable)
                 return;
+                
             // Don't show the contextual menu if the element has class "pundit-disable-annotation"
             // or one of its parents have it.
             var selectable = true,
@@ -68,13 +70,12 @@ dojo.declare("pundit.TextFragmentHandler", pundit.BaseComponent, {
                 return false;
             }
             
-            //Create the item
-            var item = self.createItemFromXpointer(xp);
+            // Create the item
+            var item = self.createItemFromRange(range);
             
             cMenu.show(e.pageX - window.pageXOffset, e.pageY - window.pageYOffset, item, 'textSelectionHelper');
             return true;
         });
-        
         
         // Action: add to my items
         cMenu.addAction({
@@ -104,7 +105,7 @@ dojo.declare("pundit.TextFragmentHandler", pundit.BaseComponent, {
         });
         
     }, // initBehaviours()
-	
+
     getLastSelectedContent: function(limit) {
         var self = this,
             content = self.helper.extractContentFromRange(self.lastSelectedRange);
@@ -113,13 +114,43 @@ dojo.declare("pundit.TextFragmentHandler", pundit.BaseComponent, {
             return content.substr(0, limit);
         return content;
     },
+
+    createItemFromRange: function(range) {
+        var self = this,
+            content = self.helper.extractContentFromRange(range),
+            content_short = content.length > 50 ? content.substr(0,50)+' ..' : content,
+            xp = self.range2xpointer(self.dirtyRange2cleanRange(range)),
+            pCont = window.location.href,
+            item;
+        
+        // If window location is an xpointer of a selected fragment
+        // don't consider the fragment!!
+        if (pCont.indexOf('#xpointer') !== -1)
+            pCont = pCont.substring(0, pCont.indexOf('#'));
+        
+        // Create the item along its bucket
+        item = {
+            type: ['subject'],
+            rdftype: [ns.fragments.text],
+            label: content_short,
+            description: content,
+            value: xp,
+            isPartOf: xp.split('#')[0],
+            pageContext: pCont
+        }
+        item.rdfData = semlibItems.createBucketForTextFragment(item).bucket;
+        
+        self.log('Created an item from range with label: '+content_short);
+        return item;
+    }, // createItemFromRange()
     
     //TODO SIMONE?
     //this function take the item content and label using the last selected range
     //and not from the range corresponding to the xpointer
     //Currenlty a function to pass from an xpointer to a range is missing (or I can't find it)
     //Is there any other way to take the node contents from an xpointer?
-	//TODO: DO NOT USE OUTSIDE OF THIS CLASS
+    //TODO: DO NOT USE OUTSIDE OF THIS CLASS
+    /*
     createItemFromXpointer: function(xp) {
         var self = this,
             content = self.helper.extractContentFromRange(self.lastSelectedRange),
@@ -146,8 +177,10 @@ dojo.declare("pundit.TextFragmentHandler", pundit.BaseComponent, {
         
         self.log('Created an item from xpointer with label: '+content_short);
         return item;
-    },
-
+    }, // createItemFromXpointer()
+    */
+    
+    
     // Computes a clean xpointer from the range selected by the user
     range2xpointer: function(range) {
         var self = this,
@@ -185,7 +218,7 @@ dojo.declare("pundit.TextFragmentHandler", pundit.BaseComponent, {
             var urlstart = index + 7 + tagName.length,            
                 pos = xpath.indexOf('_text\']'),
                 urllength = ((pos !== -1) ? xpath.indexOf('_text\']') : xpath.indexOf('\']')) - urlstart;
-    		
+
             return xpath.substr(urlstart, urllength);
         }
         
@@ -288,15 +321,15 @@ dojo.declare("pundit.TextFragmentHandler", pundit.BaseComponent, {
 
         return clean_n;
     },
-	
+
     calculateCleanOffset: function(node, dirty_offset) {
         var self = this,
             parentNode = dojo.query(node).parent()[0];
         clean_offset = dirty_offset;
-		
+
         if (self.helper.isElementNode(node) && !self.helper.isIgnoreNode(node))
             return dirty_offset;
-			
+
         if (self.helper.isTextNode(node) && self.helper.isWrapNode(parentNode)) 
             node = parentNode;
 
@@ -309,7 +342,7 @@ dojo.declare("pundit.TextFragmentHandler", pundit.BaseComponent, {
                 clean_offset += current_node.firstChild.length;
             node = current_node;
         }
-		
+
         return clean_offset;
     },
 

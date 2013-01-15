@@ -6,6 +6,7 @@ var punditConfig = {
 
     // annotationServerBaseURL : '',
 
+    // witt: 81, rest: 84
     vocabularies: [
         "http://korbo.netseven.it/84?jsonp=_PUNDIT.vocab.initJsonpVocab"
     ],
@@ -14,14 +15,17 @@ var punditConfig = {
 
     modules: {
 
+        'pundit.NamedContentHandler': {
+            active: true // TODO: not for cortona
+        },
         'pundit.NotebookManager': {
             active: false
         },
         'pundit.ImageFragmentHandler': {
-            active: false
+            active: true
         },
         'pundit.ImageAnnotationPanel': {
-            active: false
+            active: true
         },
         'pundit.PageHandler': {
             active: false
@@ -40,7 +44,7 @@ var punditConfig = {
                 name: 'korbo', 
                 label: 'Korbo search', 
                 active: true,
-                baskets: [81]
+                baskets: [82]
             }            
         },
         'annotators': {}

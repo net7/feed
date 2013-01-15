@@ -87,7 +87,8 @@ dojo.declare("pundit.NamespaceHelper", pundit.BaseComponent, {
         // DEBUG: this has to be moved to each annotator, not in the general conf
         self.fragments = {
             image: "http://purl.org/pundit/ont/ao#fragment-image",
-            text: "http://purl.org/pundit/ont/ao#fragment-text"
+            text: "http://purl.org/pundit/ont/ao#fragment-text",
+            named: "http://purl.org/pundit/ont/ao#named-content"
         },
         
         

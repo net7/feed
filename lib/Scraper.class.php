@@ -6,6 +6,7 @@ class Scraper {
     private $label;
     private $comment;
     private $annotableVersionAt;
+    private $domain;
     private $punditContent;
 
     /**
@@ -33,6 +34,9 @@ class Scraper {
     }
     public function getAnnotableVersionAt() {
         return $this->annotableVersionAt;
+    }
+    public function getDomain() {
+        return $this->domain;
     }
 
 
@@ -76,7 +80,8 @@ class Scraper {
         $this->label = $this->extractLabelByDom($dom);
         $this->comment = $this->extractCommentByDom($dom);
         $this->annotableVersionAt = $this->extractAnnotableVersionByDom($dom);
-        
+        $url_info = parse_url($this->annotableVersionAt);
+        $this->domain=$url_info['host'];
         // We assume that there is only html and body element and only one pundit content
         $content = $this->doCurlRequest('text/html', $this->annotableVersionAt);
         $content = preg_replace('@<body>@', '', $content);

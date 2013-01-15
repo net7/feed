@@ -15,6 +15,7 @@ dojo.declare("pundit.Items", pundit.BaseComponent, {
         si += '<li id="pundit-tab-filter-' + this.name + '-images-fragment">Image Fragments</li>';
         si += '<li id="pundit-tab-filter-' + this.name + '-entities">Terms</li>';
         si += '<li id="pundit-tab-filter-' + this.name + '-pages">Pages</li>';
+        si += '<li id="pundit-tab-filter-' + this.name + '-named">Named Content</li>';
         //si += '<li id="filter' + this.name + 'Relations">Relations</li>';
         //si += '<li id="filter' + this.name + 'Literals">Literals</li>';
         //si += '<li id="filter' + this.name + 'Favorites">Favorites</li>';
@@ -74,6 +75,7 @@ dojo.declare("pundit.Items", pundit.BaseComponent, {
         tabs['#pundit-tab-filter-' + this.name + '-images'] = function() {return self.getNodesWhereTypeIs(ns.image)};
         tabs['#pundit-tab-filter-' + this.name + '-images-fragment'] = function() {return self.getNodesWhereTypeIs(ns.fragments.image)};
         tabs['#pundit-tab-filter-' + this.name + '-pages'] = function() {return self.getNodesWhereTypeIs(ns.page)};
+        tabs['#pundit-tab-filter-' + this.name + '-named'] = function() {return self.getNodesWhereTypeIs(ns.fragments.named)};
         
             
         // DEBUG: provide a way for other components to add filters
@@ -671,6 +673,26 @@ dojo.declare("pundit.Items", pundit.BaseComponent, {
         return b;
     },
     
+    createBucketForNamedContent: function(d) {
+        var self = this,
+        b = new pundit.TriplesBucket();
+            
+        b.addTriple(d.value, ns.items.label, d.label, 'literal');
+        b.addTriple(d.value, ns.items.altLabel, d.label, 'literal');
+        b.addTriple(d.value, ns.items.description, d.description, 'literal');
+        b.addTriple(d.value, ns.items.image, d.image, 'uri');
+
+        b.addTriple(d.value, ns.items.pageContext, d.pageContext, 'uri');
+        b.addTriple(d.value, ns.items.isPartOf, d.isPartOf, 'uri');
+        
+        b.addTriple(d.value, ns.items.type, ns.fragments.text, 'uri');
+        b.addTriple(d.value, ns.items.type, ns.fragments.named, 'uri');
+        b.addTriple(ns.fragments.text, ns.items.label, 'Text Fragment', 'literal');
+        b.addTriple(ns.fragments.named, ns.items.label, 'Named Content', 'literal');
+
+        return b;
+    },
+
     createBucketForTextFragment: function(d) {
         var self = this,
         b = new pundit.TriplesBucket();
@@ -684,7 +706,7 @@ dojo.declare("pundit.Items", pundit.BaseComponent, {
         b.addTriple(d.value, ns.items.isPartOf, d.isPartOf, 'uri');
         
         b.addTriple(d.value, ns.items.type, ns.fragments.text, 'uri');
-        b.addTriple(ns.fragments.text, ns.items.label, 'Page fragment', 'literal');
+        b.addTriple(ns.fragments.text, ns.items.label, 'Text Fragment', 'literal');
 
         return b;
     },

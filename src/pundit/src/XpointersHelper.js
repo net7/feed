@@ -11,15 +11,14 @@ dojo.declare("pundit.XpointersHelper", pundit.BaseComponent, {
     opts: {
 
         // Node name and class used to wrap our annotated content
-    	wrapNodeName: 'span',
-    	wrapNodeClass: 'cons',
+        wrapNodeName: 'span',
+        wrapNodeClass: 'cons',
 
-        // Class used on a container to indicate it's a named content: xpointers
-        // will start from that node
-    	/**
+        /**
+         * Class used on a container to indicate it's a named content: xpointers
+         * will start from that node
          * @property contentClasses
          * @type array of strings
-         * @description Class attached to this and that.
          * @default ['pundit-content']
          */
         contentClasses: ['pundit-content'],
@@ -36,20 +35,20 @@ dojo.declare("pundit.XpointersHelper", pundit.BaseComponent, {
     }, // constructor()
 
     getContentURIs : function() {
-    	var self = this,
-    	    contentUris = [];
+        var self = this,
+            contentUris = [];
 
-		// Add current page url in the content URIs
-		contentUris.push(document.location.href);
+        // Add current page url in the content URIs
+        contentUris.push(document.location.href);
 
         // Foreach content class, look for those items and extract the about field
-    	for (var i = self.opts.contentClasses.length - 1; i >= 0; i--)
-		    dojo.query('.' + self.opts.contentClasses[i]).forEach(function(node){
-				contentUris.push(dojo.attr(node, "about"));
-			});
+        for (var i = self.opts.contentClasses.length - 1; i >= 0; i--)
+            dojo.query('.' + self.opts.contentClasses[i]).forEach(function(node){
+                contentUris.push(dojo.attr(node, "about"));
+            });
         self.log("# getContentURIs: "+contentUris.length+" new uris found");
-    	
-    	return contentUris;
+
+        return contentUris;
 
     }, // getContentURIs()
 
@@ -64,9 +63,9 @@ dojo.declare("pundit.XpointersHelper", pundit.BaseComponent, {
                 end = sortedXpaths[i];
                 
             if (htmlClasses[i].length) {
-	            self.log("## Updating DOM, xpath "+i+": "+htmlClasses[i].join(" "));
+                self.log("## Updating DOM, xpath "+i+": "+htmlClasses[i].join(" "));
                 self.wrapXPaths(start, end, self.opts.wrapNodeName, htmlClasses[i].join(" ")+" "+self.opts.wrapNodeClass);
-			}
+            }
         }
         self.log("Dom succesfully updated!")
     }, // updateDOM()
@@ -79,33 +78,33 @@ dojo.declare("pundit.XpointersHelper", pundit.BaseComponent, {
         var self = this,
             htmlTag = _tag || "span",
             htmlClass = _class || "highlight",
-	        range = document.createRange(),
+            range = document.createRange(),
             startNode = self.getNodeFromXpath(startXp.xpath),
             endNode = self.getNodeFromXpath(endXp.xpath);
-		
-		// If start and end xpaths dont have a node number [N], we
-		// are wrapping the Mth=offset child of the given node
-		if (!startXp.xpath.match(/\[[0-9]+\]$/) && !endXp.xpath.match(/\[[0-9]+\]$/)) {
-			range.selectNode(startNode.childNodes[startXp.offset]);
-		} else {
 
-			// TODO: not sure... do we need to select a different node
-			// if the xpath is missing a [N]??
-			// if (!startXp.xpath.match(/\[[0-9]+\]$/))
-			//	range.setStart();
+        // If start and end xpaths dont have a node number [N], we
+        // are wrapping the Mth=offset child of the given node
+        if (!startXp.xpath.match(/\[[0-9]+\]$/) && !endXp.xpath.match(/\[[0-9]+\]$/)) {
+            range.selectNode(startNode.childNodes[startXp.offset]);
+        } else {
 
-	        // If it's not a textnode, set the start (or end) before (or after) it
-	        if (!self.isElementNode(startNode))
-	            range.setStart(startNode, startXp.offset);
-	        else
-	            range.setStart(startNode, startXp.offset);
+            // TODO: not sure... do we need to select a different node
+            // if the xpath is missing a [N]??
+            // if (!startXp.xpath.match(/\[[0-9]+\]$/))
+            //	range.setStart();
 
-	        if (!self.isElementNode(endNode))
-	            range.setEnd(endNode, endXp.offset);
-	        else
-	            range.setEndAfter(endNode);
-		}
-				
+            // If it's not a textnode, set the start (or end) before (or after) it
+            if (!self.isElementNode(startNode))
+                range.setStart(startNode, startXp.offset);
+            else
+                range.setStart(startNode, startXp.offset);
+
+            if (!self.isElementNode(endNode))
+                range.setEnd(endNode, endXp.offset);
+            else
+                range.setEndAfter(endNode);
+        }
+
         // Wrap the nearest element which contains the entire range
         self.wrapElement(range.commonAncestorContainer, range, htmlTag, htmlClass);
 
@@ -123,10 +122,10 @@ dojo.declare("pundit.XpointersHelper", pundit.BaseComponent, {
 
         // Else it's a leaf: if it's a valid text node, wrap it!
         else if (self.isTextNodeInsideRange(element, range)) 
-    		self.wrapNode(element, range, htmlTag, htmlClass);
-		// MORE Else: it's an image node.. wrap it up
-		else if (self.isImageNodeInsideRange(element, range)) 
-		    self.wrapNode(element, range, htmlTag, htmlClass);
+            self.wrapNode(element, range, htmlTag, htmlClass);
+        // MORE Else: it's an image node.. wrap it up
+        else if (self.isImageNodeInsideRange(element, range)) 
+            self.wrapNode(element, range, htmlTag, htmlClass);
         
     }, // wrapElement()
 
@@ -207,8 +206,8 @@ dojo.declare("pundit.XpointersHelper", pundit.BaseComponent, {
     getClassesForNewXpointers : function (xpointers, sortedXpaths, xpaths, xpointersClasses) {
         var self = this,
             real_xps = [],
-			htmlClasses = [];
-			
+            htmlClasses = [];
+
         // Iterate through the sortedXpaths from 1st to Nth and accumulate
         // the active classes, looking at what xpointers are starting and
         // ending in the current xpath position
@@ -233,9 +232,9 @@ dojo.declare("pundit.XpointersHelper", pundit.BaseComponent, {
             htmlClasses[i+1] = classes;
 
         } // for i
-		self.log("Got classes for new xpointers");
+        self.log("Got classes for new xpointers");
 
-		return htmlClasses;
+        return htmlClasses;
     }, // getClassesForNewXpointers()
 
     // Given an xpath/offset couple, returns all of the xpointers
@@ -347,7 +346,7 @@ dojo.declare("pundit.XpointersHelper", pundit.BaseComponent, {
         return {xpaths: xpaths, xpointers: xpointers};
     }, // getXPathsFromXPointers()
 
-	// Will return an object with startxpath, startoffset, endxpath, endoffset
+    // Will return an object with startxpath, startoffset, endxpath, endoffset
     // splitting the given xpointer
     xPointerToXPath: function(xpointer) {
         var self = this,
@@ -375,22 +374,20 @@ dojo.declare("pundit.XpointersHelper", pundit.BaseComponent, {
         startNode = self.getNodeFromXpath(ret.startxpath);
         endNode = self.getNodeFromXpath(ret.endxpath);
         ret.valid = self.isValidRange(startNode, ret.startoffset, endNode, ret.endoffset)
-		// !(startNode === null || endNode === null);
 
         return ret;
     }, // xPointerToXPath
     
-	isValidRange: function(startNode, startOffset, endNode, endOffset) {
-
-		try {
-			var r = document.createRange();
-			r.setStart(startNode, startOffset);
-			r.setEnd(endNode, endOffset);
-			return true;
-		} catch (e) {
-			return false;
-		}
-	},
+    isValidRange: function(startNode, startOffset, endNode, endOffset) {
+        try {
+            var r = document.createRange();
+            r.setStart(startNode, startOffset);
+            r.setEnd(endNode, endOffset);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    },
 
     // Returns the DOM Node pointed by the xpath. Quite confident we can always get the 
     // first result of this iteration, the second should give null since we dont use general
@@ -438,70 +435,78 @@ dojo.declare("pundit.XpointersHelper", pundit.BaseComponent, {
         return a.range.compareBoundaryPoints(Range.END_TO_END, b.range);
     },
 
-	// Takes a range and extracts a readable description of its content. 
-	// Text is preserved, while imgs are replaced by an "Image" string
-	// TODO: there is a bug here! try with small range...
-	extractContentFromRange: function (range) {
+    // Takes a range and extracts a readable description of its content. 
+    // Text is preserved, while imgs are replaced by an "Image" string
+    // TODO: there is a bug here! try with small range...
+    extractContentFromRange: function (range) {
 
-		if (range === null) return "";
+        if (range === null) return "";
 
-		var self = this,
-			content = '',
-			clone = range.cloneContents(),
-			children = clone.childNodes,
-			len = children.length;
+        var self = this,
+            content = '',
+            clone = range.cloneContents(),
+            children = clone.childNodes,
+            len = children.length;
 
-		for (var i=0; i<len; i++) content += self.extractContentFromNode(children[i]);
+        for (var i=0; i<len; i++) 
+            content += self.extractContentFromNode(children[i]);
                 
-		return content;
-	}, // extractContentFromRange()
+        return content;
+    }, // extractContentFromRange()
 
-	extractContentFromNode: function (node) {
-		var self = this,
-			content = '',
-			type = node.nodeType;
-			
-		if (self.isElementNode(node)) {
-			if (node.nodeName.toUpperCase() === "IMG") {
+    extractContentFromNode: function (node) {
+        var self = this,
+            content = '',
+            type = node.nodeType;
+
+        if (self.isElementNode(node)) {
+            if (node.nodeName.toUpperCase() === "IMG") {
                 var src;
-				if (src = dojo.attr(node, 'src')) {
-					var idx = src.lastIndexOf("/");
-					if (idx !== -1) 
-						src = src.substr(idx + 1, src.length - idx);
-				} else 
-					src = "unknown location";
-				
-				content += "[img: " + src + "]";
+                if (src = dojo.attr(node, 'src')) {
+                    var idx = src.lastIndexOf("/");
+                    if (idx !== -1) 
+                        src = src.substr(idx + 1, src.length - idx);
+                } else 
+                    src = "unknown location";
 
-			} else {
-				var children = node.childNodes,
-					len = children.length;
-				for (var i=0; i<len; i++) 
-					content += self.extractContentFromNode(children[i]);
+                content += "[img: " + src + "]";
 
-			}
-			
-		} else if (!self.isCommentNode(node)) 
-			if (typeof(node.textContent) !== 'undefined')
-				content += node.textContent;
+            } else {
+                var children = node.childNodes,
+                    len = children.length;
+                for (var i=0; i<len; i++) 
+                content += self.extractContentFromNode(children[i]);
 
-		return content;
+            }
+
+        } else if (!self.isCommentNode(node)) 
+            if (typeof(node.textContent) !== 'undefined')
+                content += node.textContent;
+
+        return content;
 	}, // extractContentFromNode()
 
-	isUIButton: function(node) {
-		var self = this;
-		
-		if (!self.isElementNode(node))
-			return false;
-			
-		if (node.nodeName.toUpperCase() !== 'A')
-			return false;
-		
-		if (dojo.hasClass(node, 'pundit-icon-annotation'))
-			return true;
-			
-		return false;
-	},
+    extractContentFromXpointer: function (xp) {
+        var self = this;
+        
+        
+        
+    }, // extractContentFromXpointer()
+
+    isUIButton: function(node) {
+        var self = this;
+
+        if (!self.isElementNode(node))
+            return false;
+
+        if (node.nodeName.toUpperCase() !== 'A')
+            return false;
+
+        if (dojo.hasClass(node, 'pundit-icon-annotation'))
+            return true;
+
+        return false;
+    },
 
     // Returns true if the given node is a tag which should be ignored, like
     // a THCtag (span? something)
@@ -522,74 +527,73 @@ dojo.declare("pundit.XpointersHelper", pundit.BaseComponent, {
     isTextNode:    function(node) {return node.nodeType === Node.TEXT_NODE;},
     isElementNode: function(node) {return node.nodeType === Node.ELEMENT_NODE;},
     isCommentNode: function(node) {return node.nodeType === Node.COMMENT_NODE;},
-	isWrapNode: function(node) {
-		var self = this;
-		
-		// Not an element node.. return false
-		if (!self.isElementNode(node))
-			return false;
+    isWrapNode: function(node) {
+        var self = this;
 
-		// If the node name is wrong.. return false
-		if (node.nodeName.toUpperCase() !== self.opts.wrapNodeName.toUpperCase())
-			return false;
-		
-		// It is an element, with the right name, if it has
-		// the wrap class, it is a wrap node!
-		if (dojo.hasClass(node, self.opts.wrapNodeClass))
-			return true;
-		
-		return false;
-	}, // isWrapNode()
-	isWrappedElementNode: function(node) {
-		var self = this;
-		
-		if (!self.isWrapNode(node))
-			return false;
-			
-		if (!self.isElementNode(node.firstChild))
-			return false;
+        // Not an element node.. return false
+        if (!self.isElementNode(node))
+            return false;
 
-		return true;
-	},
-	isWrappedTextNode: function(node) {
-		var self = this;
-		
-		if (!self.isWrapNode(node))
-			return false;
-			
-		if (!self.isTextNode(node.firstChild))
-			return false;
+        // If the node name is wrong.. return false
+        if (node.nodeName.toUpperCase() !== self.opts.wrapNodeName.toUpperCase())
+            return false;
 
-		return true;
-	},
+        // It is an element, with the right name, if it has
+        // the wrap class, it is a wrap node!
+        if (dojo.hasClass(node, self.opts.wrapNodeClass))
+            return true;
+
+        return false;
+    }, // isWrapNode()
+    isWrappedElementNode: function(node) {
+        var self = this;
+
+        if (!self.isWrapNode(node))
+            return false;
+
+        if (!self.isElementNode(node.firstChild))
+            return false;
+
+        return true;
+    },
+    isWrappedTextNode: function(node) {
+        var self = this;
+
+        if (!self.isWrapNode(node))
+            return false;
+
+        if (!self.isTextNode(node.firstChild))
+            return false;
+
+        return true;
+    },
     isContentNode: function (node) {
         var self = this;
         
-		if (!self.isElementNode(node)) 
-			return false;
+        if (!self.isElementNode(node)) 
+            return false;
 
         var i, c = self.opts.contentClasses;
-        //for (i in c)
+
         for (i = c.length; i--;)
             if (dojo.hasClass(node, c[i])) 
                 return true;
 
         return false;
-	}, // isContentNode
+    }, // isContentNode
 
-	// Will merge all the text nodes under the given node, going down the DOM 
-	// recursively
+    // Will merge all the text nodes under the given node, going down the DOM 
+    // recursively
     mergeTextNodes: function(node) {
         var self = this;
-		
+
         if (!node) return;
-		
-        //if (node.childNodes && node.childNodes.length > 0) {
+
         if ((typeof(node.childNodes) !== "undefined") && (node.childNodes.length > 0)) {
             var i= node.childNodes.length-1;
                         
-            //TODO Fix this bug. Used try catch.
-            try{
+            // TODO Fix this bug. Used try catch.
+            try {
                 var child, sibling;
                 while (child = node.childNodes[i--]) {
                     if (self.isTextNode(child) && (sibling = node.childNodes[i]) && self.isTextNode(sibling)) {
@@ -597,19 +601,33 @@ dojo.declare("pundit.XpointersHelper", pundit.BaseComponent, {
                         node.removeChild(child);
                     } else if (self.isElementNode(child))
                         self.mergeTextNodes(child);
-
                 }
             } catch(err){
-                            
+                console.log('ERROR while merging text nodes!');
             }
         }
         
     },
     
-    getXpFromNode:function(node){
-     var range = document.createRange();
+    getXpFromNode: function(node) {
+        var range = document.createRange();
         range.selectNode(node);
         return fragmentHandler.range2xpointer(fragmentHandler.dirtyRange2cleanRange(range)); 
-    }
+    },
+    
+    getXpFromChildNodes: function(node) {
+        var self = this,
+            range = self.getRangeFromChildNodes(node);
+        return fragmentHandler.range2xpointer(fragmentHandler.dirtyRange2cleanRange(range));
+    },
+    
+    getRangeFromChildNodes: function(node) {
+        var range = document.createRange();
+        range.setStart(node.firstChild, 0);
+        range.setEnd(node.lastChild,0);
+        return range;
+    },
+    
+    
 
 });

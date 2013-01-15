@@ -14,7 +14,7 @@ dojo.declare("pundit.FastTextHandler", pundit.BasePanel, {
         
         self._state = 0;
     },
-    initHTML:function(){
+    initHTML: function(){
         var self= this;
         self.log('Init HTML FastTextHandler Panel');
 
@@ -37,7 +37,7 @@ dojo.declare("pundit.FastTextHandler", pundit.BasePanel, {
 
         self.addHTMLContent(c);
     },
-    initContextMenu:function(){
+    initContextMenu: function(){
         var self = this;
         
         // TODO: add 2+2 actions to use FTH on my and page items
@@ -51,7 +51,7 @@ dojo.declare("pundit.FastTextHandler", pundit.BasePanel, {
                 return self._state === 0;
             },
             onclick: function(item) {
-                self.step(item.value);
+                self.step(item);
                 return true;
             }
         });
@@ -64,7 +64,7 @@ dojo.declare("pundit.FastTextHandler", pundit.BasePanel, {
                 return self._state === 1;
             },
             onclick: function(item) {
-                self.step(item.value);
+                self.step(item);
                 return true;
             }
         });
@@ -72,7 +72,7 @@ dojo.declare("pundit.FastTextHandler", pundit.BasePanel, {
 
     },
     
-    initBehaviors:function(){
+    initBehaviors: function(){
         var self = this;
         
         dojo.connect(window, "storage", function(e) {
@@ -105,12 +105,12 @@ dojo.declare("pundit.FastTextHandler", pundit.BasePanel, {
                     return false;
                 }
                 
-                lsXP = localStorage['pundit-fth-first-xp'],
-                lsText = localStorage['pundit-fth-first-text'],
+                lsXP = localStorage['pundit-fth-first-xp'];
+                lsText = localStorage['pundit-fth-first-text'];
                 lsItem = JSON.parse(localStorage['pundit-fth-first-item']);
                 
                 self._state = 0;
-                self.step(lsXP, lsText, lsItem);
+                self.step(lsItem);
                 
             } else if (lsState === 2) {
 
@@ -121,12 +121,12 @@ dojo.declare("pundit.FastTextHandler", pundit.BasePanel, {
                     return false;
                 }
                 
-                lsXP = localStorage['pundit-fth-second-xp'],
-                lsText = localStorage['pundit-fth-second-text'],
+                lsXP = localStorage['pundit-fth-second-xp'];
+                lsText = localStorage['pundit-fth-second-text'];
                 lsItem = JSON.parse(localStorage['pundit-fth-second-item']);
                 
                 self._state = 1;
-                self.step(lsXP, lsText, lsItem);
+                self.step(lsItem);
             }
         });
         
@@ -179,13 +179,13 @@ dojo.declare("pundit.FastTextHandler", pundit.BasePanel, {
         self.hide();
     },
     
-    step: function(xp, text, item) {
-        var self = this;
+    step: function(item) {
+        var self = this,
+            text = item.description,
+            xp = item.value;
         
-        // If step() gets called with text and item, use them, otherwise
-        // extract them from the local DOM
-        text = text || fragmentHandler.getLastSelectedContent();
-        item = item || fragmentHandler.createItemFromXpointer(xp);
+        // TODO: text and xp are redundant, remove them from local storage
+        // everywhere else, and just take them out from item
         
         switch (self._state) {
             case 0:

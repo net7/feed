@@ -798,7 +798,7 @@ dojo.declare("pundit.ResourcesPanel", pundit.BasePanel, {
         }
         for (var i in self.namedEntitiesSources){
             panel = dojo.query('#' + self._id + '-container-suggestions-' + i)[0];
-            if (dojo.hasClass(panel,'pundit-expanded')){
+            if (dojo.hasClass(panel, 'pundit-expanded')){
                 itemNumber = self.getShownItemsNumber(self['itemsDnD' + i]);
                 if (itemNumber < self.maxShownItems){
                     dojo.style(dojo.query(panel).children('ul')[0], 'height', itemNumber * 27 + 1 + 'px');
@@ -812,7 +812,7 @@ dojo.declare("pundit.ResourcesPanel", pundit.BasePanel, {
     
     namedEntitiesLookup:function(term){
         var self = this;
-		self.lastSearchedTerm = term;
+        self.lastSearchedTerm = term;
         for (var i in self.namedEntitiesSources){
             self.setLoading(self._id + '-container-suggestions-' + i, true);
             _PUNDIT[i].getItemsForTerm(term,

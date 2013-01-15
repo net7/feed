@@ -91,7 +91,6 @@ dojo.declare("pundit.selectors.WordnetSelector", pundit.selectors.SelectorBase, 
                 self.log(error);
                 func([]);
                 _PUNDIT.loadingBox.setJobKo(self.requests[term].jobId);
-                //self.setLoading(false);
                 if (typeof self.requests[term].ef !== 'undefined')
                     self.requests[term].ef();
             }

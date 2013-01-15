@@ -150,7 +150,7 @@ dojo.declare("pundit.CommentTagPanel", pundit.RecognizerPanel, {
                 },
                 onclick: function(item) {
                     self.initPanel(item, "Extract entitites");
-                    //item = fragmentHandler.createItemFromXpointer(xp);
+
                     dojo.byId('pundit-ctp-textarea-title').innerHTML = "Selected text:"
                     dojo.html.set('pundit-ctp-comment-input', item.description);
                     

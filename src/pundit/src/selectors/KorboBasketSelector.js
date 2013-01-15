@@ -39,7 +39,6 @@ dojo.declare("pundit.selectors.KorboBasketSelector", pundit.selectors.SelectorBa
         // TODO: cache the results? 
         self.requests[term] = {f: func, items: [], done: 0};
         self.requests[term].jobId = _PUNDIT.loadingBox.addJob('Korbo query: '+term);
-        self.setLoading(true);
 
         dojo.io.script.get({
             callbackParamName: "jsonp",

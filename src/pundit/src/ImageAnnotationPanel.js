@@ -9,6 +9,7 @@ dojo.declare("pundit.ImageAnnotationPanel", pundit.BasePanel, {
 
     constructor:function(options){
         var self= this;
+        
         //Lazy loading kinetic lib
         //TODO Embed using dojo style
         (function() {   
@@ -39,7 +40,7 @@ dojo.declare("pundit.ImageAnnotationPanel", pundit.BasePanel, {
         cMenu.addAction({
             type: ['imageSelectionHelper'],
             name: 'AnnotateImage',
-            label: 'Annotate this image',
+            label: 'Annotate a part of this image',
             showIf: function(item) {
                 return true
             },

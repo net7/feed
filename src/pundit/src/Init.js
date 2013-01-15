@@ -314,6 +314,7 @@ dojo.declare("pundit.Init", pundit.BaseComponent, {
             dojo.require("pundit.ImageAnnotationPanel");
             p['imageAnnotationPanel'] = new pundit.ImageAnnotationPanel({
                 name: 'imageAnnotationPanel',
+                title: 'Image Annotation Panel',
                 width: 600,
                 height: 400,
                 drag: true
@@ -333,6 +334,12 @@ dojo.declare("pundit.Init", pundit.BaseComponent, {
         // TODO: sanitize use of this global var, and remove it
         myPundit = new pundit.MyPundit();
         p['myPundit'] = myPundit;
+        
+        
+        if (p.config.isModuleActive('pundit.NamedContentHandler')) {
+            dojo.require("pundit.NamedContentHandler");
+            p['namedContentHandler'] = new pundit.NamedContentHandler();
+        }
         
         
         // TODO: x Marco do we have to do this here? Is it related to annotation view? Consolidation?
