@@ -13,15 +13,17 @@ var punditConfig = {
     useBasicRelations: true,
 
     modules: {
-
+        'pundit.NamedContentHandler': {
+            active: true // TODO: not for cortona
+        },
         'pundit.NotebookManager': {
             active: false
         },
         'pundit.ImageFragmentHandler': {
-            active: false
+            active: true
         },
         'pundit.ImageAnnotationPanel': {
-            active: false
+            active: true
         },
         'pundit.PageHandler': {
             active: false
@@ -40,7 +42,7 @@ var punditConfig = {
                 name: 'korbo', 
                 label: 'Korbo search', 
                 active: true,
-                baskets: [81]
+                baskets: [82]
             }            
         },
         'annotators': {}
