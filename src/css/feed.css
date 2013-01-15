@@ -25,7 +25,7 @@
 
 .feed-header {
     margin: 5px 50px;
-    padding: 20px;
+    padding: 10px;
     border: 1px solid #666;
     background-color: #ddd;
 }
@@ -38,4 +38,20 @@
 .right-content {
     width: 50%;
     float: left;
+}
+
+.left-content .feed-container {
+    margin: 0 10px;
+}
+
+.right-content .feed-container {
+    margin: 0 10px;
+}
+
+.left-content .feed-header {
+    margin: 5px 10px;
+}
+
+.right-content .feed-header {
+    margin: 5px 10px;
 }
