@@ -103,6 +103,7 @@ class Scraper {
     
     private function extractTagValueByDom(DOMDocument $dom,$tagname) {
         $values = $dom->getElementsByTagName($tagname);
+        $val='';
         foreach ($values as $value){
            $val = $value->nodeValue;
         }

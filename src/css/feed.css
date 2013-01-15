@@ -29,3 +29,13 @@
     border: 1px solid #666;
     background-color: #ddd;
 }
+
+.left-content {
+    width: 50%;
+    float: left;
+}
+
+.right-content {
+    width: 50%;
+    float: left;
+}
