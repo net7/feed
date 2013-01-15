@@ -27,7 +27,11 @@ $s=new Scraper($_GET['url']);
     
   
     <body>
-<div class="feed-container"> 
+        
+        <div class="feed-space">&nbsp;</div>
+
+        
+        <div class="feed-container"> 
 <?php echo $s->getPunditContent(); ?>
 </div>
 

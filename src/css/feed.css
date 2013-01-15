@@ -11,8 +11,13 @@
    Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 */
 
+
+.feed-space {
+    height: 50px;
+}
+
 .feed-container {
-    margin: 50px;
+    margin: 0 50px;
     padding: 20px;
     border: 1px solid #666;
     background-color: #ddd;
