@@ -1,5 +1,4 @@
-ERROR
-<?php
+FeedThePund.it: error<?php
 
 /*
  * To change this template, choose Tools | Templates

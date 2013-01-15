@@ -1,7 +1,13 @@
 <?php
 
 class Scraper {
+
     private $url;
+    private $label;
+    private $comment;
+    private $annotableVersionAt;
+    private $punditContent;
+
     /**
      * Public contructor set URL to be scraped
      * TODO: verify if the url is valid
@@ -9,18 +15,27 @@ class Scraper {
      * @param type $url 
      */
     public function __construct($url) {
-        $this->url=$url;
-        if(!$this->isUrlValid())            
-                throw new Exception('Url is not VALID');
+        $this->url = $url;
+        if (!$this->isUrlValid())
+            throw new Exception('Url is not VALID');
+        $this->retrievePunditContent();
     }
     
-    
-    
-    public function getHasAnnotableVersionAt() {
-        
+    public function getPunditContent() {
+        return $this->punditContent;
     }
-    
-    
+
+    public function getLabel() {
+        return $this->label;
+    }
+    public function getComment() {
+        return $this->comment;
+    }
+    public function getAnnotableVersionAt() {
+        return $this->annotableVersionAt;
+    }
+
+
     private function doCurlRequest($contentType, $requestUrl='') {
 
         if ($requestUrl == '')
@@ -54,20 +69,54 @@ class Scraper {
      * Retrieve pundit content throough the content neg
      * // TODO: ALL!!!!!
      */
-    public function getPunditContent() {
+    private function retrievePunditContent() {
         $rdf = $this->doCurlRequest('application/rdf+xml');
-        preg_match('@korbo:hasAnnotableVersionAt.*@', $rdf, $matches);
-        $string = $matches[0];
-        $string1 = preg_replace('@korbo:hasAnnotableVersionAt rdf:resource="@', '', $string);
-        $htmlUrl = preg_replace('@".*@', '', $string1);
-        $content = $this->doCurlRequest('text/html',$htmlUrl);     
+        $dom = new DOMDocument();
+        $dom->loadXML($rdf);
+        $this->label = $this->extractLabelByDom($dom);
+        $this->comment = $this->extractCommentByDom($dom);
+        $this->annotableVersionAt = $this->extractAnnotableVersionByDom($dom);
+        
+        // We assume that there is only html and body element and only one pundit content
+        $content = $this->doCurlRequest('text/html', $this->annotableVersionAt);
         $content = preg_replace('@<body>@', '', $content);
         $content = preg_replace('@</body>@', '', $content);
         $content = preg_replace('@<html>@', '', $content);
         $content = preg_replace('@</html>@', '', $content);
-        return $content;
-}
+        $this->punditContent = $content;
+    }
 
+
+    // TODO: use namespace rdfs::label
+    private function extractLabelByDom(DOMDocument $dom) {
+        return $this->extractTagValueByDom($dom, 'label');
+    }
+    
+    private function extractCommentByDom(DOMDocument $dom) {
+        return $this->extractTagValueByDom($dom, 'comment');
+    }
+    
+    private function extractAnnotableVersionByDom(DOMDocument $dom) {
+        return $this->extractAttributeValueByDom($dom, 'hasAnnotableVersionAt', 'rdf:resource'); 
+        
+    }
+    
+    private function extractTagValueByDom(DOMDocument $dom,$tagname) {
+        $values = $dom->getElementsByTagName($tagname);
+        foreach ($values as $value){
+           $val = $value->nodeValue;
+        }
+        return $val;
+    }
+
+    private function extractAttributeValueByDom(DOMDocument $dom,$tagname,$attributename) {
+        $values = $dom->getElementsByTagName($tagname);
+        foreach ($values as $value){
+           $val = $value->getAttribute($attributename);
+        }
+        return $val;
+    }
+    
     /**
      * Verify if a URL is VALID
      * TODO: Test
@@ -75,8 +124,9 @@ class Scraper {
     private function isUrlValid() {
         return filter_var($this->url, FILTER_VALIDATE_URL);
     }
-    
+
     public function getUrl() {
         return $this->url;
     }
+
 }

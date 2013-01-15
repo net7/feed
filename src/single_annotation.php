@@ -29,11 +29,14 @@ $s=new Scraper($_GET['url']);
     <body>
         
         <div class="feed-space">&nbsp;</div>
-
-        
+        <div class="feed-header">
+            <span class="label"><?php echo $s->getLabel() ?></span><br/>
+            <span class="comment"><?php echo $s->getComment() ?></span><br/>
+            <span class="annotable-version-at"><?php echo $s->getAnnotableVersionAt() ?></span><br/>
+        </div>
         <div class="feed-container"> 
-<?php echo $s->getPunditContent(); ?>
-</div>
+ <?php echo $s->getPunditContent(); ?>
+        </div>
 
 </body>
 </html>

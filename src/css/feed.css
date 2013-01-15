@@ -22,3 +22,10 @@
     border: 1px solid #666;
     background-color: #ddd;
 }
+
+.feed-header {
+    margin: 5px 50px;
+    padding: 20px;
+    border: 1px solid #666;
+    background-color: #ddd;
+}
