@@ -19,15 +19,14 @@
 .feed-container {
     margin: 0 50px;
     padding: 20px;
-    border: 1px solid #666;
+    border: 1px solid #66;
     background-color: #ddd;
 }
 
 .feed-header {
     margin: 5px 50px;
-    padding: 10px;
-    border: 1px solid #666;
-    background-color: #ddd;
+    padding: 10px 0;
+    border-bottom: 1px solid #333;
 }
 
 .left-content {
@@ -55,3 +54,5 @@
 .right-content .feed-header {
     margin: 5px 10px;
 }
+
+.pundit-content { float: left; }

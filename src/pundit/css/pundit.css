@@ -1433,7 +1433,8 @@ body .pundit-ifh-annotate-image:hover {
 
 #pundit-gui-topbar,
 #pundit-gui,
-#pundit-aw {
+#pundit-aw,
+.pundit-disable-annotation {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
