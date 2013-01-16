@@ -1,5 +1,6 @@
 function feedBuildUrl() {
-    var baseURL = "/?",
+    var w = window.location,
+        baseURL = w.protocol +'//'+ w.hostname + "/?",
         left = $('#inputLurl').val(),
         right = $('#inputRurl').val(),
         conf = $('#punditConf').val(),

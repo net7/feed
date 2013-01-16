@@ -62,6 +62,9 @@
 <!--            <h1>Feed The Pundit</h1>
             <p>Use this interface ...</p> -->
 
+            <br><br>
+            <br>
+
             <form class="form-horizontal span11">
                 <div class="control-group">
                     <label class="control-label" for="inputLurl">Source 1 URL</label>
@@ -95,29 +98,30 @@
                 <div class="control-group errors-container">
                 </div>
 
+
                 <div class="control-group">
                     <label class="control-label" for="feedThePundit">Feed The Pundit URL</label>
                     <div class="controls">
-                        <input class="span8" type="text" id="feedThePundit" disabled />
                         <a class="btn" href="#" rel="popover" data-placement="bottom" title="Feed URL" data-content="This is the FeedThePundit URL to annotate the selected source(s). You can copy, save and share such URL.">
                             <i class="icon-question-sign"></i>
                         </a>
                     </div>
                 </div>
-                
-                <div class="control-group">
-                    <div class="controls">
-                        <button id="feedSubmitButton" data-loading-text="Loading Pundit..." type="submit" class="btn btn-success" tabindex="3" href="#" rel="tooltip" title="Click me to go to Pundit" data-content="Long explain">
-                            <i class="icon-arrow-right"></i> Annotate!
-                        </button>
 
+
+                <input class="span11" type="text" id="feedThePundit" disabled />
+                <br><br>
+                
+                <div>
+                    <button id="feedSubmitButton" data-loading-text="Loading Pundit..." type="submit" class="btn btn-large btn-block btn-success" tabindex="3">
+                        <i class="icon-arrow-right"></i> Annotate!
+                    </button>
 <!-- 
                         <a class="btn" href="#" rel="tooltip" title="Second URL" data-content="Long explain">
                             <i class="icon-edit"></i> Copy this address
                         </a>
 -->
 
-                    </div>                    
                 </div>
             </form>
 
