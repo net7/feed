@@ -31,7 +31,9 @@ function showFeedError(t, d) {
 
 (function($){
     
+    $('#inputLurl').on('focusin', function(event) { feedBuildUrl(); });
     $('#inputLurl').on('focusout', function(event) { feedBuildUrl(); });
+    $('#inputRurl').on('focusin', function(event) { feedBuildUrl(); });
     $('#inputRurl').on('focusout', function(event) { feedBuildUrl(); });
     $('#punditConf').on('change', function(event) { feedBuildUrl(); });
 
@@ -66,6 +68,13 @@ function showFeedError(t, d) {
         }
         
         // TODO: sanity check on this created URL ?
+        
+        var bu = $('#feedSubmitButton'),
+            te = bu.attr('data-loading-text') || "Loading Pundit";
+        
+        bu.html(te);
+        bu.attr('disabled', 'disabled');
+        
         if (url !== '')
             window.location = url;
 

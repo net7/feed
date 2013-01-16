@@ -109,7 +109,7 @@
                 
                 <div class="control-group">
                     <div class="controls">
-                        <button type="submit" class="btn btn-success" tabindex="3" href="#" rel="tooltip" title="Click me to go to Pundit" data-content="Long explain">
+                        <button id="feedSubmitButton" data-loading-text="Loading Pundit..." type="submit" class="btn btn-success" tabindex="3" href="#" rel="tooltip" title="Click me to go to Pundit" data-content="Long explain">
                             <i class="icon-arrow-right"></i> Annotate!
                         </button>
 
