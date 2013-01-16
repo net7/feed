@@ -2,7 +2,7 @@ var punditConfig = {
 
     debugAllModules: false,
 
-    annotationServerBaseURL: "http://annotationserver.netseven.it:8088/annotationserver/",
+    annotationServerBaseURL: "http://as.thepund.it:8080/annotationserver/",
 
     vocabularies: [
         'http://www.wittgensteinsource.org/js/witt_subjects_taxonomy.json',
