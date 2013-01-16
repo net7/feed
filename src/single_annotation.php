@@ -12,9 +12,11 @@ $s=new Scraper($_GET['url']);
 <html>
     <head>
         <?php renderHead(); ?>
+        <link rel="stylesheet" href="css/feed.css" type="text/css">
+
     </head>
-    <body>
-        <div class="feed-space">&nbsp;</div>
+    <body class="clearfix">
+        <div class="feed-space pundit-disable-annotation">&nbsp;</div>
         <?php renderPunditContent($s) ; ?>
         <?php renderFooter(); ?>
     </body>

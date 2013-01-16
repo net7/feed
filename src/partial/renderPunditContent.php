@@ -1,9 +1,9 @@
-<?php
+ <?php
 
 function renderPunditContent ($s) {
 
 ?>
-<div class="feed-header">
+<div class="feed-header pundit-disable-annotation">
             <span class="label"><?php echo $s->getLabel() ?></span>
             <a href="#" rel="popover" title="<?php echo $s->getDomain() ?>" data-placement="right" data-content="<?php echo $s->getComment() ?>"><i class="icon-info-sign"></i></a><br/>
         </div>

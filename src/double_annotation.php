@@ -20,10 +20,12 @@ $ls=new Scraper($_GET['lurl']);
 <html>
     <head>
         <?php renderHead(); ?>
+        <link rel="stylesheet" href="css/feed.css" type="text/css">
+
     </head>
-    <body>
+    <body class="clearfix">
         
-        <div class="feed-space">&nbsp;</div>
+        <div class="feed-space pundit-disable-annotation">&nbsp;</div>
         <div class="left-content">
             <?php renderPunditContent($ls) ; ?>
         </div>
