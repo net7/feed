@@ -28,12 +28,15 @@ function showFeedError(t, d) {
     
     // TODO : better handle the various events the users can do.. like select from
     // the autocomplete
+    
     $('#inputLurl').on('focusin', function(event) { feedBuildUrl(); });
     $('#inputLurl').on('focusout', function(event) { feedBuildUrl(); });
     $('#inputRurl').on('focusin', function(event) { feedBuildUrl(); });
     $('#inputRurl').on('focusout', function(event) { feedBuildUrl(); });
     $('#punditConf').on('change', function(event) { feedBuildUrl(); });
 
+    // On load:
+    // - focus first input
     $('#inputLurl').get(0).focus();
 
     $('form').submit(function() {
