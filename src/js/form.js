@@ -7,11 +7,11 @@ function feedBuildUrl() {
 
     $(".control-group.errors-container").empty()
 
-    if (left === '') 
+    if (left === '' || !isURL(left))
         url = '';
-    else if (left !== '' && right === '')
+    else if (right === '')
         url = baseURL + "url=" + left + "&conf="+ conf;
-    else
+    else if (isURL(right))
         url = baseURL +"lurl="+ left +"&rurl="+ right + "&conf="+ conf;
         
     $('#feedThePundit').val(url);
@@ -23,6 +23,10 @@ function showFeedError(t, d) {
         .appendTo(".control-group.errors-container");
 }
 
+function isURL(u) {
+    var urlregex = new RegExp("^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/.*$");
+    return urlregex.test(u);
+}
 
 (function($){
     
@@ -35,6 +39,16 @@ function showFeedError(t, d) {
     $('#inputRurl').on('focusout', function(event) { feedBuildUrl(); });
     $('#punditConf').on('change', function(event) { feedBuildUrl(); });
 
+    function checkInputURL() {
+        var v = $(this).val();
+        if (isURL(v) || v === '') 
+            feedBuildUrl();
+    }
+
+    $('#inputLurl').on('change', checkInputURL);
+    $('#inputRurl').on('change', checkInputURL);
+
+
     // On load:
     // - focus first input
     $('#inputLurl').get(0).focus();
@@ -44,7 +58,6 @@ function showFeedError(t, d) {
             right = $('#inputRurl').val(),
             conf = $('#punditConf').val(),
             url = $('#feedThePundit').val();
-            urlregex = new RegExp("^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/.*$");
 
         $(".control-group.errors-container").empty()
 
@@ -55,13 +68,13 @@ function showFeedError(t, d) {
             return false;
         }
         
-        if (!urlregex.test(left)) {
+        if (!isURL(left)) {
             console.log('Error: invalid first URL');
             showFeedError("Error!", "The first URL you entered ("+left+") does not look valid.");
             return false;
         }
 
-        if (right !== '' && !urlregex.test(right)) {
+        if (right !== '' && !isURL(right)) {
             console.log('Error: invalid second URL');
             showFeedError("Error!", "The second URL you entered ("+right+") does not look valid.");
             return false;
