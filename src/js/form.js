@@ -1,10 +1,17 @@
 function feedBuildUrl() {
-    var left = $('#inputLurl').val(),
-        right = $('#inputRurl').val();
-        url = "/?lurl="+ left +"&rurl="+ right;
+    var baseURL = "/?",
+        left = $('#inputLurl').val(),
+        right = $('#inputRurl').val(),
+        conf = $('#punditConf').val(),
+        url;
 
-    if (left === '' || right === '')
-        return false;
+    if (left === '' && right === '') 
+        url = '';
+    else if (left !== '' && right === '')
+        url = baseURL + "url=" + left + "&conf="+ conf;
+    else
+        url = baseURL +"lurl="+ left +"&rurl="+ right + "&conf="+ conf;
+
         
     // TODO: sanity checks on URLs ?
 
@@ -18,6 +25,7 @@ function feedBuildUrl() {
     
     $('#inputLurl').on('focusout', function(event) { feedBuildUrl(); });
     $('#inputRurl').on('focusout', function(event) { feedBuildUrl(); });
+    $('#punditConf').on('change', function(event) { feedBuildUrl(); });
 
     $('#inputLurl').get(0).focus();
 

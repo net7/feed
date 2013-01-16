@@ -64,43 +64,43 @@
 
             <form class="form-horizontal span11">
                 <div class="control-group">
-                    <label class="control-label" for="inputLurl">URL 1</label>
+                    <label class="control-label" for="inputLurl">Source 1 URL</label>
                     <div class="controls">
-                        <input class="span8" type="text" tabindex="1" id="inputLurl" placeholder="Insert first URL" data-provide="typeahead" data-items="5" data-source='<?php echo $sources; ?>' />
+                        <input class="span8" type="text" tabindex="1" id="inputLurl" placeholder="http://.." data-provide="typeahead" data-items="5" data-source='<?php echo $sources; ?>' />
 
-                        <a class="btn" href="#" rel="popover" title="First URL" data-content="Long explain"><i class="icon-question-sign"></i></a>
+                        <a class="btn" href="#" rel="popover" data-placement="bottom" title="First source URL" data-content="Insert a full URL of a compatible RDF source provider"><i class="icon-question-sign"></i></a>
                     </div>
                 </div>
                 
                 <div class="control-group">
-                    <label class="control-label" for="inputRurl">URL 2</label>
+                    <label class="control-label" for="inputRurl">Source 2 URL</label>
                     <div class="controls">
-                        <input class="span8" tabindex="2" type="text" id="inputRurl" placeholder="Insert second URL" data-provide="typeahead" data-items="5" data-source='<?php echo $sources; ?>' />
-                        <a class="btn" href="#" rel="popover" title="Second URL" data-content="Long explain"><i class="icon-question-sign"></i></a>
+                        <input class="span8" tabindex="2" type="text" id="inputRurl" placeholder="http://.." data-provide="typeahead" data-items="5" data-source='<?php echo $sources; ?>' />
+                        <a class="btn" href="#" rel="popover" data-placement="bottom" title="Second URL" data-content="Insert a full URL of a compatible RDF source provider"><i class="icon-question-sign"></i></a>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" for="selectConf">Configuration</label>
                     <div class="controls">
-                        <select>
+                        <select id="punditConf">
                             <option>cortona.js</option>
                             <option>burckhardt.js</option>
                             <option>wab.js</option>
                             <option>pisanotizie.js</option>
                             <option>otherconf.js</option>
                         </select>
-                        <a class="btn" href="#" rel="popover" title="Pundit configuration file" data-content="Long explain"><i class="icon-question-sign"></i></a>
+                        <a class="btn" href="#" rel="popover" data-placement="bottom" title="Pundit configuration file" data-content="Choose the Pundit configuration you want to use"><i class="icon-question-sign"></i></a>
                     </div>
                 </div>
 
                 <br /><br />
 
                 <div class="control-group">
-                    <label class="control-label" for="feedThePundit"></label>
+                    <label class="control-label" for="feedThePundit">Feed The Pundit URL</label>
                     <div class="controls">
                         <input class="span8" type="text" id="feedThePundit" disabled />
-                        <a class="btn" href="#" rel="popover" title="Second URL" data-content="Long explain">
+                        <a class="btn" href="#" rel="popover" data-placement="bottom" title="Feed URL" data-content="This is the FeedThePundit URL to annotate the selected source(s). You can copy, save and share such URL.">
                             <i class="icon-question-sign"></i>
                         </a>
                     </div>
@@ -108,12 +108,16 @@
                 
                 <div class="control-group">
                     <div class="controls">
-                        <button type="submit" class="btn btn-success" tabindex="3" href="#" rel="tooltip" title="Second URL" data-content="Long explain">
+                        <button type="submit" class="btn btn-success" tabindex="3" href="#" rel="tooltip" title="Click me to go to Pundit" data-content="Long explain">
                             <i class="icon-arrow-right"></i> Annotate!
                         </button>
+
+<!-- 
                         <a class="btn" href="#" rel="tooltip" title="Second URL" data-content="Long explain">
                             <i class="icon-edit"></i> Copy this address
                         </a>
+-->
+
                     </div>                    
                 </div>
                 
