@@ -14,7 +14,7 @@
 <html lang="en">
     <head>
         <?php renderHead(0); ?>
-        <title>Feed.thepund.it</title>
+        <title>Feed the Pundit: Home</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="Net7srl">
@@ -43,7 +43,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <span class="brand">Feed ThePundit</span>
+                    <span class="brand">Feed the Pundit</span>
 
 <!--                    <div class="nav-collapse collapse">
                         <ul class="nav">
@@ -94,7 +94,8 @@
                     </div>
                 </div>
 
-                <br /><br />
+                <div class="control-group errors-container">
+                </div>
 
                 <div class="control-group">
                     <label class="control-label" for="feedThePundit">Feed The Pundit URL</label>
@@ -120,13 +121,21 @@
 
                     </div>                    
                 </div>
-                
             </form>
 
         </div> <!-- /container -->
         <?php
         renderFooter();
         ?>
+
+        <script src="/js/jquery.tmpl.min.js"></script>
         <script src="/js/form.js"></script>
+        <script id="feedErrorTemplate" type="text/x-jquery-tmpl">
+            <div class="alert alert-block alert-error fade in">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <h4 class="alert-heading">${title}</h4>
+                <p>${description}</p>
+            </div>        
+        </script>
     </body>
 </html>

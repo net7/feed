@@ -5,7 +5,9 @@ function feedBuildUrl() {
         conf = $('#punditConf').val(),
         url;
 
-    if (left === '' && right === '') 
+    $(".control-group.errors-container").empty()
+
+    if (left === '') 
         url = '';
     else if (left !== '' && right === '')
         url = baseURL + "url=" + left + "&conf="+ conf;
@@ -19,6 +21,12 @@ function feedBuildUrl() {
 
 }
 
+function showFeedError(t, d) {
+    $("#feedErrorTemplate")
+        .tmpl([{title: t, description: d}])
+        .appendTo(".control-group.errors-container");
+}
+
 
 
 (function($){
@@ -30,7 +38,32 @@ function feedBuildUrl() {
     $('#inputLurl').get(0).focus();
 
     $('form').submit(function() {
-        var url = $('#feedThePundit').val();
+        var left = $('#inputLurl').val(),
+            right = $('#inputRurl').val(),
+            conf = $('#punditConf').val(),
+            url = $('#feedThePundit').val();
+            urlregex = new RegExp("^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*$");
+
+        $(".control-group.errors-container").empty()
+
+        // ERROR: left url is mandatory
+        if (left === '') {
+            console.log('Error: no left URL');
+            showFeedError("Error!", "You must insert at least the first source URL");
+            return false;
+        }
+        
+        if (!urlregex.test(left)) {
+            console.log('Error: invalid first URL');
+            showFeedError("Error!", "The first URL you entered ("+left+") does not look valid.");
+            return false;
+        }
+
+        if (right !== '' && !urlregex.test(right)) {
+            console.log('Error: invalid second URL');
+            showFeedError("Error!", "The second URL you entered ("+right+") does not look valid.");
+            return false;
+        }
         
         // TODO: sanity check on this created URL ?
         if (url !== '')
