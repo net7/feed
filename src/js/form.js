@@ -13,12 +13,8 @@ function feedBuildUrl() {
         url = baseURL + "url=" + left + "&conf="+ conf;
     else
         url = baseURL +"lurl="+ left +"&rurl="+ right + "&conf="+ conf;
-
         
-    // TODO: sanity checks on URLs ?
-
     $('#feedThePundit').val(url);
-
 }
 
 function showFeedError(t, d) {
@@ -28,9 +24,10 @@ function showFeedError(t, d) {
 }
 
 
-
 (function($){
     
+    // TODO : better handle the various events the users can do.. like select from
+    // the autocomplete
     $('#inputLurl').on('focusin', function(event) { feedBuildUrl(); });
     $('#inputLurl').on('focusout', function(event) { feedBuildUrl(); });
     $('#inputRurl').on('focusin', function(event) { feedBuildUrl(); });
@@ -44,7 +41,7 @@ function showFeedError(t, d) {
             right = $('#inputRurl').val(),
             conf = $('#punditConf').val(),
             url = $('#feedThePundit').val();
-            urlregex = new RegExp("^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*$");
+            urlregex = new RegExp("^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/.*$");
 
         $(".control-group.errors-container").empty()
 
