@@ -7,14 +7,39 @@
             '"http://burckhardtsource.org/resources/letter/wilhelm-von-bode-1887-07-11.rdf",' .
             '"http://burckhardtsource.org/resources/letter/gustavo-frizzoni-1888-11-15.rdf",' .
             '"http://burckhardtsource.org/resources/letter/pier-desiderio-pasolini-1891-05-02.rdf",' .
+
+            '"http://www.wittgensteinsource.org/Ts-310,5[3]et6[1]_n.rdf",' .
+            '"http://www.wittgensteinsource.org/Ts-310,2[2]et3[1]et3a[1]et4[1]_n.rdf",' .
+            '"http://www.wittgensteinsource.org/Ts-310,1[2]et2[1]_n.rdf",' .
+            '"http://www.wittgensteinsource.org/Ms-141,6[4]et7[1]_n.rdf",' .
+            '"http://www.wittgensteinsource.org/Ms-141,6[3]_n.rdf",' .
+            '"http://www.wittgensteinsource.org/Ms-141,4[5]et5[1]et6[1]_n.rdf",' .
+
+            '"http://ancientsource.daphnet.org/texts/Sextus/PH-1,4.rdf",' .
+            '"http://ancientsource.daphnet.org/texts/Sextus/PH-1,7.rdf",' .
+            '"http://ancientsource.daphnet.org/texts/Sextus/PH-1,8.rdf",' .
+            '"http://ancientsource.daphnet.org/texts/Sextus/PH-3,204.rdf",' .
+            '"http://ancientsource.daphnet.org/texts/Sextus/PH-3,205.rdf",' .
+            '"http://ancientsource.daphnet.org/texts/Sextus/PH-3,206.rdf",' .
+
+
+            '"http://modernsource.daphnet.org/texts/Leibniz/LeiMon_fr,119[4].rdf",'.
+            '"http://modernsource.daphnet.org/texts/Leibniz/LeiBD,118[2]et119[1].rdf",'.
+            '"http://modernsource.daphnet.org/texts/Kant/KanND,388[5]et389[1].rdf",'.
+            '"http://modernsource.daphnet.org/texts/Locke/LocHum,47[4]et49[1].rdf",'.
+
+            '"http://www.gramscisource.org/quaderno/12/nota/12.rdf",' .
+            '"http://www.gramscisource.org/quaderno/12/nota/13.rdf",' .
+            '"http://www.gramscisource.org/quaderno/12/nota/22.rdf",' .
+            '"http://www.gramscisource.org/quaderno/12/nota/59.rdf",' .
+            '"http://www.gramscisource.org/quaderno/12/nota/67.rdf",' .
+
             '"http://furioso-dev.netseven.it/illustrazione/1.rdf",' .
             '"http://furioso-dev.netseven.it/illustrazione/47.rdf",' .
             '"http://furioso-dev.netseven.it/illustrazione/93.rdf",' .
             '"http://furioso-dev.netseven.it/illustrazione/139.rdf",' .
-            '"http://furioso-dev.netseven.it/text/canto1.rdf",' .
-            '"http://modernsource.daphnet.org/texts/Kant/KanND,388%5B5%5Det389%5B1%5D.rdf",'.
-            '"http://modernsource.daphnet.org/texts/Leibniz/LeiGeom,231[2].rdf",'.
-            '"http://modernsource.daphnet.org/texts/Locke/LocHum,47[4]et49[1].rdf"'.
+            '"http://furioso-dev.netseven.it/text/canto1.rdf"' .
+
         ']';
     
 ?>
@@ -78,7 +103,7 @@
                 <div class="control-group">
                     <label class="control-label" for="inputLurl">Source 1 URL</label>
                     <div class="controls">
-                        <input class="span8" type="text" tabindex="1" id="inputLurl" placeholder="http://.." data-provide="typeahead" data-items="5" data-source='<?php echo $sources; ?>' />
+                        <input class="span8" type="text" tabindex="1" id="inputLurl" placeholder="http://.." data-provide="typeahead" data-items="10" data-source='<?php echo $sources; ?>' />
 
                         <a class="btn" href="#" rel="popover" data-placement="bottom" title="First source URL" data-content="Insert a full URL of a compatible RDF source provider"><i class="icon-question-sign"></i></a>
                     </div>
@@ -87,7 +112,7 @@
                 <div class="control-group">
                     <label class="control-label" for="inputRurl">Source 2 URL</label>
                     <div class="controls">
-                        <input class="span8" tabindex="2" type="text" id="inputRurl" placeholder="http://.." data-provide="typeahead" data-items="5" data-source='<?php echo $sources; ?>' />
+                        <input class="span8" tabindex="2" type="text" id="inputRurl" placeholder="http://.." data-provide="typeahead" data-items="10" data-source='<?php echo $sources; ?>' />
                         <a class="btn" href="#" rel="popover" data-placement="bottom" title="Second URL" data-content="Insert a full URL of a compatible RDF source provider"><i class="icon-question-sign"></i></a>
                     </div>
                 </div>
