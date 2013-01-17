@@ -1,8 +1,17 @@
 <?php
-
     $sources = 
         '['.
-            '"http://burckhardtsource.org/resources/letter/adolf-baumgartner-1878-06-15.rdf",' .
+            '"http://burckhardtsource.org/resources/letter/oskar-eisenmann-1884-03-29.rdf",' .
+            '"http://burckhardtsource.org/resources/letter/wilhelm-von-bode-1884-11-07.rdf",' .
+            '"http://burckhardtsource.org/resources/letter/wilhelm-von-bode-1889-12-30.rdf",' .
+            '"http://burckhardtsource.org/resources/letter/wilhelm-von-bode-1887-07-11.rdf",' .
+            '"http://burckhardtsource.org/resources/letter/gustavo-frizzoni-1888-11-15.rdf",' .
+            '"http://burckhardtsource.org/resources/letter/pier-desiderio-pasolini-1891-05-02.rdf",' .
+            '"http://furioso-dev.netseven.it/illustrazione/1.rdf",' .
+            '"http://furioso-dev.netseven.it/illustrazione/47.rdf",' .
+            '"http://furioso-dev.netseven.it/illustrazione/93.rdf",' .
+            '"http://furioso-dev.netseven.it/illustrazione/139.rdf",' .
+            '"http://furioso-dev.netseven.it/text/canto1.rdf",' .
             '"http://modernsource.daphnet.org/texts/Kant/KanND,388%5B5%5Det389%5B1%5D.rdf",'.
             '"http://modernsource.daphnet.org/texts/Leibniz/LeiGeom,231[2].rdf",'.
             '"http://modernsource.daphnet.org/texts/Locke/LocHum,47[4]et49[1].rdf"'.
