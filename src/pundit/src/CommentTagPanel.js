@@ -107,8 +107,8 @@ dojo.declare("pundit.CommentTagPanel", pundit.RecognizerPanel, {
         
         c += '          <span style="float:right;margin-right:5px;">Language: ';
         c += '          <select dojotype="dijit.form.ComboBox" id="pundit-ctp-language"></span>';
-        c += '          <option selected>en</option>';
-        c += '          <option>it</option>';
+        c += '              <option selected>en</option>';
+        c += '              <option>it</option>';
         c += '          </select>';
         c += '      </div>';
         c += '      <div class="pundit-ctp-comment-input">';
@@ -177,7 +177,7 @@ dojo.declare("pundit.CommentTagPanel", pundit.RecognizerPanel, {
             self.updateSaveBtn();
         });
 
-        dojo.connect(dojo.byId("pundit-ctp-comment-input"),'onkeyup', function(){
+        dojo.connect(dojo.byId("pundit-ctp-comment-input"), 'onkeyup', function(){
             self.updateSaveBtn();
         });
 

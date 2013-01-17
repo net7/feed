@@ -2183,9 +2183,14 @@ ul.pundit-horizontal-list li{
 #pundit-ctp-comment-container div{
     display:block;
 }
-.pundit-ctp-comment-input{
-    margin-top:2px;
-    min-heigth:50px;
+.pundit-ctp-comment-input {
+    margin-top: 2px;
+    min-height: 50px;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    -o-user-select: text;
+    user-select: text; 
 }
 .pundit-ctp-comment-input section{
     background:#fff;
