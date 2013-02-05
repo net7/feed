@@ -29,6 +29,29 @@ class Scraper {
     public function getLabel() {
         return $this->label;
     }
+    public function getNext($pos = null) {
+        $s = $_SERVER['HTTP_HOST'];
+        
+        if (!$this->next)
+            return false;
+        
+        // Single page annotation
+        if (!isset($_REQUEST['lurl']) && !isset($_REQUEST['rurl'])) {
+            return 'http://'. $s .'/?url='. $this->next .'&conf='. $_REQUEST['conf'];
+        }
+    }
+    
+    public function getPrev() {
+        $s = $_SERVER['HTTP_HOST'];
+        
+        if (!$this->prev)
+            return false;
+        
+        // Single page annotation
+        if (!isset($_REQUEST['lurl']) && !isset($_REQUEST['rurl'])) {
+            return 'http://'. $s .'/?url='. $this->prev .'&conf='. $_REQUEST['conf'];
+        }
+    }
     public function getComment() {
         return $this->comment;
     }
@@ -77,7 +100,11 @@ class Scraper {
         $rdf = $this->doCurlRequest('application/rdf+xml');
         $dom = new DOMDocument();
         $dom->loadXML($rdf);
+
         $this->label = $this->extractLabelByDom($dom);
+        $this->next = $this->extractNextResourceByDom($dom);
+        $this->prev = $this->extractPrevResourceByDom($dom);
+
         $this->comment = $this->extractCommentByDom($dom);
         $this->annotableVersionAt = $this->extractAnnotableVersionByDom($dom);
         $url_info = parse_url($this->annotableVersionAt);
@@ -102,8 +129,13 @@ class Scraper {
     }
     
     private function extractAnnotableVersionByDom(DOMDocument $dom) {
-        return $this->extractAttributeValueByDom($dom, 'hasAnnotableVersionAt', 'rdf:resource'); 
-        
+        return $this->extractAttributeValueByDom($dom, 'hasAnnotableVersionAt', 'rdf:resource');
+    }
+    private function extractNextResourceByDom(DOMDocument $dom) {
+        return $this->extractAttributeValueByDom($dom, 'nextResource', 'rdf:resource');
+    }
+    private function extractPrevResourceByDom(DOMDocument $dom) {
+        return $this->extractAttributeValueByDom($dom, 'prevResource', 'rdf:resource');
     }
     
     private function extractTagValueByDom(DOMDocument $dom,$tagname) {
@@ -116,6 +148,7 @@ class Scraper {
     }
 
     private function extractAttributeValueByDom(DOMDocument $dom,$tagname,$attributename) {
+        $val = false;
         $values = $dom->getElementsByTagName($tagname);
         foreach ($values as $value){
            $val = $value->getAttribute($attributename);

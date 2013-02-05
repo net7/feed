@@ -27,6 +27,20 @@
     margin: 5px 50px;
     padding: 10px 0;
     border-bottom: 1px solid #333;
+    text-align: center;
+}
+.feed-header .next { float: right; }
+.feed-header .prev { float: left; }
+
+.feed-header .prev a,
+.feed-header .next a {
+    color: black;
+}
+
+.feed-header .prev a:hover,
+.feed-header .next a:hover {
+    color: white;
+    text-decoration: none;
 }
 
 .left-content {
