@@ -27,10 +27,10 @@ $ls=new Scraper($_GET['lurl']);
         
         <div class="feed-space pundit-disable-annotation">&nbsp;</div>
         <div class="left-content">
-            <?php renderPunditContent($ls) ; ?>
+            <?php renderPunditContent($ls, "left") ; ?>
         </div>
         <div class="right-content">
-            <?php renderPunditContent($rs) ; ?>
+            <?php renderPunditContent($rs, "right") ; ?>
         </div>
         
         <?php renderFooter(); ?>

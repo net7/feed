@@ -38,10 +38,14 @@ class Scraper {
         // Single page annotation
         if (!isset($_REQUEST['lurl']) && !isset($_REQUEST['rurl'])) {
             return 'http://'. $s .'/?url='. $this->next .'&conf='. $_REQUEST['conf'];
+        } else if ($pos == "left") {
+            return 'http://'. $s .'/?lurl='. $this->next .'&rurl='. $_REQUEST['rurl'] .'&conf='. $_REQUEST['conf'];
+        } else if ($pos == "right") {
+            return 'http://'. $s .'/?rurl='. $this->next .'&lurl='. $_REQUEST['lurl'] .'&conf='. $_REQUEST['conf'];
         }
     }
     
-    public function getPrev() {
+    public function getPrev($pos = null) {
         $s = $_SERVER['HTTP_HOST'];
         
         if (!$this->prev)
@@ -50,6 +54,10 @@ class Scraper {
         // Single page annotation
         if (!isset($_REQUEST['lurl']) && !isset($_REQUEST['rurl'])) {
             return 'http://'. $s .'/?url='. $this->prev .'&conf='. $_REQUEST['conf'];
+        } else if ($pos == "left") {
+            return 'http://'. $s .'/?lurl='. $this->prev .'&rurl='. $_REQUEST['rurl'] .'&conf='. $_REQUEST['conf'];
+        } else if ($pos == "right") {
+            return 'http://'. $s .'/?rurl='. $this->prev .'&lurl='. $_REQUEST['lurl'] .'&conf='. $_REQUEST['conf'];
         }
     }
     public function getComment() {
