@@ -305,6 +305,14 @@ dojo.declare("pundit.Configuration", pundit.BaseComponent, {
 
             /* Active modules by default: */
             /* TODO: comments about it? */
+            
+            'pundit.Help': {
+                introductionFile: undefined,
+                introductionWindowTitle: '',
+                showIntroductionAtLogin: false,
+                active: true
+            },
+            
             'pundit.fasttexthandler': {
                 active: true
             },

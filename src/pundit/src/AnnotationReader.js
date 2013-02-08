@@ -11,7 +11,7 @@ dojo.declare("pundit.AnnotationReader", pundit.BaseComponent, {
             'storageGet',
             'storageError',
             'jsonpVocabLoaded',
-			'notebookChecked'
+            'notebookChecked'
         ]);
     },
     
@@ -222,6 +222,8 @@ dojo.declare("pundit.AnnotationReader", pundit.BaseComponent, {
         
     }, // getVocabularyFromJsonp
 
+    // TODO: this will be replaced by new ACL system, and obsoleted
+    // see RemoteStorageHandler.js
     getDataFromStorage: function(key) {
         var self = this,
             args = {

@@ -15,22 +15,14 @@
 dojo.provide("pundit.ContextualMenu");
 dojo.declare("pundit.ContextualMenu", pundit.BaseComponent, {
 
-    opts: {
-        hideTimerMS: 2500,
-        hideMouseLeaveMS: 500
-    },
+    opts: {},
 
-    // TODO: move this comment to some @property and some into the class declaration
     /*
-    * @constructor
-    * @description Initializes pundit!
-    * @param options {object}
-    * @param options.debug {boolean} wether or not to activate debug of the component<br>
-    * @param options.hideTimerMS {number, milliseconds} Time to wait before automatically
-    * hide the contextual menu if the mouse has never entered it.<br>
-    * @param options.hideMouseLeaveMS {number, milliseconds} Time to wait before automatically
-    * hide the contextual menu when the mouse exits its elements.
-    */
+     * @constructor
+     * @description Initializes the contextual menu
+     * @param options {object}
+     * @param options.debug {boolean} wether or not to activate debug of the component
+     */
     constructor: function(options) {
         var self = this;
         
@@ -40,8 +32,8 @@ dojo.declare("pundit.ContextualMenu", pundit.BaseComponent, {
         self.currentURL = '';
         self.currentType = '';
 
-	    self.actions = {};
-	    self.hideTimer = null;
+        self.actions = {};
+        self.hideTimer = null;
         
         self.customclass = '';
         self.log("Contextual menu up and running!");
@@ -49,7 +41,8 @@ dojo.declare("pundit.ContextualMenu", pundit.BaseComponent, {
 
     initHTML: function() {
         var c;
-            c = '<div id="pundit-cm" class="pundit-base pundit-hidden">';
+        
+        c = '<div id="pundit-cm" class="pundit-base pundit-hidden">';
         // TODO: add a title?
         // c += '<span class="pundit-cm-header">Un titolo ad effetto</span>';
         c += '</div>';
@@ -61,18 +54,6 @@ dojo.declare("pundit.ContextualMenu", pundit.BaseComponent, {
     initBehaviors: function() {
         var self = this;
         
-        // Hide the menu on mouse out
-        dojo.connect(dojo.byId('pundit-cm'), 'onmouseleave', function(e) { 
-            clearTimeout(self.hideTimer);
-            self.hideTimer = (function(_e){return setTimeout(function() { self.hide(_e);}, self.opts.hideMouseLeaveMS)})(e);
-        });
-
-        // Highlight the xpointer on mouse in, if it's an xpointer
-        dojo.connect(dojo.byId('pundit-cm'), 'onmouseenter', function() { 
-            clearTimeout(self.hideTimer);
-			// tooltip_viewer.highlightByXpointer(self.currentURL);
-        });
-
         // Cancel any scroll event when hovering the contextual menu
         dojo.connect(dojo.byId('pundit-cm'), (!dojo.isMozilla ? "onmousewheel" : "DOMMouseScroll"), function(e){
             dojo.stopEvent(e);
@@ -82,7 +63,6 @@ dojo.declare("pundit.ContextualMenu", pundit.BaseComponent, {
         dojo.connect(dojo.query('body')[0], (!dojo.isMozilla ? "onmousewheel" : "DOMMouseScroll"), function(e){
             self.hide(e);
         });
-
 
     }, // initBehaviors()
     
@@ -126,12 +106,6 @@ dojo.declare("pundit.ContextualMenu", pundit.BaseComponent, {
             ob = {},
             selector = '#pundit-cm span.pundit-cm-button.'+action.name;
 
-        // Add a behavior for this button
-        ob[selector] = {'onclick': function(e) { self.menuItemMouseClickHandler(e, action.name); }};
-        dojo.behavior.add(ob);
-        dojo.behavior.apply();
-
-        //for (var i in action.type) {
         for (var i = action.type.length; i--;) {
             var t = action.type[i];
 
@@ -149,6 +123,11 @@ dojo.declare("pundit.ContextualMenu", pundit.BaseComponent, {
         
             self.log('Added the action '+action.name+' for type '+t);
         }
+
+        // Add a behavior for this button
+        ob[selector] = {'onclick': function(e) { self.menuItemMouseClickHandler(e, action.name); }};
+        dojo.behavior.add(ob);
+        dojo.behavior.apply();
         
     }, // addAction()
     
@@ -220,10 +199,7 @@ dojo.declare("pundit.ContextualMenu", pundit.BaseComponent, {
         dojo.addClass('pundit-cm', position);
 
         self.log('Opened contextual menu for type '+type+': '+url);
-
-        clearTimeout(self.hideTimer);
-        self.hideTimer = setTimeout(function(e) { self.hide(e); }, self.opts.hideTimerMS);
-
+        
     }, // show()
 
     /*
@@ -250,6 +226,7 @@ dojo.declare("pundit.ContextualMenu", pundit.BaseComponent, {
      */
     hide: function (e) {
         var self = this;
+        
         // If it is shown, hide it
         if (!dojo.hasClass('pundit-cm', 'pundit-hidden')) {
             dojo.addClass('pundit-cm', 'pundit-hidden');
@@ -273,8 +250,6 @@ dojo.declare("pundit.ContextualMenu", pundit.BaseComponent, {
             if (actions[action].onclick(self.currentURL, e))
                 self.hide(e);
         }
-        
-        return;
 
     } // menuItemMouseClickHandler()
 

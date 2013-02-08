@@ -75,7 +75,7 @@ dojo.declare("pundit.AuthenticatedRequests", pundit.BaseComponent, {
 
         h += "</div>";
         h += "</div>";
-		
+
         self.dialog = new dijit.Dialog({
             style: "width: 400px"
         });

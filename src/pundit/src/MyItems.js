@@ -1,9 +1,11 @@
 dojo.provide("pundit.MyItems");
 dojo.declare("pundit.MyItems", pundit.Items, {
+
     constructor: function() {
         var self = this;
-        //self.name = 'MyItems';
+
         self.name = 'my-items';
+
         self.init(self.name);
         self.initContextualMenu();
         
@@ -17,6 +19,9 @@ dojo.declare("pundit.MyItems", pundit.Items, {
         self.readJobId = null;
         self.writeJobId = null;
         
+        
+        // TODO: this will be replaced when my items will be just another
+        // korbo vocabulary, after korbo ACL + auth + sso
         self.store = new pundit.RemoteStorageHandler({debug: self.opts.debug});
         self.store.onStoreRead(function(favoriteItems){
 
@@ -56,7 +61,7 @@ dojo.declare("pundit.MyItems", pundit.Items, {
             }
             _PUNDIT.loadingBox.setJobOk(self.readJobId);
             
-        });
+        }) ;
         
         // Start loading favorite items straight away
         self.loadFavoriteItems();
@@ -84,7 +89,7 @@ dojo.declare("pundit.MyItems", pundit.Items, {
             self.onItemRemoved(function() {
                 self.saveFavoriteItems();
             });
-			self.onAllItemsRemoved(function() {
+            self.onAllItemsRemoved(function() {
                 self.resetFavoriteItems();
             });
             self.onItemAdded(function() {
@@ -94,9 +99,9 @@ dojo.declare("pundit.MyItems", pundit.Items, {
         
     },
     
-    addItem:function(item, userAdded){
+    addItem: function(item, userAdded){
         this.inherited(arguments);
-        if (userAdded && !this.isMyItemTabVisible()){
+        if (userAdded && !this.isMyItemTabVisible()) {
             var self = this;
             self.newAddedItems.push(item.value);
             self.fireOnMyItemAdded(self.newAddedItems);
@@ -114,11 +119,15 @@ dojo.declare("pundit.MyItems", pundit.Items, {
         return ret;
     },
     
-	resetFavoriteItems: function() {
-		var self = this;
-		self.store.save('favorites', []);
-	},
+    // TODO: this will be replaced when my items will be just another
+    // korbo vocabulary, after korbo ACL + auth + sso
+    resetFavoriteItems: function() {
+        var self = this;
+        self.store.save('favorites', []);
+    },
 
+    // TODO: this will be replaced when my items will be just another
+    // korbo vocabulary, after korbo ACL + auth + sso
     saveFavoriteItems: function(){
         var self = this,
             favoriteItems = [];
@@ -130,11 +139,13 @@ dojo.declare("pundit.MyItems", pundit.Items, {
         self.store.save('favorites', favoriteItems);
     },
 
+    // TODO: this will be replaced when my items will be just another
+    // korbo vocabulary, after korbo ACL + auth + sso
     loadFavoriteItems:function() {
         var self = this;
         
         self.readJobId = _PUNDIT.loadingBox.addJob('Reading your items');
-            self.store.read('favorites');
+        self.store.read('favorites');
     },
    
     initContextualMenu:function(){
@@ -150,16 +161,8 @@ dojo.declare("pundit.MyItems", pundit.Items, {
             },
             onclick: function(item) {
                 self.removeItemFromUri(item.value);
-                //DEBUG Why do I need this???
-                //semlibItems.removeItemFromUri(xp); 
                 tooltip_viewer.removeTempXpointer(item.value);
-                //
-                //DEBUG consolidate it's not enough
-                //if (!semlibItems.uriInItems(item.value))
-                //   delete tooltip_viewer.xpointersClasses[item.value]
                 tooltip_viewer.consolidate();
-                
-                
                 return true;
             }
         });
@@ -220,14 +223,15 @@ dojo.declare("pundit.MyItems", pundit.Items, {
             }
         });
     },
+    
     zoomURLXPointer: function(){
         // If it's already loaded, dont do anything
         var self = this;        
+
         if (self.loaded){
             return;
         }
-                    
-                
+
         // If the whole URL in the browser's location input does not
         // contain a #, dont do anything
         var pageLocation = decodeURIComponent(window.location.href);

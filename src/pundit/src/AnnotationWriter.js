@@ -4,7 +4,7 @@ dojo.declare("pundit.AnnotationWriter", pundit.BaseComponent, {
     constructor: function(options) {
         this.createCallback(['save', 'saveItems', 'error', 'saveStorage', 'storageError', 'setNotebookActive']);
     },
-	
+
     writeAnnotationContent: function(bucket, targets, pageContext) {
         var self = this,
             reader = new pundit.AnnotationReader({debug: self.opts.debug}),
@@ -120,6 +120,8 @@ dojo.declare("pundit.AnnotationWriter", pundit.BaseComponent, {
         requester.xPost(args);
     }, // writeAnnotationItems()
     
+    // TODO: this will be replaced by new ACL system, and obsoleted,
+    // see RemoteStorageHandler.js
     postRemoteStorage: function(key, payload){
         var args = {
             url: ns.annotationServerStorage + key,

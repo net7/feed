@@ -34,11 +34,15 @@ dojo.declare("pundit.TextFragmentHandler", pundit.BaseComponent, {
                 self.selectable = false;
             else
                 self.selectable = true;
+                
         });
+        
         dojo.query('body').connect('onmouseup', function(e) {
 
-            if (!self.selectable)
+            if (!self.selectable) {
+                _PUNDIT.cMenu.hide(e);
                 return;
+            }
                 
             // Don't show the contextual menu if the element has class "pundit-disable-annotation"
             // or one of its parents have it.
@@ -54,12 +58,15 @@ dojo.declare("pundit.TextFragmentHandler", pundit.BaseComponent, {
                 target = dojo.query(target).parent()[0];
             }
             
-            if (selectable === false)
+            if (selectable === false) {
+                _PUNDIT.cMenu.hide(e);
                 return false;
+            }
             
             range = self.getSelectedRange();
             if (range === null) {
                 self.log("ERROR: trying to create a new item from with null range?");
+                _PUNDIT.cMenu.hide(e);
                 return false;
             }
 
@@ -67,6 +74,7 @@ dojo.declare("pundit.TextFragmentHandler", pundit.BaseComponent, {
             xp = self.getCleanSelectedXpointer();
             if (xp === null) {
                 self.log("ERROR: trying to create a new item from with null xpointer?");
+                _PUNDIT.cMenu.hide(e);
                 return false;
             }
             
@@ -90,19 +98,35 @@ dojo.declare("pundit.TextFragmentHandler", pundit.BaseComponent, {
                 
                 if (!tooltip_viewer.isTempXpointer(item.value)){
                     tooltip_viewer.tempXpointers.push(item.value);
-                    //tooltip_viewer.refreshAnnotations();
-                    // DEBUG: not sure we can avoid the refreshAnnotations() process
                     tooltip_viewer.consolidate();
                 }
-                
-                //tripleComposer.addItemToSubject(item);
+
                 semlibMyItems.addItem(item, true);
                 previewer.buildPreviewForItem(item);
-                //semlibWindow.show_pundittabmyitems();
                 semlibMyItems.show_pundittabfiltermyitemsfragment();
                 return true;
             }
         });
+
+        // Action: annotate text fragment
+        cMenu.addAction({
+            type: ['textSelectionHelper'],
+            name: 'AnnotateWithTripleComposer',
+            label: 'Annotate text fragment',
+            showIf: function(item) { 
+                return true;
+            },
+            onclick: function(item) {
+                tripleComposer.addItemToSubject(item);
+                previewer.buildPreviewForItem(item);
+
+                if (!_PUNDIT.GUI.isWindowOpen())
+                    _PUNDIT.GUI.toggleWindow();
+
+                return true;
+            }
+        });
+
         
     }, // initBehaviours()
 
@@ -238,7 +262,7 @@ dojo.declare("pundit.TextFragmentHandler", pundit.BaseComponent, {
     // Gets the user's selected range in the browser, checks if it's valid.
     // Will return a dirty range: a valid range in the current DOM the user
     // is viewing
-    getSelectedRange : function() {
+    getSelectedRange: function() {
         var self = this,
             range;
         
@@ -248,7 +272,7 @@ dojo.declare("pundit.TextFragmentHandler", pundit.BaseComponent, {
         }
 
         range = window.getSelection().getRangeAt(0);
-        	
+	
         // If the selected range is empty (this happens when the user clicks on something)...
         if  (range !== null && (range.startContainer === range.endContainer) && (range.startOffset === range.endOffset)) {
             self.log("Range is not null, but start/end containers and offsets match: no selected range.")
@@ -258,10 +282,10 @@ dojo.declare("pundit.TextFragmentHandler", pundit.BaseComponent, {
         self.log("GetSelectedRange is returning a range: "+
             range.startContainer.nodeName+"["+range.startOffset+"] > "+
             range.endContainer.nodeName+"["+range.endOffset+"]");
-  	
+
         return range;
-	    
-    }, // getSelectedRange
+
+    }, // getSelectedRange()
     
     // Will get a clean Range out of a dirty range: skipping nodes
     // added by the annotation library (ignore nodes) and recalculate

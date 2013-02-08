@@ -117,6 +117,7 @@ dojo.require("pundit.Configuration");
 dojo.require("pundit.annotators.AnnotatorsConductor");
 dojo.require("pundit.annotators.AnnotatorsBase");
 
+
 /**
  * @class pundit.Init
  * @extends pundit.baseComponent
@@ -205,7 +206,7 @@ dojo.declare("pundit.Init", pundit.BaseComponent, {
         p['items'] = new pundit.ItemContainerManager();
         
         // TODO: sanitize use of this global var, and remove it
-        fragmentHandler = new pundit.TextFragmentHandler({debug: false});
+        fragmentHandler = new pundit.TextFragmentHandler();
         p['fragmentHandler'] = fragmentHandler;
 
         if (p.config.isModuleActive("pundit.fasttexthandler")) {
@@ -340,7 +341,17 @@ dojo.declare("pundit.Init", pundit.BaseComponent, {
             dojo.require("pundit.NamedContentHandler");
             p['namedContentHandler'] = new pundit.NamedContentHandler();
         }
+
+        // Remote Storage Handler
+        // TODO: use a single one with get() and set(), remove all the rest (save, read)
+        p['remoteStore'] = new pundit.RemoteStorageHandler();
         
+        // Help system
+        if (p.config.isModuleActive('pundit.Help')) {
+            dojo.require("pundit.Help");
+            p['help'] = new pundit.Help();
+        }
+
         
         // TODO: x Marco do we have to do this here? Is it related to annotation view? Consolidation?
         // Something else? NOT HERE.

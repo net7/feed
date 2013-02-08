@@ -1323,18 +1323,29 @@ dojo.declare("pundit.TripleComposer", pundit.BaseComponent, {
         
         return exist;
     },
+    
+    // Adds an item to the first dnd row, deleting all of the present items,
+    // if there's any
     addItemToSubject: function(itemData){
         var self = this,
             selDnd = dojo.query('.pundit-tc-dnd-container :first')[0],
             completeId = dojo.attr(selDnd, 'id'),
             item = {data: itemData},
             id = completeId.substring(12);
-        if (self.tripleDnD[id].s.getAllNodes().length === 0){
+
+        var nodes = self.tripleDnD[id].s.getAllNodes();
+        if (nodes.length > 0) {
+            self.tripleDnD[id].s.clearItems();
+            nodes.forEach(function(item){ dojo.destroy(item) });
+        }
+            
+        if (self.tripleDnD[id].s.getAllNodes().length === 0) {
             if (self.rowAcceptItems(id, [item], self.tripleDnD[id].s)){
                 self.tripleDnD[id].s.insertNodes(false, [itemData]);
                 dojo.behavior.apply();
             }
         }
+
     },
 
     addItemToObject: function(itemData){

@@ -2,6 +2,7 @@ dojo.provide("pundit.Items");
 dojo.declare("pundit.Items", pundit.BaseComponent, {
 
     constructor: function(options) {},
+    
     init: function(name) {
         var self = this;
         self.crypto = new pundit.Crypto();        
@@ -9,32 +10,24 @@ dojo.declare("pundit.Items", pundit.BaseComponent, {
         var si = '<div id="pundit-' + this.name + '-container" class="pundit-tab pundit-selected">';
 
         si += '<div class="pundit-tab-header"><ul id="pundit-' + this.name + '-filter-list" class="pundit-item-filter-list">';
-        //si += '<li id="filter' + this.name + 'All">All</li>';
         si += '<li id="pundit-tab-filter-' + this.name + '-fragment" class="pundit-selected">Text-fragment</li>';
         si += '<li id="pundit-tab-filter-' + this.name + '-images">Images</li>';
         si += '<li id="pundit-tab-filter-' + this.name + '-images-fragment">Image Fragments</li>';
         si += '<li id="pundit-tab-filter-' + this.name + '-entities">Terms</li>';
         si += '<li id="pundit-tab-filter-' + this.name + '-pages">Pages</li>';
         si += '<li id="pundit-tab-filter-' + this.name + '-named">Named Content</li>';
-        //si += '<li id="filter' + this.name + 'Relations">Relations</li>';
-        //si += '<li id="filter' + this.name + 'Literals">Literals</li>';
-        //si += '<li id="filter' + this.name + 'Favorites">Favorites</li>';
-        //si += '<li id="filter' + this.name + 'Recent">Recent</li>';
 
-        //DEBUG Do we still need Suggestions here?
-
+        // DEBUG Do we still need Suggestions here?
         si += '<li id="pundit-tab-filter-' + this.name + '-suggestions" class="pundit-hidden"><span class="suggestionNumber"></span> Suggestions</li>';
         si += '</ul></span><span class="pundit-sort-items pundit-view-tile "></span><span class="pundit-sort-items pundit-view-list pundit-selected"></div>';
-
         si += '<div id="pundit-tab-content' + this.name + '" class="pundit-tab-content pundit-stop-wheel-propagation"><ul id="pundit-'+this.name +'" class="pundit-items pundit-view-list"></ul></div>';
-
         si += '</div>';
         dojo.query('#pundit-gui-center').append(si);
 
         self.initDnD();
         self.initBehaviors();
         
-        //Register callback used currently by literal selector
+        // Register callback used currently by literal selector
         self.createCallback(['itemAdded', 'itemRemoved', 'allItemsRemoved']);
         
         self.log("Pundit" + self.name + "Container up and running..");
@@ -42,12 +35,9 @@ dojo.declare("pundit.Items", pundit.BaseComponent, {
         _PUNDIT.init.onInitDone(function(){
             setTimeout(function(){
                 self.showOnlyItems(self.getNodesWhereTypeIs(ns.fragments.text));
-                //TODO REMOVE THIS SHIT!
-                //
-                //This should be configuable or in any case not fired twice as now
+                // TODO REMOVE THIS SHIT!
+                // This should be configuable or in any case not fired twice as now
                 dojo.query('#pundit-tab-filter-'+ self.name +'-fragment').addClass('pundit-selected');
-//                dojo.query('#semlibMyItemsContainer').addClass('pundit-selected');
-//                dojo.query('#semlibItemsContainer').removeClass('pundit-selected');
             }, 1000);
         });
         
@@ -100,8 +90,7 @@ dojo.declare("pundit.Items", pundit.BaseComponent, {
                     var item = self.itemsDnD.getItem(id);
                     if (item.data.rdftype.length === 0){
                         cMenu.show(e.pageX - window.pageXOffset, e.pageY - window.pageYOffset, item.data, 'semlibLiteral'+self.name);
-                    }else{
-                        //cMenu.show(e.pageX - window.pageXOffset, e.pageY - window.pageYOffset, item.data.value, 'semlib'+self.name);
+                    } else {
                         cMenu.show(e.pageX - window.pageXOffset, e.pageY - window.pageYOffset, item.data, 'pundit-'+self.name);
                     }
                 }
@@ -112,7 +101,6 @@ dojo.declare("pundit.Items", pundit.BaseComponent, {
                     var id = (dojo.hasClass(e.target, 'pundit-icon-context-button')||dojo.hasClass(e.target, 'pundit-trim')) ? dojo.query(e.target).parent()[0].id : e.target.id;
                     var item = self.itemsDnD.getItem(id);
                     
-                    //previewer.selectAndPreviewItemWithId(id, item.data.value);
                     previewer.show(item.data.value);
                                                                 
                     if (tooltip_viewer.isAnnXpointer(item.data.value) || tooltip_viewer.isTempXpointer(item.data.value))
@@ -133,8 +121,8 @@ dojo.declare("pundit.Items", pundit.BaseComponent, {
                     self.itemsDnD.selection[id] = 1;
                 }
         };
-    
             
+        // TODO: Layout should be an option, and read from there. Not fixed like this!
         // Items layout
         beh['#pundit-' +self.name +'-container .pundit-sort-items.pundit-view-list']= {
             'onclick': function(e) {
@@ -148,14 +136,6 @@ dojo.declare("pundit.Items", pundit.BaseComponent, {
         };
         
         dojo.behavior.add(beh);
-        
-        //Stop mouse wheel event propagation
-//        dojo.connect(dojo.byId('pundit-tab-content' + self.name), (!dojo.isMozilla ? "onmousewheel" : "DOMMouseScroll"),function(e){
-//            dojo.byId('pundit-tab-content' + self.name).scrollTop -= e. wheelDeltaY;
-//            dojo.stopEvent(e);
-//        });
-        
-        
                 
     }, // initBehaviors()
     
@@ -189,8 +169,7 @@ dojo.declare("pundit.Items", pundit.BaseComponent, {
         }
                 
         // Show only the first 3 rdftypes?
-
-        for (i=0;i<3;i++) {
+        for (i=0; i<3; i++) {
             if (typeof(item.rdftype[i]) !== 'undefined'){
                 if (rdftype !== "")
                     rdftype += ', ';                    
@@ -234,6 +213,9 @@ dojo.declare("pundit.Items", pundit.BaseComponent, {
 
     }, // itemNodeCreator()
     
+    
+    /*
+    // DEBUG: NOT USED !!!!
     addItemsFromSelector: function(items) {
         var self = this;
         self.log("Received items from a selector.");
@@ -251,6 +233,7 @@ dojo.declare("pundit.Items", pundit.BaseComponent, {
             }
             
     }, // addItemsFromSelector()
+    */
     
     /**
     * @method uriInItems
@@ -269,33 +252,22 @@ dojo.declare("pundit.Items", pundit.BaseComponent, {
         return ret;
     },
 
-	setItemsLayout: function(name) {
-	    var self = this,
-	        layouts = ['pundit-view-list', 'pundit-view-tile'];
-	    dojo.query('#pundit-'+self.name+'-container .pundit-sort-items').removeClass('pundit-selected');
-	    dojo.query('#pundit-'+self.name+'-container .pundit-sort-items.'+name).addClass('pundit-selected');
-	    //for (var i in layouts) 
-        for (var i = layouts.length; i--;) 
-	        dojo.query('#pundit-'+self.name).removeClass(layouts[i]);
-	    dojo.query('#pundit-'+self.name).addClass(name);
-	},
+    setItemsLayout: function(name) {
+        var self = this,
+            layouts = ['pundit-view-list', 'pundit-view-tile'];
 
-    getSelectedTab: function() {
-        var self=this;
-        return dojo.attr(dojo.query('#pundit-'+self.name+'-filter-list li.pundit-selected')[0], 'id');
+        dojo.query('#pundit-'+self.name+'-container .pundit-sort-items').removeClass('pundit-selected');
+        dojo.query('#pundit-'+self.name+'-container .pundit-sort-items.'+name).addClass('pundit-selected');
+
+        for (var i = layouts.length; i--;) 
+            dojo.query('#pundit-'+self.name).removeClass(layouts[i]);
+        dojo.query('#pundit-'+self.name).addClass(name);
     },
 
-    
-    // showSuggestionsTab: function(n) {
-    //     var self = this;
-    // 
-    //     dojo.query('#filter'+self.name+'Suggestions .suggestionNumber').html(n);
-    //     dojo.query('#pundit-'+self.name+'-container .pundit-item-filter-list li').removeClass('pundit-selected');
-    //     dojo.query('#filter'+self.name+'Suggestions').removeClass('pundit-hidden');
-    //     dojo.query('#filter'+self.name+'Suggestions').addClass('pundit-selected');
-    //     
-    // },
-    
+    getSelectedTab: function() {
+        var self = this;
+        return dojo.attr(dojo.query('#pundit-'+self.name+'-filter-list li.pundit-selected')[0], 'id');
+    },
     
     hideSuggestionsTab: function() {
         dojo.query('#pundit-tab-filter'+self.name+'Suggestions').addClass('pundit-hidden');
@@ -374,9 +346,10 @@ dojo.declare("pundit.Items", pundit.BaseComponent, {
 
     getItemsWhereFieldTest: function(field, testFunction) {
         var self = this,
+            value,
             foo = [];
         for (var id in self.itemsDnD.map) {
-            var value = self.itemsDnD.map[id].data[field];
+            value = self.itemsDnD.map[id].data[field];
             if (testFunction(value) === true)
                 foo.push(self.itemsDnD.map[id].data);
             else self.log("Item " + self.itemsDnD.map[id].data.value + " discarded, missing field " + field);    
@@ -402,7 +375,7 @@ dojo.declare("pundit.Items", pundit.BaseComponent, {
         return foo;
     },
     
-    getLiterals:function(){
+    getLiterals: function(){
         var self = this,
             foo = [];
         for (var id in self.itemsDnD.map){
@@ -455,7 +428,7 @@ dojo.declare("pundit.Items", pundit.BaseComponent, {
         return null;
     },
     
-    getItemsFromTerm:function(term, rdftypes, rejectedTypes){
+    getItemsFromTerm: function(term, rdftypes, rejectedTypes){
         var self = this,
             items = self.getItemsWhereFieldTest('description', function(c) {    
                 // No content? no match
@@ -472,38 +445,40 @@ dojo.declare("pundit.Items", pundit.BaseComponent, {
 
                 return true;
             });
-        if (((typeof rdftypes === 'undefined') && (typeof rejectedTypes === 'undefined')))
+            
+        if (((typeof(rdftypes) === 'undefined') && (typeof(rejectedTypes) === 'undefined')))
             return items
-        else {
-            return self.filterItemsByRdftype(items, rdftypes, rejectedTypes);
-        }
+
+        return self.filterItemsByRdftype(items, rdftypes, rejectedTypes);
+        
     },
-    //TODO Should we move this to an helper and not to semlibItems
-    //Filter items array according to an array of rdftypes
-    filterItemsByRdftype:function(items, rdftypes, rejectedTypes){
+    
+    // TODO Should we move this to an helper and not to semlibItems
+    // Filter items array according to an array of rdftypes
+    filterItemsByRdftype: function(items, rdftypes, rejectedTypes){
         var filteredItems = [];
-        if (typeof rdftypes === 'undefined') rdftypes = [];
-        if (typeof rejectedTypes === 'undefined') rejectedTypes = [];
-        //for (var i in items){
-        for (var i = items.length; i--;){
+
+        if (typeof(rdftypes) === 'undefined') rdftypes = [];
+        if (typeof(rejectedTypes) === 'undefined') rejectedTypes = [];
+
+        for (var i = items.length; i--;) {
             var accept = true;
-            //for (var j in items[i].rdftype){
-            for (var j = items[i].rdftype.length; j--;){
-                //for (var k in rdftypes){
-                for (var k = rdftypes.length; k--;){
+
+            for (var j = items[i].rdftype.length; j--;) {
+                for (var k = rdftypes.length; k--;) {
                     if (items[i].rdftype[j] === rdftypes[k]){
                         accept = true;
                         break;
-                    }else{
+                    } else {
                         accept = false;
                     }
                 }
-                //for (var k in rejectedTypes){
+
                 for (var k = rejectedTypes.length; k--;){
                     if (items[i].rdftype[j] === rejectedTypes[k]){
                         accept = false;
                         break;
-                    }else{
+                    } else {
                         accept = true;
                     }
                 }
@@ -515,10 +490,11 @@ dojo.declare("pundit.Items", pundit.BaseComponent, {
         }
         return filteredItems;
     },
-    //return array or property items filtered by ranges and domain
-    getProperties:function(ranges, domains){
+    
+    // return array or property items filtered by ranges and domain
+    getProperties: function(ranges, domains){
         var props = [];
-        //Get all properties
+        // Get all properties
         this.itemsDnD.forInItems(function(item){
             var t = item.data.rdftype;
             //for (var i in t){
@@ -529,12 +505,12 @@ dojo.declare("pundit.Items", pundit.BaseComponent, {
                 }
             }
         });
-        if ((typeof ranges === 'undefined') || (typeof domains === 'undefined'))
+        if ((typeof(ranges) === 'undefined') || (typeof(domains) === 'undefined'))
             return props;
-        else{
-            //FIlter props
+        else {
+            //Filter props
             var filteredProps = [];
-            //for (var i in props){
+
             for (var i = props.length; i--;){
                 var domainsIntersection = tripleComposer._intersection([props[i].domain, domains]);
                 var rangesIntersection = tripleComposer._intersection([props[i].range, ranges]);
@@ -579,8 +555,6 @@ dojo.declare("pundit.Items", pundit.BaseComponent, {
         self.refreshItemsNumber();
 
         self.fireOnItemAdded(item);
-        //DEBUG Improve this?
-        //Check if is an expointer?
         
         self.log("Added to pundit items: " + item.value);
     }, // addItem()
@@ -614,27 +588,23 @@ dojo.declare("pundit.Items", pundit.BaseComponent, {
     * @description Removes all items from the itemsDnD.
     */   
     removeAllItems: function() {
-        var self = this;
-  		var toRemove = [];
-        self.itemsDnD.forInItems(function(item){
-			var itemId = self.getItemIdFromUri(item.data.value);
-			toRemove.push(itemId);
-	        
+        var self = this,
+            toRemove = [];
+            
+        self.itemsDnD.forInItems(function(item) {
+            var itemId = self.getItemIdFromUri(item.data.value);
+            toRemove.push(itemId);
         });
-		
-		//for (var itemToRemove in toRemove) {
+
         for (var itemToRemove = toRemove.length; itemToRemove--;) {
-			self.itemsDnD.delItem(toRemove[itemToRemove]);
-	        dojo.destroy(toRemove[itemToRemove]);	
-			self.itemsDnD.sync();	
-		}
-	
+            self.itemsDnD.delItem(toRemove[itemToRemove]);
+            dojo.destroy(toRemove[itemToRemove]);	
+            self.itemsDnD.sync();	
+        }
+
         self.refreshItemsNumber();
         self.fireOnAllItemsRemoved();
         self.log("Removed all item from pundit items");
-		
-		return false;
-        
     },
 
     // BUCKET CREATION
@@ -747,9 +717,6 @@ dojo.declare("pundit.Items", pundit.BaseComponent, {
         
         b.addTriple(d.value, ns.items.selector, d.selector, 'uri');
         
-        
-        //Add triples for the selectors
-        //for (var i in d.selectors){
         for (var i = d.selectors.length; i--;){    
             var selectorUri = ns.selectorBaseUri + d.selectors[i].type + '/' + self.crypto.hex_md5(d.image + dojo.toJson(d.selectors[i]));
             
@@ -773,7 +740,6 @@ dojo.declare("pundit.Items", pundit.BaseComponent, {
         b.addTriple(d.value, ns.items.description, d.description, 'literal');
         b.addTriple(d.value, ns.items.image, d.image, 'literal');
 
-        //for (var i in d.rdftype) {
         for (var i = d.rdftype.length; i--;) {
             b.addTriple(d.value, ns.items.type, d.rdftype[i], 'uri');
             b.addTriple(d.rdftype[i], ns.items.label, ns.getLabelFromUri(d.rdftype[i]), 'literal');
@@ -791,9 +757,7 @@ dojo.declare("pundit.Items", pundit.BaseComponent, {
         b.addTriple(d.value, ns.items.label, d.label, 'literal');
         b.addTriple(d.value, ns.items.altLabel, d.altLabel, 'literal');
         b.addTriple(d.value, ns.items.description, d.description, 'literal');
-        //b.addTriple(d.value, ns.items.image, d.image, 'literal');
 
-        //for (var i in d.rdftype) {
         for (var i = d.rdftype.length; i--;) {
             b.addTriple(d.value, ns.items.type, d.rdftype[i], 'uri');
             b.addTriple(d.rdftype[i], ns.items.label, ns.getLabelFromUri(d.rdftype[i]), 'literal');
@@ -803,7 +767,7 @@ dojo.declare("pundit.Items", pundit.BaseComponent, {
         return b;
     },
     
-    refreshItems:function(){
+    refreshItems: function(){
         var self = this,
             t = self.getSelectedTab();
         self['show_'+t.replace(/-/g, '')]();

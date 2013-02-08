@@ -1369,51 +1369,54 @@ span.pundit-gui-button.pundit-button-disabled:hover {
 
 
 span.pundit-gui-button .pundit-bicon {
-	margin: -4px;
-	margin-right: 4px;
-	height: 16px;
-	width: 16px;
-	display: inline-block;
-	text-align: middle;
-	border: 0px;
+    margin: -4px;
+    margin-right: 4px;
+    height: 16px;
+    width: 16px;
+    display: inline-block;
+    text-align: middle;
+    border: 0px;
 }
 
 body .pundit-icon {
-	margin: 2px;
-	height: 16px;
-	width: 16px;
-	display: inline-block;
-	text-align: middle;
-	border: 0px;
+    margin: 2px;
+    height: 16px;
+    width: 16px;
+    display: inline-block;
+    text-align: middle;
+    border: 0px;
 }
 
 /* Icons used for pundit-gui-buttons and other stuff */
 body .pundit-add-triple-icon {
-	background: url('img/plus-button.png') no-repeat 0px 0px;
+    background: url('img/plus-button.png') no-repeat 0px 0px;
 }
 body .pundit-save-icon {
-	background: url('img/network-clouds.png') no-repeat 0px 0px;
+    background: url('img/network-clouds.png') no-repeat 0px 0px;
 }
 body .pundit-remove-icon {
-	background: url('img/cross-button.png') no-repeat 0px 0px;
+    background: url('img/cross-button.png') no-repeat 0px 0px;
 }
 body .pundit-zoom-in-icon {
-	background: url('img/magnifier-zoom-in.png') no-repeat 0px 0px;
+    background: url('img/magnifier-zoom-in.png') no-repeat 0px 0px;
 }
 body .pundit-zoom-out-icon {
-	background: url('img/magnifier-zoom-out.png') no-repeat 0px 0px;
+    background: url('img/magnifier-zoom-out.png') no-repeat 0px 0px;
 }
 body .pundit-tag-icon {
-	background: url('img/tag.png') no-repeat 0px 0px;
+    background: url('img/tag.png') no-repeat 0px 0px;
 }
 body .pundit-favorite-icon {
-	background: url('img/star.png') no-repeat 0px 0px;
+    background: url('img/star.png') no-repeat 0px 0px;
 }
 body .pundit-delete-icon {
-	background: url('img/bin-metal-full.png') no-repeat 0px 0px;
+    background: url('img/bin-metal-full.png') no-repeat 0px 0px;
 }
 body .pundit-draw-polygon-icon {
-	background: url('img/layer-shape-polygon.png') no-repeat 0px 0px;
+    background: url('img/layer-shape-polygon.png') no-repeat 0px 0px;
+}
+body .pundit-lifebuoy-icon {
+    background: url('img/lifebuoy.png') no-repeat 0px 0px;
 }
 
 /* Image Fragment Handler image */
@@ -2186,12 +2189,16 @@ ul.pundit-horizontal-list li{
 .pundit-ctp-comment-input {
     margin-top: 2px;
     min-height: 50px;
+}
+.pundit-ctp-comment-input,
+section.pundit-rp-literal-text {
     -webkit-user-select: text;
     -moz-user-select: text;
     -ms-user-select: text;
     -o-user-select: text;
     user-select: text; 
 }
+
 .pundit-ctp-comment-input section{
     background:#fff;
     border:groove 1px;
@@ -2290,6 +2297,31 @@ ul.pundit-horizontal-list li{
 
 
 /**********************************************
+* Help / Introduction / ...
+**********************************************/
+
+#pundit-intro-top iframe {
+    border: 0px;
+    width: 580px;
+    overflow: auto;
+}
+
+#pundit-intro-bottom {
+    margin-top: 15px;
+    background: #666;
+    padding: 10px;
+    text-align: center;
+}
+#pundit-intro-bottom .pundit-gui-button {
+    margin: 2px;
+}
+
+#pundit-intro-bottom .pundit-intro-dont-open-label {
+    color: white;
+}
+
+
+/**********************************************
 * Top Bar
 **********************************************/
 #pundit-gui-topbar {
@@ -2325,14 +2357,14 @@ ul.pundit-horizontal-list li{
     float: right;
 }
 #pundit-mypundit-loggedin-button .pundit-icon-loggedin {
-	position: absolute;
-	width: 20px;
-	height: 15px;
-	background: url('img/gear-medium.png') no-repeat 4px 0px;   
+    position: absolute;
+    width: 20px;
+    height: 15px;
+    background: url('img/gear-medium.png') no-repeat 4px 0px;   
 }
 
 #pundit-gui-topbar.pundit-loggedin #pundit-mypundit-login-button {
-    display:none;
+    display: none;
 }
 #pundit-gui-topbar.pundit-loggedin #pundit-mypundit-loggedin-button {
     display: block;
@@ -2348,14 +2380,14 @@ ul.pundit-horizontal-list li{
     padding-right: 24px;
 }
 
-#pundit-mypundit-this-page-button span.pundit-icon-page{
+#pundit-mypundit-this-page-button span.pundit-icon-page {
     position: absolute;
     width: 20px;
     height: 16px;
     background: url('img/page.png') no-repeat 4px 0px;  
 }
 
-#pundit-mypundit-myitems-button span.pundit-icon-favorite{
+#pundit-mypundit-myitems-button span.pundit-icon-favorite {
     position: absolute;
     width: 20px;
     height: 16px;
@@ -2363,58 +2395,62 @@ ul.pundit-horizontal-list li{
 }
 
 #pundit-new-myitems {
-    margin-left:5px;
-    color:#CA0;
-    display:none;
+    margin-left: 5px;
+    color: #CA0;
+    display: none;
 }
 
-#pundit-new-myitems.pundit-visible{
-    display:inline-block;
+#pundit-new-myitems.pundit-visible {
+    display: inline-block;
 }
 
 #pundit-gui-topbar-title {
-	position: absolute;
-	margin-left: 47px;
+    position: absolute;
+    margin-left: 47px;
     color: #fc0;
     font-size: 17px;
     text-shadow: 1px 2px 4px #999;
     line-height: 25px;
-	-webkit-transition-property: opacity;
-	-webkit-transition-duration: 2.5s;
+    -webkit-transition-property: opacity;
+    -webkit-transition-duration: 2.5s;
     -moz-transition-property: opacity;
-	-moz-transition-duration: 2.5s;
-	opacity: 1;
+    -moz-transition-duration: 2.5s;
+    opacity: 1;
 }
 #pundit-gui-topbar-title.pundit-hidden {
-	-webkit-transition-property: opacity;
-	-webkit-transition-duration: 0s;
+    -webkit-transition-property: opacity;
+    -webkit-transition-duration: 0s;
     -moz-transition-property: opacity;
-	-moz-transition-duration: 0s;
-	opacity: 0;
+    -moz-transition-duration: 0s;
+    opacity: 0;
+}
+
+#pundit-help-button {
+    float: right;
 }
 
 /* Loading Box */
 
 #pundit-lbw-box.pundit-hidden .pundit-lbw-box-message { 
-	-webkit-transition-property: opacity;
-	-webkit-transition-duration: 1.5s;
+    -webkit-transition-property: opacity;
+    -webkit-transition-duration: 1.5s;
     -moz-transition-property: opacity;
-	-moz-transition-duration: 1.5s;
-	opacity: 0;
+    -moz-transition-duration: 1.5s;
+    opacity: 0;
 }
 
 #pundit-lbw-box {
-	display: inline;
-	float: left;
-	height: 25px;
-	width: 350px;
+    display: inline;
+    float: left;
+    height: 25px;
+    width: 350px;
 }
 #pundit-lbw-box .pundit-lbw-box-icon {
-	position: absolute;
-	width: 41px;
-	height: 25px;
-	cursor: pointer;
-	border-radius: 9px 0px;
+    position: absolute;
+    width: 41px;
+    height: 25px;
+    cursor: pointer;
+    border-radius: 9px 0px;
 }
 .pundit-state-ko .pundit-lbw-box-icon {
     background: #555 url('img/exclamation-button.png') no-repeat 13px 5px;
@@ -2430,71 +2466,71 @@ ul.pundit-horizontal-list li{
 }
 
 #pundit-lbw-box .pundit-lbw-box-message {
-	margin-left: 48px;
-	line-height: 25px;
-	font-size: 1.2em;
-	color: #009bff;
+    margin-left: 48px;
+    line-height: 25px;
+    font-size: 1.2em;
+    color: #009bff;
 }
 
 
 /* LoadingBoxWindow */
 #pundit-lbw {
-	-webkit-transition-property: opacity;
-	-webkit-transition-duration: 1.5s;
+    -webkit-transition-property: opacity;
+    -webkit-transition-duration: 1.5s;
     -moz-transition-property: opacity;
-	-moz-transition-duration: 1.5s;
-	position: fixed;
-	left: 0px;
-	top: 25px;
-	display: block;
-	border: 3px sold red;
-	background: #555;
-	opacity: 0.95;
-	border-radius: 0px 0px 5px 0px;
-	z-index: 9999;
-	box-shadow: 2px 3px 6px #333;
+    -moz-transition-duration: 1.5s;
+    position: fixed;
+    left: 0px;
+    top: 25px;
+    display: block;
+    border: 3px sold red;
+    background: #555;
+    opacity: 0.95;
+    border-radius: 0px 0px 5px 0px;
+    z-index: 9999;
+    box-shadow: 2px 3px 6px #333;
 }
 #pundit-lbw .pundit-lbw-box-icon {
-	display: inline-block;
-	width: 40px;
-	height: 21px;
-	background-position-y: 2px;
+    display: inline-block;
+    width: 40px;
+    height: 21px;
+    background-position-y: 2px;
 }
 
 #pundit-lbw ul {
-	list-style: none;
-	margin: 0px;
-	padding: 0px;
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
 }
 #pundit-lbw ul li span {
-	padding: 0px;
-	margin: 0px;
-	display: inline;
-	float: left;
-	height: 21px;	
-	font-size: 1.0em;
-	color: #fc0;
+    padding: 0px;
+    margin: 0px;
+    display: inline;
+    float: left;
+    height: 21px;	
+    font-size: 1.0em;
+    color: #fc0;
 }
 #pundit-lbw ul li {
-	height: 21px;	
-	padding: 0px 10px 0px 0px;
-	margin: 0px;
-	line-height: 20px;
-	border-bottom: 1px solid #444;
+    height: 21px;	
+    padding: 0px 10px 0px 0px;
+    margin: 0px;
+    line-height: 20px;
+    border-bottom: 1px solid #444;
 }
 #pundit-lbw ul li:last-child {
-	border-bottom: 0px;
+    border-bottom: 0px;
 }
 
 #pundit-lbw li.pundit-hidden {
-	-webkit-transition-property: opacity, height;
-	-webkit-transition-duration: 1.5s, 2s;
+    -webkit-transition-property: opacity, height;
+    -webkit-transition-duration: 1.5s, 2s;
     -moz-transition-property: opacity, height;
-	-moz-transition-duration: 1.5s, 2s;
-	opacity: 0;
-	height: 0px;
-	overflow: hidden;
-	border: 0px;
+    -moz-transition-duration: 1.5s, 2s;
+    opacity: 0;
+    height: 0px;
+    overflow: hidden;
+    border: 0px;
 }
 
 /******************************/

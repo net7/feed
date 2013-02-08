@@ -17,22 +17,29 @@ var punditConfig = {
         //'http://korbo.netseven.it/backend.php/68?callback=_PUNDIT.vocab.initJsonpVocab'
         
         // Wittgesntein Realtions
-//        'http://metasound.dibet.univpm.it/release_bot/build-development/examples/vocabs/wittgestein-relations.jsonp',
+        // 'http://metasound.dibet.univpm.it/release_bot/build-development/examples/vocabs/wittgestein-relations.jsonp',
         // Wittgesntein Taxonomy
-        //'http://metasound.dibet.univpm.it/release_bot/build-development/examples/vocabs/wittgestein-taxonomy.jsonp'
+        // 'http://metasound.dibet.univpm.it/release_bot/build-development/examples/vocabs/wittgestein-taxonomy.jsonp'
         
-        'http://www.wittgensteinsource.org/js/witt_subjects_taxonomy.json',
-        'http://www.wittgensteinsource.org/js/witt-test.json',
-//        'http://www.wittgensteinsource.org/js/witt_sources_taxonomy.json',
-        'http://www.wittgensteinsource.org/js/witt_relations.json'
-//        'http://thepund.it/vocabularies/simplewitt.jsonp'
-//        'http://thepund.it/vocabularies/simplewitt_rel.jsonp'
+        // 'http://www.wittgensteinsource.org/js/witt_subjects_taxonomy.json',
+        // 'http://www.wittgensteinsource.org/js/witt-test.json',
+        // 'http://www.wittgensteinsource.org/js/witt_sources_taxonomy.json',
+        // 'http://www.wittgensteinsource.org/js/witt_relations.json'
+        // 'http://thepund.it/vocabularies/simplewitt.jsonp'
+        // 'http://thepund.it/vocabularies/simplewitt_rel.jsonp'
 
     ],
 
-    useBasicRelations: false,
+    useBasicRelations: true,
 
     modules: {
+        
+        'pundit.Help': {
+            introductionFile: 'example-introduction.html',
+            introductionWindowTitle: 'Welcome to Pundit examples! :)',
+            showIntroductionAtLogin: true
+        },
+
         'selectors': {},
         'annotators': {}
     }

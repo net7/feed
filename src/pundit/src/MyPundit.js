@@ -18,11 +18,11 @@ dojo.declare("pundit.MyPundit", pundit.BaseComponent, {
 
     // TODO: move this comment to some @property and some into the class declaration
     /*
-    * @constructor
-    * @description Initializes the component
-    * @param options {object}
-    * @param options.debug {boolean} wether or not to .showFilteringOptions debug mode for this component
-    */
+     * @constructor
+     * @description Initializes the component
+     * @param options {object}
+     * @param options.debug {boolean} wether or not to .showFilteringOptions debug mode for this component
+     */
     constructor: function(options) {
         var self = this,
             my = '<span class="pundit-gui-button" id="pundit-mypundit-login-button">Log in</span>'+
@@ -32,6 +32,7 @@ dojo.declare("pundit.MyPundit", pundit.BaseComponent, {
 
         dojo.query('#pundit-gui-topbar').append(my);
 
+        // TODO: this will be replaced by new ACL system, and obsoleted
         self.store = new pundit.RemoteStorageHandler({debug: self.opts.debug});
         
         self.initBehaviors();
@@ -47,20 +48,17 @@ dojo.declare("pundit.MyPundit", pundit.BaseComponent, {
         requester.onLogin(function(data) {
             self.setLogged(true, data);
         });
-        
-        _PUNDIT.init.onInitDone(function(){
-            
-        });
-                
+                        
         self.log("MyPundit up and running");
         
     }, // constructor()
-	
+
     /**
         Gets the current annotations visibility mode in an asynchronous fashion 
         @method getAnnotationVisibility
         @param callback {function} the function to be called with the visibility mode as a parameter
     */
+    // TODO: this will be replaced by new ACL system, and obsoleted
     getAnnotationVisibility: function(callback) {
         var self = this;
         if (typeof(self.annotationVisibility) === 'undefined') {
@@ -69,10 +67,10 @@ dojo.declare("pundit.MyPundit", pundit.BaseComponent, {
                 var mymode = mode.value;
             
                 if (typeof(mymode) === 'undefined') {
-            		if (_PUNDIT.config.modules['pundit.NotebookManager'].defaultFilteringOption !== 'undefined') {
-            			mymode= _PUNDIT.config.modules['pundit.NotebookManager'].defaultFilteringOption;
+                    if (_PUNDIT.config.modules['pundit.NotebookManager'].defaultFilteringOption !== 'undefined') {
+                        mymode= _PUNDIT.config.modules['pundit.NotebookManager'].defaultFilteringOption;
                         self.setAnnotationVisibility(mymode);
-            		}    
+                    }    
                 }
             
                 self.annotationVisibility = mymode;
@@ -84,25 +82,23 @@ dojo.declare("pundit.MyPundit", pundit.BaseComponent, {
         }
     },
     
-	setAnnotationVisibility: function(scope) {
-		var self = this;
-		self.annotationVisibility = scope;
+    setAnnotationVisibility: function(scope) {
+        var self = this;
+        self.annotationVisibility = scope;
         self.store.save('mode', scope);
-		tooltip_viewer.refreshAnnotations();
-	},
+        tooltip_viewer.refreshAnnotations();
+    },
 
     setLogged: function(flag, data) {
         var self = this;
+
         if (flag) {
-			//TODO: as soon as the server receives a proper field...use the proper one
-			var screenName = (data.fullName) ? data.fullName : "User: " + data.id;
+            
+            //TODO: as soon as the server receives a proper field...use the proper one
+            var screenName = (data.fullName) ? data.fullName : "User: " + data.id;
             self.logged = true;
 
             dojo.query('#pundit-mypundit-loggedin-button').html(screenName + "<span class='pundit-icon-loggedin'></span>");
-
-
-            // TODO: WHY IS MYPUNDIT SHOWING THE TOPBAR!!!!1! Move this code into the topbar ...............
-            // dojo.addClass(dojo.byId('pundit-gui-topbar'), 'pundit-loggedin');
             dojo.query('#pundit-gui-topbar').addClass('pundit-logged-in pundit-loggedin').removeClass('pundit-logged-off');
             
             // Save user's information for future use
@@ -132,7 +128,8 @@ dojo.declare("pundit.MyPundit", pundit.BaseComponent, {
 
         dojo.connect(dojo.byId('pundit-mypundit-loggedin-button'), 'onclick', function(e) {
             var pos = dojo.position(e.target).x - 20;
-            //TODO: this call to getAnnotationVisibility ensures that the self.annotationVisibility is bound when shwing the action menu. IT SUCKS but works!
+            // TODO: this call to getAnnotationVisibility ensures that the 
+            // self.annotationVisibility is bound when shwing the action menu. IT SUCKS but works!
             self.getAnnotationVisibility(function(mode){
                 cMenu.show(pos, 20, '', 'semlibUserMenu', 'pundit-cm-bottom');    
             });
@@ -147,16 +144,7 @@ dojo.declare("pundit.MyPundit", pundit.BaseComponent, {
         });
         
         dojo.connect(dojo.byId('pundit-mypundit-this-page-button'), 'onclick', function(e){
-            var pos = dojo.position(e.target).x - 20,
-                item;
-            /*  
-            if (_PUNDIT.config.isModuleActive('pageHandler')) {
-                item = _PUNDIT['items'].getItemByUri(window.location.href);
-                if (typeof(item) === 'undefined')
-                    item =_PUNDIT['pageHandler'].createItemFromPage();
-            }
-            */
-            
+            var pos = dojo.position(e.target).x - 20;
             cMenu.show(pos, 20, '', 'punditThisPageMenu', 'pundit-cm-bottom');
         });
         
@@ -232,7 +220,7 @@ dojo.declare("pundit.MyPundit", pundit.BaseComponent, {
                 }
             });
            
-			
+
         }
 
         // TODO: move me to some other button somewhere else?
