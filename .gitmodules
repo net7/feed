@@ -1,0 +1,3 @@
+[submodule "src/pundit"]
+	path = src/pundit
+	url = git@codebasehq.com:net7/semlib/semlibclient.git
