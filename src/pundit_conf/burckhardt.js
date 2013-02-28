@@ -7,15 +7,25 @@ var punditConfig = {
     annotationServerBaseURL : 'http://as.thepund.it:8080/annotationserver/',
 
     vocabularies: [
-        "http://korbo.netseven.it/84?jsonp=_PUNDIT.vocab.initJsonpVocab",
-        "http://korbo.netseven.it/74?jsonp=_PUNDIT.vocab.initJsonpVocab"
+        "http://korbo.netseven.it/88?jsonp=_PUNDIT.vocab.initJsonpVocab",
+        "http://korbo.netseven.it/91?jsonp=_PUNDIT.vocab.initJsonpVocab"
     ],
 
-    useBasicRelations: true,
+    useBasicRelations: false,
 
     modules: {
+        
+        'pundit.Help': {
+            introductionFile: '/introductions/intro-burckhardt.html',
+            introductionWindowTitle: "Welcome BurckhardtSource Pundit!",
+            showIntroductionAtLogin: true
+        },
+        
         'pundit.NamedContentHandler': {
-            active: true // TODO: not for cortona
+            active: false
+        },
+        'pundit.ContactHelper': {
+            active: false
         },
         'pundit.NotebookManager': {
             active: false
@@ -38,13 +48,14 @@ var punditConfig = {
         },
         
         'selectors': {
-            
+            /*
             'KorboBasket': {
                 name: 'korbo', 
                 label: 'Korbo search', 
                 active: true,
                 baskets: [82]
-            }            
+            }
+            */
         },
         'annotators': {}
     }
