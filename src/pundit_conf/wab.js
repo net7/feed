@@ -15,6 +15,25 @@ var punditConfig = {
 
     modules: {
 
+        'pundit.Help': {
+            introductionFile: '/introductions/intro-wab.html',
+            introductionWindowTitle: "Welcome to WittgensteinSource's Pundit!",
+            showIntroductionAtLogin: true
+        },
+
+        'pundit.ContactHelper': {
+            instances: [
+                {
+                    title: 'Contact us',
+                    comment: 'If you need help or have suggestions for WittgensteinSource, send us your thoughts!',
+                    list: 'wab'
+                }
+            ]
+        },
+
+        'pundit.NamedContentHandler': {
+            active: false 
+        },
         'pundit.NotebookManager': {
             active: true
         },

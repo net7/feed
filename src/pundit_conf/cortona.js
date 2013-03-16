@@ -13,8 +13,18 @@ var punditConfig = {
     useBasicRelations: true,
 
     modules: {
+        'pundit.ContactHelper': {
+            instances: [
+                {
+                    title: 'Contact us!',
+                    comment: 'Example form, say something to us!',
+                    list: 'test2'
+                }
+            ]
+        },
+        
         'pundit.NamedContentHandler': {
-            active: true // TODO: not for cortona
+            active: false // TODO: not for cortona
         },
         'pundit.NotebookManager': {
             active: false

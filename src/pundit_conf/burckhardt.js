@@ -15,18 +15,26 @@ var punditConfig = {
 
     modules: {
         
+        'pundit.NamedContentHandler': {
+            active: false 
+        },
+
         'pundit.Help': {
             introductionFile: '/introductions/intro-burckhardt.html',
-            introductionWindowTitle: "Welcome BurckhardtSource Pundit!",
+            introductionWindowTitle: "Welcome to BurckhardtSource Pundit!",
             showIntroductionAtLogin: true
         },
         
-        'pundit.NamedContentHandler': {
-            active: false
-        },
         'pundit.ContactHelper': {
-            active: false
+            instances: [
+                {
+                    title: 'Contact us',
+                    comment: 'If you need help or have suggestions for BurckhardtSource, send us your thoughts!',
+                    list: 'burckhardt'
+                }
+            ]
         },
+        
         'pundit.NotebookManager': {
             active: false
         },
