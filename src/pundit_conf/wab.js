@@ -27,6 +27,12 @@ var punditConfig = {
                     title: 'Contact us',
                     comment: 'If you need help or have suggestions for WittgensteinSource, send us your thoughts!',
                     list: 'wab'
+                },
+                {
+                    title: 'Suggest a predicate',
+                    comment:    'If you believe you need more predicates to structure your triples, tell us! '+
+                                'Please detail what kind of content you would like to use as subject and object.',
+                    list: 'wab'
                 }
             ]
         },
