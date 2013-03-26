@@ -63,7 +63,7 @@ var punditConfig = {
         'selectors': {
             'KorboBasket': {
                 name: 'korbo', 
-                label: 'WittgensteinSource', 
+                label: 'WAB:Sources', 
                 active: true,
                 baskets: [82]
             }            
