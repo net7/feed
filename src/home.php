@@ -124,6 +124,8 @@
                             <option>cortona.js</option>
                             <option>burckhardt.js</option>
                             <option>wab.js</option>
+                            <option>modernsource.js</option>
+                            <option>ancientsource.js</option>
                         </select>
                         <a class="btn" href="#" rel="popover" data-placement="bottom" title="Pundit configuration file" data-content="Choose the Pundit configuration you want to use"><i class="icon-question-sign"></i></a>
                     </div>
