@@ -48,6 +48,10 @@ var punditConfig = {
         
         'selectors': {
             
+            'EuropeanaEDM': {
+                name: 'europeanaEDM', label: 'Europeana EDM', active: true
+            },
+            
             'KorboBasket': {
                 name: 'korbo', 
                 label: 'Korbo search', 
