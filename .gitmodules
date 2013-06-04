@@ -1,3 +1,0 @@
-[submodule "src/pundit"]
-	path = src/pundit
-	url = https://github.com/net7/pundit.git
