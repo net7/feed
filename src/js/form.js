@@ -1,19 +1,31 @@
 function feedBuildUrl() {
     var w = window.location,
         baseURL = w.protocol +'//'+ w.hostname + "/?",
+        single = $('#inputurl').val(),
+        image = $('#inputimage').val(),
         left = $('#inputLurl').val(),
         right = $('#inputRurl').val(),
         conf = $('#punditConf').val(),
         url;
 
-    $(".control-group.errors-container").empty()
+    $(".control-group.errors-container").empty();
 
-    if (left === '' || !isURL(left))
+    // Single/image/left not empty, but not an URL: error
+    if (single !== '' && !isURL(single))
         url = '';
-    else if (right === '')
-        url = baseURL + "url=" + left + "&conf="+ conf;
-    else if (isURL(right))
-        url = baseURL +"lurl="+ left +"&rurl="+ right + "&conf="+ conf;
+    else if (image !== '' || !isURL(image))
+        url = '';
+    else if (left !== '' && !isURL(left))
+        url = ''
+    else if (single !== '' && isURL(single))
+        url = baseURL + "url=" + single;
+    else if (image !== '' && isURL(image))
+        url = baseURL + "img=" + image;
+    else if (isURL(left) && isURL(right))
+        url = baseURL +"lurl="+ left +"&rurl="+ right;
+        
+    if (url !== '')
+        url += "&conf="+ conf;
         
     $('#feedThePundit').val(url);
 }
@@ -29,47 +41,59 @@ function isURL(u) {
     return urlregex.test(u);
 }
 
+function checkInputURL() {
+    var v = $(this).val();
+    if (isURL(v) || v === '') 
+        feedBuildUrl();
+}
+
 (function($){
-    
-    // TODO : better handle the various events the users can do.. like select from
-    // the autocomplete
-    
-    $('#inputLurl').on('focusin', function(event) { feedBuildUrl(); });
-    $('#inputLurl').on('focusout', function(event) { feedBuildUrl(); });
-    $('#inputRurl').on('focusin', function(event) { feedBuildUrl(); });
-    $('#inputRurl').on('focusout', function(event) { feedBuildUrl(); });
+        
+    $('#inputurl')
+        .on('focusin focusout', function(event) { feedBuildUrl(); })
+        .on('change', checkInputURL);
+    $('#inputimage')
+        .on('focusin focusout', function(event) { feedBuildUrl(); })
+        .on('change', checkInputURL);
+    $('#inputLurl')
+        .on('focusin focusout', function(event) { feedBuildUrl(); })
+        .on('change', checkInputURL);
+    $('#inputRurl')
+        .on('focusin focusout', function(event) { feedBuildUrl(); })
+        .on('change', checkInputURL);
     $('#punditConf').on('change', function(event) { feedBuildUrl(); });
 
-    function checkInputURL() {
-        var v = $(this).val();
-        if (isURL(v) || v === '') 
-            feedBuildUrl();
-    }
-
-    $('#inputLurl').on('change', checkInputURL);
-    $('#inputRurl').on('change', checkInputURL);
-
-
-    // On load:
-    // - focus first input
-    $('#inputLurl').get(0).focus();
+    $('a[data-toggle="tab"]').on('click', function (e) {
+        $('#inputurl').val('');
+        $('#inputimage').val('');
+        $('#inputRurl').val('');
+        $('#inputLurl').val('');
+    });
 
     $('form').submit(function() {
-        var left = $('#inputLurl').val(),
+        var single = $('#inputurl').val(),
+            image = $('#inputimage').val(),
+            left = $('#inputLurl').val(),
             right = $('#inputRurl').val(),
             conf = $('#punditConf').val(),
             url = $('#feedThePundit').val();
 
         $(".control-group.errors-container").empty()
 
-        // ERROR: left url is mandatory
-        if (left === '') {
-            console.log('Error: no left URL');
-            showFeedError("Error!", "You must insert at least the first source URL");
+        // ERROR: left/single/image is mandatory
+        if (left === '' && single === '' && image === '') {
+            console.log('Error: no single/left/image URL');
+            showFeedError("Error!", "You must insert at least a source URL or an image URL");
+            return false;
+        }
+
+        if (single !== '' && !isURL(single)) {
+            console.log('Error: invalid URL');
+            showFeedError("Error!", "The URL you entered ("+single+") does not look valid.");
             return false;
         }
         
-        if (!isURL(left)) {
+        if (left !== '' && !isURL(left)) {
             console.log('Error: invalid first URL');
             showFeedError("Error!", "The first URL you entered ("+left+") does not look valid.");
             return false;
@@ -78,6 +102,12 @@ function isURL(u) {
         if (right !== '' && !isURL(right)) {
             console.log('Error: invalid second URL');
             showFeedError("Error!", "The second URL you entered ("+right+") does not look valid.");
+            return false;
+        }
+
+        if (image !== '' && !isURL(image)) {
+            console.log('Error: invalid image URL');
+            showFeedError("Error!", "The image URL you entered ("+image+") does not look valid.");
             return false;
         }
         
