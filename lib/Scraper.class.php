@@ -3,11 +3,14 @@
 class Scraper {
 
     private $url;
+    private $urlType;
     private $label;
     private $comment;
     private $annotableVersionAt;
     private $domain;
     private $punditContent;
+    private $prev = false;
+    private $next = false;
 
     /**
      * Public contructor set URL to be scraped
@@ -15,11 +18,20 @@ class Scraper {
      * TODO: Test
      * @param type $url 
      */
-    public function __construct($url) {
+    public function __construct($url,$urlType=NULL) {
         $this->url = $url;
         if (!$this->isUrlValid())
             throw new Exception('Url is not VALID');
+        $this->setUrlType($urlType);
         $this->retrievePunditContent();
+    }
+    
+    private function setUrlType($urlType) {
+        $allowed_types = array ('default','img');
+        if($urlType==null) $this->urlType='default';
+        else if (in_array($urlType, $allowed_types))
+                $this->urlType=$urlType;
+        else            throw new Exception('Url Type '.$urlType.' Not allowed');
     }
     
     public function getPunditContent() {
@@ -105,6 +117,21 @@ class Scraper {
      * // TODO: ALL!!!!!
      */
     private function retrievePunditContent() {
+        switch ($this->urlType) {
+            case 'default':
+                $this->retrievePunditContentDefault();
+                break;
+            case 'img':
+                $this->retrievePunditContentImg();
+                break;
+            default:
+                throw new Exception('Url type '.$this->urlType.' not supported.');
+                break;
+        }
+    }
+
+    
+    private function retrievePunditContentDefault() {
         $rdf = $this->doCurlRequest('application/rdf+xml');
         $dom = new DOMDocument();
         $dom->loadXML($rdf);
@@ -126,6 +153,18 @@ class Scraper {
         $this->punditContent = $content;
     }
 
+    private function retrievePunditContentImg() {
+        $this->label = 'Web image : '.$this->url;
+        $this->comment = 'Single image pundit annotator';
+        $url_info=parse_url($this->url);
+        $this->domain=$url_info['host'];
+        $this->punditContent = '
+           <div class="pundit-content" about="'.$this->url.'">
+           <img src="'.$this->url.'" />
+           </div>
+         ';
+        
+    }
 
     // TODO: use namespace rdfs::label
     private function extractLabelByDom(DOMDocument $dom) {

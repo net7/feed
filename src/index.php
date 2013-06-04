@@ -13,6 +13,8 @@ else if(isset ($_GET['url']))
     { require_once 'single_annotation.php';}
 else if(isset ($_GET['lurl']) && isset($_GET['rurl'])) 
     {    require_once 'double_annotation.php';}
+else if(isset ($_GET['img'])) 
+    {    require_once 'img_annotation.php';}
 else 
     { require_once('error.php');}
 
