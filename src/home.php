@@ -58,6 +58,9 @@
             body {
                 padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
             }
+            .control-group.errors-container .alert {
+                margin: 20px;
+            }
         </style>
 
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -93,58 +96,66 @@
 
         <div class="container">
 
-<!--            <h1>Feed The Pundit</h1>
-            <p>Use this interface ...</p> -->
-
-            <br><br>
-            <br>
+            <br/><br/>
 
             <form class="form-horizontal span11">
-                <div class="control-group">
-                    <label class="control-label" for="inputLurl">Source 1 URL</label>
-                    <div class="controls">
-                        <input class="span8" type="text" tabindex="1" id="inputLurl" placeholder="http://.." data-provide="typeahead" data-items="10" data-source='<?php echo $sources; ?>' />
+                
 
-                        <a class="btn" href="#" rel="popover" data-placement="bottom" title="First source URL" data-content="Insert a full URL of a compatible RDF source provider"><i class="icon-question-sign"></i></a>
-                    </div>
+                <div class="tabbable">
+                  <ul class="nav nav-tabs">
+                      <li class="active"><a href="#t1" data-toggle="tab">One RDF resource</a></li>
+                      <li class=""><a href="#t2" data-toggle="tab">Two RDF resources</a></li>
+                      <li class=""><a href="#t3" data-toggle="tab">An image</a></li>
+                  </ul>
+                  <div class="tab-content">
+                      <div class="tab-pane active" id="t1">
+
+                          <label>Insert a full URL of a compatible RDF source</label>
+                          <input class="input-block-level" type="text" tabindex="1" id="inputurl" placeholder="http://.." data-provide="typeahead" data-items="10" data-source='<?php echo $sources; ?>' />
+                          <input type="text" style="visibility: hidden" />
+
+                      </div>
+                      <div class="tab-pane" id="t2">
+
+                          <label>Insert two full URLs of two compatible RDF sources</label>
+                          <input class="input-block-level" type="text" tabindex="1" id="inputLurl" placeholder="http://.." data-provide="typeahead" data-items="10" data-source='<?php echo $sources; ?>' />
+                          <input class="input-block-level" type="text" tabindex="1" id="inputRurl" placeholder="http://.." data-provide="typeahead" data-items="10" data-source='<?php echo $sources; ?>' />
+                          
+                      </div>
+                      <div class="tab-pane" id="t3">
+
+                          <label>Insert an image's absolute URL</label>
+                          <input class="input-block-level" type="text" tabindex="1" id="inputimage" placeholder="http://.."/>
+                          <input type="text" style="visibility: hidden" />
+                          
+                      </div>
+                  </div>
                 </div>
                 
-                <div class="control-group">
-                    <label class="control-label" for="inputRurl">Source 2 URL</label>
-                    <div class="controls">
-                        <input class="span8" tabindex="2" type="text" id="inputRurl" placeholder="http://.." data-provide="typeahead" data-items="10" data-source='<?php echo $sources; ?>' />
-                        <a class="btn" href="#" rel="popover" data-placement="bottom" title="Second URL" data-content="Insert a full URL of a compatible RDF source provider"><i class="icon-question-sign"></i></a>
-                    </div>
-                </div>
+                <br />
 
-                <div class="control-group">
-                    <label class="control-label" for="selectConf">Configuration</label>
-                    <div class="controls">
-                        <select id="punditConf">
-                            <option>cortona.js</option>
-                            <option>burckhardt.js</option>
-                            <option>wab.js</option>
-                            <option>modernsource.js</option>
-                            <option>ancientsource.js</option>
-                        </select>
-                        <a class="btn" href="#" rel="popover" data-placement="bottom" title="Pundit configuration file" data-content="Choose the Pundit configuration you want to use"><i class="icon-question-sign"></i></a>
-                    </div>
-                </div>
+                <label>
+                    Configuration
+                </label>
+                <select id="punditConf" class="input-block-level">
+                    <option value="burckhardt.js">Burckhardt source (see http://burckhardtsource.org)</option>
+                    <option value="wab.js">Wittgenstein Source Pilot (see http://wittgensteinsource.org)</option>
+                    <option value="modernsource.js">Modern source (see http://modernsource.daphnet.org/)</option>
+                    <option value="ancientsource.js">Ancient Source (see http://ancientsource.daphnet.org/)</option>
+                    <option value="cortona.js">Open Platforms for Humanities @ Cortona (see http://openplatformsforhumanities.org)</option>
+                    <option value="timeline-demo.js">Timeline demo (see http://www-wp.thepund.it/demo-applications/timeline-demo/)</option>
+                </select>
 
                 <div class="control-group errors-container">
                 </div>
 
 
-                <div class="control-group">
-                    <label class="control-label" for="feedThePundit">Feed The Pundit URL</label>
-                    <div class="controls">
-                        <a class="btn" href="#" rel="popover" data-placement="bottom" title="Feed URL" data-content="This is the FeedThePundit URL to annotate the selected source(s). You can copy, save and share such URL.">
-                            <i class="icon-question-sign"></i>
-                        </a>
-                    </div>
-                </div>
+                <br />
 
-
+                <label>
+                    Feed The Pundit URL, you can copy, save and share this URL.
+                </label>
+                    
                 <input class="span11" type="text" id="feedThePundit" disabled />
                 <br><br>
                 
@@ -152,18 +163,14 @@
                     <button id="feedSubmitButton" data-loading-text="Loading Pundit..." type="submit" class="btn btn-large btn-block btn-success" tabindex="3">
                         <i class="icon-arrow-right"></i> Annotate!
                     </button>
-<!-- 
-                        <a class="btn" href="#" rel="tooltip" title="Second URL" data-content="Long explain">
-                            <i class="icon-edit"></i> Copy this address
-                        </a>
--->
 
                 </div>
             </form>
 
         </div> <!-- /container -->
+
         <?php
-        renderFooter();
+            renderFooter(false);
         ?>
 
         <script src="/js/jquery.tmpl.min.js"></script>
