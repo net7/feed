@@ -143,6 +143,7 @@
                     <option value="modernsource.js">Modern source (see http://modernsource.daphnet.org/)</option>
                     <option value="ancientsource.js">Ancient Source (see http://ancientsource.daphnet.org/)</option>
                     <option value="cortona.js">Open Platforms for Humanities @ Cortona (see http://openplatformsforhumanities.org)</option>
+                    <option value="timeline-demo.js">Timeline demo (see http://www-wp.thepund.it/demo-applications/timeline-demo/)</option>
                 </select>
 
                 <div class="control-group errors-container">
