@@ -6,18 +6,11 @@ function feedBuildUrl() {
         left = $('#inputLurl').val(),
         right = $('#inputRurl').val(),
         conf = $('#punditConf').val(),
-        url;
+        url = '';
 
     $(".control-group.errors-container").empty();
-
-    // Single/image/left not empty, but not an URL: error
-    if (single !== '' && !isURL(single))
-        url = '';
-    else if (image !== '' || !isURL(image))
-        url = '';
-    else if (left !== '' && !isURL(left))
-        url = ''
-    else if (single !== '' && isURL(single))
+    
+    if (single !== '' && isURL(single))
         url = baseURL + "url=" + single;
     else if (image !== '' && isURL(image))
         url = baseURL + "img=" + image;
@@ -26,7 +19,7 @@ function feedBuildUrl() {
         
     if (url !== '')
         url += "&conf="+ conf;
-        
+                
     $('#feedThePundit').val(url);
 }
 
@@ -63,13 +56,16 @@ function checkInputURL() {
         .on('change', checkInputURL);
     $('#punditConf').on('change', function(event) { feedBuildUrl(); });
 
+    // Reset all input contents when changing tab
     $('a[data-toggle="tab"]').on('click', function (e) {
         $('#inputurl').val('');
         $('#inputimage').val('');
         $('#inputRurl').val('');
         $('#inputLurl').val('');
+        $('#feedThePundit').val('');
     });
 
+    // Check the values before submitting
     $('form').submit(function() {
         var single = $('#inputurl').val(),
             image = $('#inputimage').val(),

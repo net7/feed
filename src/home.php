@@ -58,6 +58,9 @@
             body {
                 padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
             }
+            .control-group.errors-container .alert {
+                margin: 20px;
+            }
         </style>
 
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
