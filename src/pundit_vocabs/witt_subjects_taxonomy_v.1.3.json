@@ -323,16 +323,14 @@ _PUNDIT.vocab.initJsonpVocab({
                {"_reference": "http://purl.org/wittgensteinsource/instances/19320701-19331031"},
                {"_reference": "http://purl.org/wittgensteinsource/instances/19320801-19331031"}
             ],
-            "label": "Date",
-            "is_root_node": true
+            "label": "Date"
          },
                   {
             "nodetype": "container",
             "rdftype": "http://www.w3.org/2000/01/rdf-schema#Class",
             "description": "Perspective, subclass of Subject: A philosophical perspective. Has subclasses:\n            APichler_Course_TLP; APichler_Course_PI a.o. Example of subclass structure: Perspective\n            > APichler_Course_TLP > [Instances] contradiction; state_of_affairs.",
             "value": "http://purl.org/scho/ont/Perspective",
-            "label": "Perspective",
-            "is_root_node": true
+            "label": "Perspective"
          },
                   {
             "nodetype": "node",
@@ -6189,8 +6187,7 @@ _PUNDIT.vocab.initJsonpVocab({
                {"_reference": "http://purl.org/wittgensteinsource/instances/issues/ts-213_inductive_proof._periodicity"},
                {"_reference": "http://purl.org/wittgensteinsource/instances/issues/ts-213_the_infinite_in_mathematics"}
             ],
-            "label": "Issue",
-            "is_root_node": true
+            "label": "Issue"
          },
                   {
             "nodetype": "node",
@@ -7319,24 +7316,21 @@ _PUNDIT.vocab.initJsonpVocab({
                {"_reference": "http://purl.org/wittgensteinsource/instances/points/ts-213-139_kinds_of_irrational_numbers._%28pi%27%2C_p%2C_f%29"},
                {"_reference": "http://purl.org/wittgensteinsource/instances/points/ts-213-140_irregular_infinite_decimal_number."}
             ],
-            "label": "Point",
-            "is_root_node": true
+            "label": "Point"
          },
                   {
             "nodetype": "container",
             "rdftype": "http://www.w3.org/2000/01/rdf-schema#Class",
             "description": "An Event is something that happens at a certain point in time. Examples can be the French Revolution, the election of a US president and so on. Note that in some cases an Event can be considered also a Concept in certain contexts (e.g. the French Revolution). In these cases such an instance can belong to the two classes at the same time.",
             "value": "http://purl.org/scho/ont/Event",
-            "label": "Event",
-            "is_root_node": true
+            "label": "Event"
          },
                   {
             "nodetype": "container",
             "rdftype": "http://www.w3.org/2000/01/rdf-schema#Class",
             "description": "Place, subclass of Subject: A place. Example of instance: Skjolden; Cambridge.",
             "value": "http://purl.org/scho/ont/Place",
-            "label": "Place",
-            "is_root_node": true
+            "label": "Place"
          },
                   {
             "nodetype": "node",
@@ -7361,16 +7355,14 @@ _PUNDIT.vocab.initJsonpVocab({
                {"_reference": "http://purl.org/wittgensteinsource/instances/PhilosophyOfLanguage"},
                {"_reference": "http://purl.org/wittgensteinsource/instances/Ethics"}
             ],
-            "label": "Field",
-            "is_root_node": true
+            "label": "Field"
          },
                   {
             "nodetype": "container",
             "rdftype": "http://www.w3.org/2000/01/rdf-schema#Class",
             "description": "A Concept is a topic, often an abstract, non physical entity that a Source can refer to..",
             "value": "http://purl.org/scho/ont/Concept",
-            "label": "Concept",
-            "is_root_node": true
+            "label": "Concept"
          }
       ],
       "vocab_type": "subjects",
