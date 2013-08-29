@@ -5,7 +5,7 @@ var punditConfig = {
     annotationServerBaseURL: "http://as.thepund.it:8080/annotationserver/",
 
     vocabularies: [
-        'http://www.wittgensteinsource.org/js/witt_subjects_taxonomy_v.1.2.json',
+        'http://feed.thepund.it/pundit_vocabs/witt_subjects_taxonomy_v.1.3.json',
         'http://feed.thepund.it/pundit_vocabs/witt_relations_v.1.3.json'  
     ],
     
