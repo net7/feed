@@ -6,7 +6,7 @@ var punditConfig = {
 
     vocabularies: [
         'http://www.wittgensteinsource.org/js/witt_subjects_taxonomy_v.1.2.json',
-        'http://www.wittgensteinsource.org/js/witt_relations_v.1.2.json'  
+        'http://feed.thepund.it/pundit_vocabs/witt_relations_v.1.3.json'  
     ],
     
 
