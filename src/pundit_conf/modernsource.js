@@ -2,8 +2,9 @@ var punditConfig = {
     debugAllModules: false,
     annotationServerBaseURL: "http://as.thepund.it:8080/annotationserver/",
     vocabularies: [
-       'http://metasound.dibet.univpm.it/release_bot/build/examples/vocabs/daphnetModern.jsonp',
-       'http://metasound.dibet.univpm.it/release_bot/build/examples/vocabs/daphnetAncient.jsonp'
+       'http://manager.korbo.org/108?jsonp=_PUNDIT.vocab.initJsonpVocab',
+       'http://manager.korbo.org/107?jsonp=_PUNDIT.vocab.initJsonpVocab',
+       'http://manager.korbo.org/109?jsonp=_PUNDIT.vocab.initJsonpVocab'
     ],
     
     

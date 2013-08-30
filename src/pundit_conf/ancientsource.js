@@ -2,12 +2,13 @@ var punditConfig = {
     debugAllModules: false,
     annotationServerBaseURL: "http://as.thepund.it:8080/annotationserver/",
     vocabularies: [
-       'http://metasound.dibet.univpm.it/release_bot/build/examples/vocabs/daphnetModern.jsonp',
-       'http://metasound.dibet.univpm.it/release_bot/build/examples/vocabs/daphnetAncient.jsonp'
+       'http://korbo.netseven.it/108?jsonp=_PUNDIT.vocab.initJsonpVocab',
+       'http://korbo.netseven.it/107?jsonp=_PUNDIT.vocab.initJsonpVocab',
+       'http://korbo.netseven.it/109?jsonp=_PUNDIT.vocab.initJsonpVocab'
     ],
     
-    modules: {
-        
+     modules: {     
+
         'pundit.NamedContentHandler': {
             active: false 
         },
@@ -38,3 +39,12 @@ var punditConfig = {
     }
     
 }
+
+//    modules: {
+//        selectors: {
+//              'KorboBasket':  {
+//                      name: 'korbo-107', label: 'French', active: true, baskets: [107] 
+//              }, 
+//      },
+
+
