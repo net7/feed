@@ -65,7 +65,8 @@ var punditConfig = {
                 name: 'korbo', 
                 label: 'WAB:Sources', 
                 active: true,
-                baskets: [82]
+                baskets: [82],
+		keywordMinimumLength: 4
             }            
         },
         
