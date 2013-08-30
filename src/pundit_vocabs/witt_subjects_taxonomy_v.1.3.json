@@ -7363,6 +7363,1000 @@ _PUNDIT.vocab.initJsonpVocab({
             "description": "A Concept is a topic, often an abstract, non physical entity that a Source can refer to..",
             "value": "http://purl.org/scho/ont/Concept",
             "label": "Concept"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Wittgenstein__Ludwig",
+            "label": "Wittgenstein Ludwig"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Skolem__Thoralf",
+            "label": "Skolem Thoralf"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Mach__Ernst",
+            "label": "Mach Ernst"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Brouwer__Luitzen",
+            "label": "Brouwer Luitzen"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Galton__Francis",
+            "label": "Galton Francis"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Goldbach__Christian_von",
+            "label": "Goldbach Christian von"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Kant__Immanuel",
+            "label": "Kant Immanuel"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Buridan__Johannes",
+            "label": "Buridan Johannes"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Heraklit",
+            "label": "Heraklit"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Eddington__Arthur_Stanley",
+            "label": "Eddington Arthur Stanley"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Epimenides",
+            "label": "Epimenides"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Kronecker__Leopold",
+            "label": "Kronecker Leopold"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Goethe__Johann_Wolfgang_von",
+            "label": "Goethe Johann Wolfgang von"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Ursell__Harold_Douglas",
+            "label": "Ursell Harold Douglas"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Frege__Gottlob",
+            "label": "Frege Gottlob"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Carroll__Lewis",
+            "label": "Carroll Lewis"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Augustinus__Aurelius",
+            "label": "Augustinus Aurelius"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Platon",
+            "label": "Platon"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/James__William",
+            "label": "James William"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Briand__Aristide",
+            "label": "Briand Aristide"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Ramsey__Frank_Plumpton",
+            "label": "Ramsey Frank Plumpton"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Schopenhauer__Arthur",
+            "label": "Schopenhauer Arthur"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Ostade__Adriaen_van",
+            "label": "Ostade Adriaen van"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/David__Jacques-Louis",
+            "label": "David Jacques-Louis"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Skinner__Francis",
+            "label": "Skinner Francis"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Euklid",
+            "label": "Euklid"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Russell__Bertrand",
+            "label": "Russell Bertrand"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Caesar__Gaius_Julius",
+            "label": "Caesar Gaius Julius"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Morgenstern__Christian",
+            "label": "Morgenstern Christian"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Kratylos",
+            "label": "Kratylos"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Sokrates",
+            "label": "Sokrates"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Napoleon_Bonaparte",
+            "label": "Napoleon Bonaparte"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Theaitetos",
+            "label": "Theaitetos"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Weininger__Otto",
+            "label": "Weininger Otto"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Rousseau__Jean-Jaques",
+            "label": "Rousseau Jean-Jaques"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Spengler__Oswald",
+            "label": "Spengler Oswald"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Nicod__Jean",
+            "label": "Nicod Jean"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Lichtenberg__Georg_Christoph",
+            "label": "Lichtenberg Georg Christoph"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Nietzsche__Friedrich",
+            "label": "Nietzsche Friedrich"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Wagner__Richard",
+            "label": "Wagner Richard"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Mozart__Wolfgang_Amadeus",
+            "label": "Mozart Wolfgang Amadeus"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Schubert__Franz",
+            "label": "Schubert Franz"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Rimbaud__Arthur",
+            "label": "Rimbaud Arthur"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Strauss__Johann_Jr.",
+            "label": "Strauss Johann Jr."
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Ernst__Paul",
+            "label": "Ernst Paul"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Busch__Wilhelm",
+            "label": "Busch Wilhelm"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Moses",
+            "label": "Moses"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Ramses_II",
+            "label": "Ramses II"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Haydn__Joseph",
+            "label": "Haydn Joseph"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Heinrich_IV",
+            "label": "Heinrich IV"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Gregor_VII",
+            "label": "Gregor VII"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Heinrich_VI",
+            "label": "Heinrich VI"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Strauss__Johann",
+            "label": "Strauss Johann"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Maler_Klecksel",
+            "label": "Maler Klecksel"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Zarathustra",
+            "label": "Zarathustra"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Moore__George_Edward",
+            "label": "Moore George Edward"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Shakespeare__William",
+            "label": "Shakespeare William"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Anzengruber__Ludwig",
+            "label": "Anzengruber Ludwig"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Hamlet",
+            "label": "Hamlet"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Freud__Sigmund",
+            "label": "Freud Sigmund"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Pythagoras",
+            "label": "Pythagoras"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Defoe__Daniel",
+            "label": "Defoe Daniel"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Driesch__Hans",
+            "label": "Driesch Hans"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Robinson_Crusoe",
+            "label": "Robinson Crusoe"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Neurath__Otto",
+            "label": "Neurath Otto"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Johnson__William_Ernest",
+            "label": "Johnson William Ernest"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Engelmann__Paul",
+            "label": "Engelmann Paul"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Hilbert__David",
+            "label": "Hilbert David"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Schanz__Frida",
+            "label": "Schanz Frida"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Tolstoj__Lew",
+            "label": "Tolstoj Lew"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Lear__King_of_Britain",
+            "label": "Lear King of Britain"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Johnson__Samuel",
+            "label": "Johnson Samuel"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Mendelssohn-Bartholdy__Felix",
+            "label": "Mendelssohn-Bartholdy Felix"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Orpheus",
+            "label": "Orpheus"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Eurydike",
+            "label": "Eurydike"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Genien",
+            "label": "Genien"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Horen",
+            "label": "Horen"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Eva",
+            "label": "Eva"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Bruckner__Anton",
+            "label": "Bruckner Anton"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Brahms__Johannes",
+            "label": "Brahms Johannes"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Kraus__Karl",
+            "label": "Kraus Karl"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Whitehead__Alfred_North",
+            "label": "Whitehead Alfred North"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Grillparzer__Franz",
+            "label": "Grillparzer Franz"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Darwin__Charles",
+            "label": "Darwin Charles"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Newton__Isaac",
+            "label": "Newton Isaac"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Kopernikus__Nikolaus",
+            "label": "Kopernikus Nikolaus"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Jesus_Christus",
+            "label": "Jesus Christus"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Schenk__Erich",
+            "label": "Schenk Erich"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Loos__Adolf",
+            "label": "Loos Adolf"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Nestroy__Johann_Nepomuk",
+            "label": "Nestroy Johann Nepomuk"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Fermat__Pierre_de",
+            "label": "Fermat Pierre de"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Boltzmann__Ludwig",
+            "label": "Boltzmann Ludwig"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Hertz__Heinrich",
+            "label": "Hertz Heinrich"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Sraffa__Piero",
+            "label": "Sraffa Piero"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Breuer__Josef",
+            "label": "Breuer Josef"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Drobil__Michael",
+            "label": "Drobil Michael"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Mahler__Gustav",
+            "label": "Mahler Gustav"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Rousseau__Henri",
+            "label": "Rousseau Henri"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Petersen__Carl_Olof",
+            "label": "Petersen Carl Olof"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Einstein__Albert",
+            "label": "Einstein Albert"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Dr_Komisch",
+            "label": "Dr Komisch"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Descartes__Rene",
+            "label": "Descartes Rene"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Beethoven__Ludwig_van",
+            "label": "Beethoven Ludwig van"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Ogden__Charles_Kay",
+            "label": "Ogden Charles Kay"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Broad__Charlie_Dunbar",
+            "label": "Broad Charlie Dunbar"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Carnap__Rudolf",
+            "label": "Carnap Rudolf"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Dirichlet__Peter_Gustav",
+            "label": "Dirichlet Peter Gustav"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Sheffer__Henry",
+            "label": "Sheffer Henry"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Riemann__Bernhard",
+            "label": "Riemann Bernhard"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Euler__Leonhard",
+            "label": "Euler Leonhard"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Liebig__Justus_von",
+            "label": "Liebig Justus von"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Dedekind__Richard",
+            "label": "Dedekind Richard"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Cantor__Georg",
+            "label": "Cantor Georg"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Spitzweg__Carl",
+            "label": "Spitzweg Carl"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Aristoteles",
+            "label": "Aristoteles"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Frazer__Sir_James",
+            "label": "Frazer Sir James"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Schenker__Heinrich",
+            "label": "Schenker Heinrich"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Kircher__Athanasius",
+            "label": "Kircher Athanasius"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Lagrange__Joseph-Louis_de",
+            "label": "Lagrange Joseph-Louis de"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Kepler__Johannes",
+            "label": "Kepler Johannes"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Schumann__Robert",
+            "label": "Schumann Robert"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Fizeau__Armand-Hippolyte-Louis",
+            "label": "Fizeau Armand-Hippolyte-Louis"
+         },
+                  {
+            "nodetype": "node",
+            "rdftype": ["http://purl.org/scho/ont/Person"],
+            "description": "Missing description",
+            "value": "http://purl.org/wittgensteinsource/instances/Rembrandt__Harmensz_van_Rijn",
+            "label": "Rembrandt Harmensz van Rijn"
+         },
+                  {
+            "nodetype": "container",
+            "rdftype": "http://www.w3.org/2000/01/rdf-schema#Class",
+            "description": "Person: A person, fictive, semi-historical or historical. Example of instance:\n            Socrates; Moses; WittgensteinPaul.",
+            "value": "http://purl.org/scho/ont/Person",
+            "children":             [
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Wittgenstein__Ludwig"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Skolem__Thoralf"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Mach__Ernst"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Brouwer__Luitzen"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Galton__Francis"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Goldbach__Christian_von"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Kant__Immanuel"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Buridan__Johannes"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Heraklit"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Eddington__Arthur_Stanley"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Epimenides"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Kronecker__Leopold"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Goethe__Johann_Wolfgang_von"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Ursell__Harold_Douglas"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Frege__Gottlob"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Carroll__Lewis"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Augustinus__Aurelius"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Platon"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/James__William"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Briand__Aristide"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Ramsey__Frank_Plumpton"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Schopenhauer__Arthur"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Ostade__Adriaen_van"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/David__Jacques-Louis"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Skinner__Francis"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Euklid"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Russell__Bertrand"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Caesar__Gaius_Julius"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Morgenstern__Christian"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Kratylos"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Sokrates"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Napoleon_Bonaparte"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Theaitetos"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Weininger__Otto"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Rousseau__Jean-Jaques"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Spengler__Oswald"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Nicod__Jean"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Lichtenberg__Georg_Christoph"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Nietzsche__Friedrich"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Wagner__Richard"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Mozart__Wolfgang_Amadeus"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Schubert__Franz"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Rimbaud__Arthur"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Strauss__Johann_Jr."},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Ernst__Paul"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Busch__Wilhelm"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Moses"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Ramses_II"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Haydn__Joseph"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Heinrich_IV"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Gregor_VII"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Heinrich_VI"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Strauss__Johann"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Maler_Klecksel"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Zarathustra"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Moore__George_Edward"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Shakespeare__William"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Anzengruber__Ludwig"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Hamlet"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Freud__Sigmund"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Pythagoras"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Defoe__Daniel"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Driesch__Hans"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Robinson_Crusoe"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Neurath__Otto"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Johnson__William_Ernest"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Engelmann__Paul"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Hilbert__David"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Schanz__Frida"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Tolstoj__Lew"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Lear__King_of_Britain"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Johnson__Samuel"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Mendelssohn-Bartholdy__Felix"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Orpheus"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Eurydike"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Genien"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Horen"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Eva"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Bruckner__Anton"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Brahms__Johannes"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Kraus__Karl"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Whitehead__Alfred_North"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Grillparzer__Franz"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Darwin__Charles"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Newton__Isaac"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Kopernikus__Nikolaus"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Jesus_Christus"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Schenk__Erich"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Loos__Adolf"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Nestroy__Johann_Nepomuk"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Fermat__Pierre_de"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Boltzmann__Ludwig"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Hertz__Heinrich"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Sraffa__Piero"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Breuer__Josef"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Drobil__Michael"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Mahler__Gustav"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Rousseau__Henri"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Petersen__Carl_Olof"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Einstein__Albert"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Dr_Komisch"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Descartes__Rene"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Beethoven__Ludwig_van"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Ogden__Charles_Kay"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Broad__Charlie_Dunbar"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Carnap__Rudolf"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Dirichlet__Peter_Gustav"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Sheffer__Henry"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Riemann__Bernhard"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Euler__Leonhard"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Liebig__Justus_von"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Dedekind__Richard"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Cantor__Georg"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Spitzweg__Carl"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Aristoteles"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Frazer__Sir_James"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Schenker__Heinrich"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Kircher__Athanasius"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Lagrange__Joseph-Louis_de"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Kepler__Johannes"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Schumann__Robert"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Fizeau__Armand-Hippolyte-Louis"},
+               {"_reference": "http://purl.org/wittgensteinsource/instances/Rembrandt__Harmensz_van_Rijn"}
+            ],
+            "label": "Person",
+            "is_root_node": true
          }
       ],
       "vocab_type": "subjects",
