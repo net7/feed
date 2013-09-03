@@ -37,7 +37,7 @@ var punditConfig = {
         },
 
         'pundit.NamedContentHandler': {
-            active: true 
+            active: false
         },
         'pundit.NotebookManager': {
             active: true
