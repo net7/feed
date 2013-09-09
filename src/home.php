@@ -1,12 +1,12 @@
 <?php
     $sources = 
         '['.
-            '"http://burckhardtsource.org/resources/letter/oskar-eisenmann-1884-03-29.rdf",' .
-            '"http://burckhardtsource.org/resources/letter/wilhelm-von-bode-1884-11-07.rdf",' .
-            '"http://burckhardtsource.org/resources/letter/wilhelm-von-bode-1889-12-30.rdf",' .
-            '"http://burckhardtsource.org/resources/letter/wilhelm-von-bode-1887-07-11.rdf",' .
-            '"http://burckhardtsource.org/resources/letter/gustavo-frizzoni-1888-11-15.rdf",' .
-            '"http://burckhardtsource.org/resources/letter/pier-desiderio-pasolini-1891-05-02.rdf",' .
+            '"http://burckhardtsource.org/letter/117.rdf",' .
+            '"http://burckhardtsource.org/letter/3.rdf",' .
+            '"http://burckhardtsource.org/letter/59.rdf",' .
+            '"http://burckhardtsource.org/letter/53.rdf",' .
+            '"http://burckhardtsource.org/letter/56.rdf",' .
+            '"http://burckhardtsource.org/letter/427.rdf",' .
 
             '"http://www.wittgensteinsource.org/Ts-310,5[3]et6[1]_n.rdf",' .
             '"http://www.wittgensteinsource.org/Ts-310,2[2]et3[1]et3a[1]et4[1]_n.rdf",' .
