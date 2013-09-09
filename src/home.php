@@ -5,7 +5,7 @@
             '"http://burckhardtsource.org/letter/3.rdf",' .
             '"http://burckhardtsource.org/letter/59.rdf",' .
             '"http://burckhardtsource.org/letter/53.rdf",' .
-            '"http://burckhardtsource.org/letter/56.rdf",' .
+            '"http://burckhardtsource.org/letter/16.rdf",' .
             '"http://burckhardtsource.org/letter/427.rdf",' .
 
             '"http://www.wittgensteinsource.org/Ts-310,5[3]et6[1]_n.rdf",' .
