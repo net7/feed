@@ -56,6 +56,9 @@ var punditConfig = {
         },
         
         'selectors': {
+            'EuropeanaEDM': {
+                active: false
+            }
             /*
             'KorboBasket': {
                 name: 'korbo', 
