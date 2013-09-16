@@ -6,7 +6,8 @@ var punditConfig = {
 
     vocabularies: [
         'http://feed.thepund.it/pundit_vocabs/witt_subjects_taxonomy_v.1.3.json',
-        'http://feed.thepund.it/pundit_vocabs/witt_relations_v.1.4.json'  
+        'http://feed.thepund.it/pundit_vocabs/witt_persons_taxonomy_v.1.3.json',
+        'http://feed.thepund.it/pundit_vocabs/witt_relations_v.1.4.json'
     ],
     
 
