@@ -6,10 +6,7 @@ var punditConfig = {
 
     annotationServerBaseURL : 'http://as.thepund.it:8080/annotationserver/',
 
-    vocabularies: [
-        "http://manager.korbo.org/92?jsonp=_PUNDIT.vocab.initJsonpVocab",
-        "http://manager.korbo.org/91?jsonp=_PUNDIT.vocab.initJsonpVocab"
-    ],
+    vocabularies: [],
 
     useBasicRelations: false,
 
@@ -19,10 +16,15 @@ var punditConfig = {
             active: false 
         },
 
+        'pundit.TooltipAnnotationViewer': {
+            showInvalidXPointers: true,
+            debug: false
+        },
+
         'pundit.Help': {
             introductionFile: '/introductions/intro-burckhardt.html',
             introductionWindowTitle: "Welcome to BurckhardtSource Pundit!",
-            showIntroductionAtLogin: true
+            showIntroductionAtLogin: false
         },
         
         'pundit.ContactHelper': {
@@ -39,10 +41,10 @@ var punditConfig = {
             active: false
         },
         'pundit.ImageFragmentHandler': {
-            active: true
+            active: false
         },
         'pundit.ImageAnnotationPanel': {
-            active: true
+            active: false
         },
         'pundit.PageHandler': {
             active: false
@@ -51,14 +53,11 @@ var punditConfig = {
             active: false
         },
         'pundit.CommentTagPanel': {
-            active: true,
+            active: false,
             enableEntitiesExtraction: false
         },
         
         'selectors': {
-            'EuropeanaEDM': {
-                active: false
-            }
             /*
             'KorboBasket': {
                 name: 'korbo', 
