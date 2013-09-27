@@ -8,7 +8,8 @@ var punditConfig = {
 
     vocabularies: [
 
-	'http://metasound.dibet.univpm.it/marinelives/Marinelives-Ships.json'
+	'http://metasound.dibet.univpm.it/marinelives/Marinelives-Ships.json',
+    'http://metasound.dibet.univpm.it/marinelives/Marinelives-Relations.json'
 
     ],
 
