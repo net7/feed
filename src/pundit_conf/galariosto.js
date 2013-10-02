@@ -2,7 +2,7 @@ var punditConfig = {
 
     debugAllModules: false,
 
-    annotationServerBaseURL: "http://demo.as.thepund.it:8080/annotationserver/",
+    annotationServerBaseURL: "http://as.thepund.it:8080/annotationserver/",
 
     vocabularies: [
         "http://manager.korbo.org/103?jsonp=_PUNDIT.vocab.initJsonpVocab",
@@ -46,11 +46,16 @@ var punditConfig = {
             active: true,
             enableEntitiesExtraction: false
         },
-        
-        
+                
         'selectors': {
             'EuropeanaEDM': {
                 active: false
+            },
+            'Muruca': {
+                active: true,
+                name: 'muruca',
+                label: 'Azioni',
+                MurucaReconURL: "http://demo2.galassiaariosto.netseven.it/reconcile"
             }
         },
         
