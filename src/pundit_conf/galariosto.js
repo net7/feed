@@ -2,7 +2,7 @@ var punditConfig = {
 
     debugAllModules: false,
 
-    annotationServerBaseURL: "http://as.thepund.it:8080/annotationserver/",
+    annotationServerBaseURL: "http://demo.as.thepund.it:8080/annotationserver/",
 
     vocabularies: [
         "http://manager.korbo.org/103?jsonp=_PUNDIT.vocab.initJsonpVocab",
