@@ -27,6 +27,14 @@ var punditConfig = {
             active: false
         },
         
+        'pundit.NotebookManager': { 
+            active: true, 
+            notebookSharing: false,
+            notebookActivation: false,
+            showFilteringOptions: false,
+            askBaseURL: 'http://ask.as.thepund.it/#/myNotebooks/'
+        },
+        
         'selectors': {
             
             'Freebase': {
