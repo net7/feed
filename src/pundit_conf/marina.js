@@ -19,7 +19,7 @@ var punditConfig = {
     modules: {
         
         'pundit.Help': {
-            introductionFile: 'http://metasound.dibet.univpm.it/timelinejs/pundit_conf/marinelive-introduction.html',
+            introductionFile: 'http://metasound.dibet.univpm.it/marinelives/marinelive-introduction.html',
             introductionWindowTitle: 'Welcome to Pundit! :)',
             showIntroductionAtLogin: true
         },
