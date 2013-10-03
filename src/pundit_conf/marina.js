@@ -19,8 +19,8 @@ var punditConfig = {
     modules: {
         
         'pundit.Help': {
-            introductionFile: 'example-introduction.html',
-            introductionWindowTitle: 'Welcome to Pundit examples! :)',
+            introductionFile: 'http://metasound.dibet.univpm.it/timelinejs/pundit_conf/marinelive-introduction.html',
+            introductionWindowTitle: 'Welcome to Pundit! :)',
             showIntroductionAtLogin: true
         },
         'pundit.NamedContentHandler': {
