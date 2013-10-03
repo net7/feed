@@ -4,7 +4,7 @@ var punditConfig = {
 
     debugAllModules: false,
 
-    // annotationServerBaseURL : '',
+    annotationServerBaseURL : 'http://as.thepund.it:8080/annotationserver/',
 
     vocabularies: [
 
