@@ -13,7 +13,7 @@ var punditConfig = {
 
     ],
 
-    useBasicRelations: true,
+    useBasicRelations: false,
 
     modules: {
         
