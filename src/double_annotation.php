@@ -20,6 +20,13 @@ $ls=new Scraper($_GET['lurl']);
 <html>
     <head>
         <?php renderHead(); ?>
+        <?php if ($css1 = $rs->getStylesheet()) { ?>
+            <link rel="stylesheet" href="<?php echo $css1; ?>" type="text/css">
+        <?php } ?>
+        <?php if (($css2 = $ls->getStylesheet()) && $css1 != $css2) { ?>
+            <link rel="stylesheet" href="<?php echo $css2; ?>" type="text/css">
+        <?php } ?>
+
         <link rel="stylesheet" href="css/feed.css" type="text/css">
 
     </head>

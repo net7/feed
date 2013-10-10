@@ -12,8 +12,11 @@ $s=new Scraper($_GET['url']);
 <html>
     <head>
         <?php renderHead(); ?>
+        <?php if ($css = $s->getStylesheet()) { ?>
+            <link rel="stylesheet" href="<?php echo $css; ?>" type="text/css">
+        <?php } ?>
+        
         <link rel="stylesheet" href="css/feed.css" type="text/css">
-
     </head>
     <body class="clearfix">
         <div class="feed-space pundit-disable-annotation">&nbsp;</div>

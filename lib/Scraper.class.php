@@ -11,6 +11,7 @@ class Scraper {
     private $punditContent;
     private $prev = false;
     private $next = false;
+    private $stylesheet = false;
 
     /**
      * Public contructor set URL to be scraped
@@ -18,7 +19,7 @@ class Scraper {
      * TODO: Test
      * @param type $url 
      */
-    public function __construct($url,$urlType=NULL) {
+    public function __construct($url, $urlType=NULL) {
         $this->url = $url;
         if (!$this->isUrlValid())
             throw new Exception('Url is not VALID');
@@ -72,6 +73,10 @@ class Scraper {
             return 'http://'. $s .'/?rurl='. $this->prev .'&lurl='. $_REQUEST['lurl'] .'&conf='. $_REQUEST['conf'];
         }
     }
+    public function getStylesheet() {
+        return $this->stylesheet;
+    }
+    
     public function getComment() {
         return $this->comment;
     }
@@ -113,7 +118,7 @@ class Scraper {
     }
 
     /**
-     * Retrieve pundit content throough the content neg
+     * Retrieve pundit content through the content neg
      * // TODO: ALL!!!!!
      */
     private function retrievePunditContent() {
@@ -139,6 +144,7 @@ class Scraper {
         $this->label = $this->extractLabelByDom($dom);
         $this->next = $this->extractNextResourceByDom($dom);
         $this->prev = $this->extractPrevResourceByDom($dom);
+        $this->stylesheet = $this->extractStylesheetByDom($dom);
 
         $this->comment = $this->extractCommentByDom($dom);
         $this->annotableVersionAt = $this->extractAnnotableVersionByDom($dom);
@@ -183,6 +189,9 @@ class Scraper {
     }
     private function extractPrevResourceByDom(DOMDocument $dom) {
         return $this->extractAttributeValueByDom($dom, 'prevResource', 'rdf:resource');
+    }
+    private function extractStylesheetByDom(DOMDocument $dom) {
+        return $this->extractAttributeValueByDom($dom, 'hasStyleSheet', 'rdf:resource');
     }
     
     private function extractTagValueByDom(DOMDocument $dom,$tagname) {
