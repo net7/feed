@@ -52,12 +52,23 @@ var punditConfig = {
             'DBPedia': { active: false },
             'EuropeanaEDM': { active: false },
             'Wordnet': { active: false },
-            'Muruca': {
-                active: true,
-                name: 'muruca',
-                label: 'Azioni',
-                MurucaReconURL: "http://demo2.galassiaariosto.netseven.it/reconcile"
-            }
+            'Muruca': [
+                {
+                    queryTypes: ['http://purl.org/galassiariosto/types/Azione'],
+                    name: 'murucaazioni',
+                    label: 'Azioni',
+                    MurucaReconURL: "http://demo2.galassiaariosto.netseven.it/reconcile",
+                    active: true
+                },
+                {
+                    queryTypes: ['http://purl.org/galassiariosto/types/Scena'],
+                    name: 'murucascene',
+                    label: 'Scene',
+                    MurucaReconURL: "http://demo2.galassiaariosto.netseven.it/reconcile",
+                    active: false
+                }
+            ]
+
         },
         
         'annotators': {}
