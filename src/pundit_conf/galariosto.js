@@ -48,9 +48,10 @@ var punditConfig = {
         },
                 
         'selectors': {
-            'EuropeanaEDM': {
-                active: false
-            },
+            'Freebase': { active: false },
+            'DBPedia': { active: false },
+            'EuropeanaEDM': { active: false },
+            'Wordnet': { active: false },
             'Muruca': {
                 active: true,
                 name: 'muruca',
