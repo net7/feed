@@ -54,18 +54,25 @@ var punditConfig = {
             'Wordnet': { active: false },
             'Muruca': [
                 {
-                    queryTypes: ['http://purl.org/galassiariosto/types/Azione'],
+                    queryType: 'http://purl.org/galassiariosto/types/Azione',
                     name: 'murucaazioni',
                     label: 'Azioni',
                     MurucaReconURL: "http://demo2.galassiaariosto.netseven.it/reconcile",
                     active: true
                 },
                 {
-                    queryTypes: ['http://purl.org/galassiariosto/types/Scena'],
+                    queryType: 'http://purl.org/galassiariosto/types/Scena',
                     name: 'murucascene',
                     label: 'Scene',
                     MurucaReconURL: "http://demo2.galassiaariosto.netseven.it/reconcile",
-                    active: false
+                    active: true
+                },
+                {
+                    queryType: 'http://purl.org/galassiariosto/types/Ecphrasis',
+                    name: 'murucaecphrasis',
+                    label: 'Ecphrasis',
+                    MurucaReconURL: "http://demo2.galassiaariosto.netseven.it/reconcile",
+                    active: true
                 }
             ]
 
