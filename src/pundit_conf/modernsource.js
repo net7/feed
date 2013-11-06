@@ -31,7 +31,7 @@ var punditConfig = {
         },
     
         'pundit.NotebookManager': {
-            active: false
+            active: true
         },
         'pundit.CommentTagPanel': {
             active: true,
