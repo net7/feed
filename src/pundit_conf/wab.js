@@ -47,6 +47,7 @@ var punditConfig = {
             active: false
         },
         'pundit.NotebookManager': {
+            showFilteringOptions: false,
             active: true
         },
         'pundit.ImageFragmentHandler': {
