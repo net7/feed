@@ -20,6 +20,12 @@ var punditConfig = {
             introductionWindowTitle: "Welcome to WittgensteinSource's Pundit!",
             showIntroductionAtLogin: true
         },
+        
+        'pundit.TooltipAnnotationViewer': {
+            showInvalidXPointers: true,
+            allowAnnotationEdit: true,
+            debug: false
+        },
 
         'pundit.ContactHelper': {
             instances: [
