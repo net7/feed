@@ -1,6 +1,6 @@
 <?php
 try {
-    $s = new Scraper($_GET['img'], 'img');
+    $s = new Scraper($_GET['dm2e'], 'dm2e');
 } catch (Exception $e) {
     echo $e->getMessage();
     die();
@@ -10,13 +10,15 @@ try {
 <!doctype html>
 <html>
     <head>
-        <?php renderHead(); ?>
+        <?php 
+            renderHead(); 
+        ?>
         <link rel="stylesheet" href="css/feed.css" type="text/css">
 
     </head>
     <body class="clearfix">
         <div class="feed-space pundit-disable-annotation">&nbsp;</div>
-        <?php renderPunditContent($s) ; ?>
+        <?php renderPunditContent($s); ?>
         <?php renderFooter(); ?>
     </body>
 </html>
