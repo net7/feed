@@ -1,5 +1,8 @@
 <?php
 
+require_once "easyrdf-0.8.0/lib/EasyRdf.php";
+
+
 class Scraper {
 
     private $url;
@@ -30,7 +33,24 @@ class Scraper {
         $this->setUrlType($urlType);
         $this->retrievePunditContent();
     }
-    
+
+    public function getFinalUrl($url) {
+        $furl = false;
+        // First check response headers
+        $headers = get_headers($url);
+        // Test for 301, 302 or 303
+        if(preg_match('/^HTTP\/\d\.\d\s+(301|302|303)/',$headers[0])) {
+            foreach($headers as $value) {
+                if(substr(strtolower($value), 0, 9) == "location:") {
+                    $furl = trim(substr($value, 9, strlen($value)));
+                }
+            }
+        }
+        // Set final URL
+        $furl = ($furl) ? $furl : $url;
+        return $furl;
+    }
+
     private function setUrlType($urlType) {
         $allowed_types = array ('default', 'img', 'dm2e');
         if($urlType==null) $this->urlType = 'default';
@@ -101,6 +121,8 @@ class Scraper {
 
         if ($requestUrl == '')
             $requestUrl = $this->url;
+
+        $requestUrl = $this->getFinalUrl($requestUrl);
 
         $request = curl_init();
         curl_setopt($request, CURLOPT_URL, $requestUrl);
@@ -262,6 +284,7 @@ class Scraper {
         $aggregation = $dom->getElementsByTagName('Aggregation')->item(0);
         $annotableNode = $aggregation->getElementsByTagName('hasAnnotatableVersionAt')->item(0);
         $annotable = $annotableNode->getElementsByTagName('Description')->item(0)->getAttribute('rdf:about');
+
         return $annotable;
     }
 
