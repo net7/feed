@@ -1,0 +1,172 @@
+_PUNDIT.vocab.initJsonpVocab({
+    "result":    {
+        "vocab_label": "WAB:Relations",
+        "items":       [
+            {},
+            {
+                "range": ["http://purl.org/scho/ont/Person"],
+                "nodetype": "node",
+                "rdftype": ["http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"],
+                "description": "hasAuthor",
+                "domain":             [
+                    "http://purl.org/wittgensteinsource/ont/Letter",
+                    "http://purl.org/wittgensteinsource/ont/Chapter",
+                    "http://purl.org/pundit/ont/ao#fragment-text",
+                    "http://purl.org/wittgensteinsource/ont/WittgensteinExternalSource",
+                    "http://purl.org/wittgensteinsource/ont/Part",
+                    "http://purl.org/wittgensteinsource/ont/Bemerkung",
+                    "http://purl.org/scho/ont/Source",
+                    "http://purl.org/wittgensteinsource/ont/MS",
+                    "http://purl.org/scho/ont/PrimarySource",
+                    "http://purl.org/wittgensteinsource/ont/TS",
+                    "http://purl.org/wittgensteinsource/ont/WittgensteinSource",
+                    "http://purl.org/wittgensteinsource/ont/Werk",
+                    "http://purl.org/scho/ont/SecondarySource",
+                    "http://purl.org/wittgensteinsource/ont/Sentence"
+                ],
+                "value": "http://purl.org/scho/ont/hasAuthor",
+                "label": "hasAuthor"
+            },
+            {
+                "range":             [
+                    "http://purl.org/scho/ont/Point",
+                    "http://purl.org/scho/ont/Field",
+                    "http://purl.org/scho/ont/Perspective",
+                    "http://purl.org/scho/ont/Place",
+                    "http://purl.org/scho/ont/Issue"
+                ],
+                "nodetype": "node",
+                "rdftype": ["http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"],
+                "description": "Discusses",
+                "domain":             [
+                    "http://purl.org/scho/ont/PrimarySource",
+                    "http://purl.org/pundit/ont/ao#fragment-text",
+                    "http://purl.org/scho/ont/SecondarySource"
+                ],
+                "value": "http://purl.org/wittgensteinsource/ont/discusses",
+                "label": "discusses"
+            },
+            {
+                "range": ["http://www.w3.org/2000/01/rdf-schema#Literal"],
+                "description": "A textual comment",
+                "rdftype": ["http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"],
+                "value": "http://schema.org/comment",
+                "label": "comment (text)",
+                "type": "predicate"
+            },
+
+            {
+                "range":             [
+                    "http://purl.org/wittgensteinsource/ont/MS",
+                    "http://purl.org/wittgensteinsource/ont/TS",
+                    "http://purl.org/wittgensteinsource/ont/WittgensteinSource",
+                    "http://purl.org/wittgensteinsource/ont/Letter",
+                    "http://purl.org/wittgensteinsource/ont/Werk",
+                    "http://purl.org/wittgensteinsource/ont/Chapter",
+                    "http://purl.org/pundit/ont/ao#fragment-text",
+                    "http://purl.org/wittgensteinsource/ont/Part",
+                    "http://purl.org/wittgensteinsource/ont/Bemerkung",
+                    "http://purl.org/wittgensteinsource/ont/Sentence"
+                ],
+                "nodetype": "node",
+                "rdftype": ["http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"],
+                "description": "isPartOf",
+                "domain":             [
+                    "http://purl.org/pundit/ont/ao#fragment-text",
+                    "http://purl.org/wittgensteinsource/ont/Part",
+                    "http://purl.org/wittgensteinsource/ont/Bemerkung"
+                ],
+                "value": "http://purl.org/wittgensteinsource/ont/isPartOf",
+                "label": "isPartOf"
+            },
+            {
+                "range":             [
+                    "http://purl.org/wittgensteinsource/ont/Werk",
+                    "http://purl.org/pundit/ont/ao#fragment-text",
+                    "http://purl.org/wittgensteinsource/ont/Part"
+                ],
+                "nodetype": "node",
+                "rdftype": ["http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"],
+                "description": "isPublishedInWork",
+                "domain":             [
+                    "http://purl.org/pundit/ont/ao#fragment-text",
+                    "http://purl.org/wittgensteinsource/ont/Bemerkung"
+                ],
+                "value": "http://purl.org/wittgensteinsource/ont/isPublishedInWork",
+                "label": "isPublishedInWork"
+            },
+            {
+                "range":             [
+                    "http://purl.org/wittgensteinsource/ont/Werk",
+                    "http://purl.org/scho/ont/Person",
+                    "http://purl.org/pundit/ont/ao#fragment-text",
+                    "http://purl.org/wittgensteinsource/ont/WittgensteinExternalSource",
+                    "http://purl.org/wittgensteinsource/ont/Bemerkung"
+                ],
+                "nodetype": "node",
+                "rdftype": ["http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"],
+                "description": "refersTo",
+                "domain":             [
+                    "http://purl.org/wittgensteinsource/ont/WittgensteinSource",
+                    "http://purl.org/pundit/ont/ao#fragment-text",
+                    "http://purl.org/scho/ont/SecondarySource"
+                ],
+                "value": "http://purl.org/wittgensteinsource/ont/refersTo",
+                "label": "refersTo"
+            },
+            {
+                "range": ["http://purl.org/scho/ont/Point"],
+                "nodetype": "node",
+                "rdftype": ["http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"],
+                "description": "isContra",
+                "domain":             [
+                    "http://purl.org/pundit/ont/ao#fragment-text",
+                    "http://purl.org/wittgensteinsource/ont/Bemerkung"
+                ],
+                "value": "http://purl.org/wittgensteinsource/ont/isContra",
+                "label": "isContra"
+            },
+            {
+                "nodetype": "node",
+                "rdftype": ["http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"],
+                "description": "A generic relation between a text and an other entity (including other text).",
+                "domain":             [
+                    "http://purl.org/pundit/ont/ao#fragment-text"
+                ],
+                "value": "http://purl.org/wittgensteinsource/ont/relatesTo",
+                "label": "relates to"
+            },
+            {
+                "nodetype": "node",
+                "rdftype": ["http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"],
+                "description": "Connects a text to its translation in an other language",
+                "domain":             [
+                    "http://purl.org/pundit/ont/ao#fragment-text"
+                ],
+                "range":             [
+                    "http://purl.org/pundit/ont/ao#fragment-text"
+                ],
+                "value": "http://purl.org/wittgensteinsource/ont/hasTranslation",
+                "label": "has translation"
+            },
+            {
+                "nodetype": "node",
+                "rdftype": ["http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"],
+                "description": "Connects a text to a text that is a revision of it.",
+                "domain":             [
+                    "http://purl.org/pundit/ont/ao#fragment-text"
+                ],
+                "range":             [
+                    "http://purl.org/pundit/ont/ao#fragment-text"
+                ],
+                "value": "http://purl.org/wittgensteinsource/ont/hasRevision",
+                "label": "has revision"
+            }
+            
+        ],
+        "vocab_type": "predicates",
+        "vocab_id": "3"
+    },
+    "error_message": "OK",
+    "error_code": "200"
+    } )

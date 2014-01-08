@@ -2,7 +2,7 @@ var punditConfig = {
 
     debugAllModules: false,
 
-    annotationServerBaseURL: "http://as.thepund.it:8080/annotationserver/",
+    annotationServerBaseURL: "http://demo.as.thepund.it:8080/annotationserver/",
 
     vocabularies: [
         'http://feed.thepund.it/pundit_vocabs/witt_subjects_taxonomy_v.1.3.json',
@@ -19,12 +19,6 @@ var punditConfig = {
             introductionFile: '/introductions/intro-wab.html',
             introductionWindowTitle: "Welcome to WittgensteinSource's Pundit!",
             showIntroductionAtLogin: true
-        },
-        
-        'pundit.TooltipAnnotationViewer': {
-            showInvalidXPointers: true,
-            allowAnnotationEdit: true,
-            debug: false
         },
 
         'pundit.ContactHelper': {
@@ -47,7 +41,6 @@ var punditConfig = {
             active: false
         },
         'pundit.NotebookManager': {
-            showFilteringOptions: false,
             active: true
         },
         'pundit.ImageFragmentHandler': {

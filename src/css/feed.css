@@ -69,4 +69,11 @@
     margin: 5px 10px;
 }
 
-.pundit-content { float: left; }
+.pundit-content { 
+    /* TODO: why float left here? */
+    /* float: left; */
+}
+
+.pundit-content .annotable-image {
+    width: 100%;
+}

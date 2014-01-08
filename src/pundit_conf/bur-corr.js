@@ -7,9 +7,7 @@ var punditConfig = {
     annotationServerBaseURL : 'http://as.thepund.it:8080/annotationserver/',
 
     vocabularies: [
-        "http://manager.korbo.org/92?jsonp=_PUNDIT.vocab.initJsonpVocab",
-        "http://manager.korbo.org/91?jsonp=_PUNDIT.vocab.initJsonpVocab"
-    ],
+       ],
 
     useBasicRelations: false,
 
@@ -20,29 +18,21 @@ var punditConfig = {
         },
 
         'pundit.Help': {
-            introductionFile: '/introductions/intro-burckhardt.html',
-            introductionWindowTitle: "Welcome to BurckhardtSource Pundit!",
-            showIntroductionAtLogin: true
+			active: false
         },
         
         'pundit.ContactHelper': {
-            instances: [
-                {
-                    title: 'Contact us',
-                    comment: 'If you need help or have suggestions for BurckhardtSource, send us your thoughts!',
-                    list: 'burckhardt'
-                }
-            ]
+			active: false
         },
         
         'pundit.NotebookManager': {
             active: false
         },
         'pundit.ImageFragmentHandler': {
-            active: true
+            active: false
         },
         'pundit.ImageAnnotationPanel': {
-            active: true
+            active: false
         },
         'pundit.PageHandler': {
             active: false
@@ -53,6 +43,9 @@ var punditConfig = {
         'pundit.CommentTagPanel': {
             active: true,
             enableEntitiesExtraction: false
+        },
+        'pundit.fasttexthandler': {
+            active: false
         },
         
         'selectors': {
