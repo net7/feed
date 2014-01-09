@@ -6,6 +6,7 @@ require_once "easyrdf-0.8.0/lib/EasyRdf.php";
 class Scraper {
 
     private $url;
+    private $resolvedUrl;
     private $urlType;
     private $label;
     private $comment;
@@ -19,6 +20,7 @@ class Scraper {
     private $dm2ePrev = false;
     private $dm2eNext = false;
     private $stylesheet = false;
+    private $dm2eGraph;
 
     /**
      * Public contructor set URL to be scraped
@@ -28,10 +30,13 @@ class Scraper {
      */
     public function __construct($url, $urlType=NULL) {
         $this->url = $url;
+        $this->resolvedUrl = $this->getFinalUrl($url);
+
         if (!$this->isUrlValid())
             throw new Exception('Url is not VALID');
         $this->setUrlType($urlType);
         $this->retrievePunditContent();
+
     }
 
     public function getFinalUrl($url) {
@@ -175,26 +180,38 @@ class Scraper {
         $url = $this->url;
         $this->punditContent = $url;
 
+        $this->dm2eGraph = EasyRdf_Graph::newAndLoad($url);
+
+        EasyRdf_Namespace::set('edm','http://www.europeana.eu/schemas/edm/');
+        EasyRdf_Namespace::set('dm2e','http://onto.dm2e.eu/schemas/dm2e/1.1/');
+        $this->nsDc = EasyRdf_Namespace::prefixOfUri('http://purl.org/dc/elements/1.1/');
+        $this->nsDct = EasyRdf_Namespace::prefixOfUri('http://purl.org/dc/terms/');
+
+
+
+        $this->annotableVersionAt = $this->extractDm2eAnnotableVersionByDom();
+        $this->aggregatedCHO = $this->extractDm2eAggregatedCHO();
+        $this->format = $this->extractDm2eAnnotableFormatByDom();
+        $this->label = $this->extractDm2eTitleByDom();
+        $this->comment = $this->extractDm2eCommentByDom();
+        $this->dm2eNext = $this->extractDm2eNextByDom();
+        $this->dm2ePrev = $this->extractDm2ePrevByDom();
+
+        /*  TODO uncomment this
         $rdf = $this->doCurlRequest('application/rdf+xml');
         $dom = new DOMDocument();
         $dom->loadXML($rdf);
 
-        $this->aggregatedCHO = $this->extractDm2eAggregatedCHO($dom);
 
-        /*
-        // Not needed to jump to another RDF
-        $rdf2 = $this->doCurlRequest('application/rdf+xml', $this->aggregatedCHO);
-        $dom2 = new DOMDocument();
-        $dom2->loadXML($rdf2);
-        */
-        
+        $this->aggregatedCHO = $this->extractDm2eAggregatedCHO($dom);
         $this->annotableVersionAt = $this->extractDm2eAnnotableVersionByDom($dom);
         $this->format = $this->extractDm2eAnnotableFormatByDom($dom);
         $this->label = $this->extractDm2eTitleByDom($dom);
         $this->comment = $this->extractDm2eCommentByDom($dom);
         $this->dm2eNext = $this->extractDm2eNextByDom($dom);
         $this->dm2ePrev = $this->extractDm2ePrevByDom($dom);
-        
+
+        */
         // TODO: get next and prev, comment?
         // http://lelystad.informatik.uni-mannheim.de:3000/direct/html/ingested/item/onb/codices/AL00070711-31
         
@@ -268,65 +285,52 @@ class Scraper {
         return $this->extractTagValueByDom($dom, 'label');
     }
 
-    private function extractDm2eTitleByDom(DOMDocument $dom) {
-        return $this->extractTagValueByDom($dom, 'title');
+    private function extractDm2eTitleByDom() {
+        return $this->dm2eGraph->get($this->url, $this->nsDct . ':title');
     }
 
-    private function extractDm2eCommentByDom(DOMDocument $dom) {
-        return $this->extractTagValueByDom($dom, 'description');
+    private function extractDm2eCommentByDom() {
+        return $this->dm2eGraph->get($this->url, $this->nsDct . ':description');
     }
     
     private function extractCommentByDom(DOMDocument $dom) {
         return $this->extractTagValueByDom($dom, 'comment');
     }
 
-    private function extractDm2eAnnotableVersionByDom(DOMDocument $dom) {
-        $aggregation = $dom->getElementsByTagName('Aggregation')->item(0);
-        $annotableNode = $aggregation->getElementsByTagName('hasAnnotatableVersionAt')->item(0);
-        $annotable = $annotableNode->getElementsByTagName('Description')->item(0)->getAttribute('rdf:about');
+    private function extractDm2eAnnotableVersionByDom() {
+        $aggs = $this->dm2eGraph->resourcesMatching('edm:aggregatedCHO');
 
-        return $annotable;
+        return  $aggs[0]->get('dm2e:hasAnnotatableVersionAt');
     }
 
-    private function extractDm2eAnnotableFormatByDom(DOMDocument $dom) {
-        $aggregation = $dom->getElementsByTagName('Aggregation')->item(0);
-        $annotableNode = $aggregation->getElementsByTagName('hasAnnotatableVersionAt')->item(0);
-        $format = $annotableNode->getElementsByTagName('format')->item(0)->nodeValue;
-        return $format;
+    private function extractDm2eAnnotableFormatByDom() {
+        $aggs = $this->dm2eGraph->resourcesMatching('edm:aggregatedCHO');
+        $annotableVersion = $aggs[0]->get('dm2e:hasAnnotatableVersionAt');
+
+        return $annotableVersion->get($this->nsDc . ':format');
     }
 
-    private function extractDm2eAggregatedCHO(DOMDocument $dom) {
-        $val = false;
-        $values = $dom->getElementsByTagName('aggregatedCHO');
-        foreach ($values as $value){
-           $node = $value->getAttribute('rdf:resource');
-           $val = $value->parentNode->getAttribute('rdf:about');
-        }
-        return $val;
+    private function extractDm2eAggregatedCHO() {
+        $aggs = $this->dm2eGraph->resourcesMatching('edm:aggregatedCHO');
+
+        return $aggs[0];
     }
     
-    private function extractDm2eNextByDom(DOMDocument $dom) {
-        $resmap1 = $dom->getElementsByTagName('resourcemap')->item(0);
-        $res = $resmap1->getElementsByTagName('ProvidedCHO')->item(0);
-        $about = $res->getAttribute('rdf:about');
+    private function extractDm2eNextByDom() {
+        $next = false;
+        $nexts = $this->dm2eGraph->resourcesMatching('edm:isNextInSequence');
 
-        // If this node about is not our url ... wth are we looking at!
-        if ($about != $this->url)
-            return false;
-
-        return $resmap1->getAttribute('rdf:about');
+        foreach ($nexts as $n) {
+            if ($n != $this->url) {
+                $next = $n;
+                break;
+            }
+        }
+        return $next;
     }
 
-    private function extractDm2ePrevByDom(DOMDocument $dom) {
-        $resmap1 = $dom->getElementsByTagName('resourcemap')->item(0);
-        $res = $resmap1->getElementsByTagName('ProvidedCHO')->item(0);
-        $about = $res->getAttribute('rdf:about');
-
-        if ($about != $this->url)
-            return false;
-        
-        $next = $res->getElementsByTagName('isNextInSequence')->item(0);
-        return $next->getAttribute('rdf:resource');
+    private function extractDm2ePrevByDom() {
+        return $this->dm2eGraph->get($this->url, 'edm:isNextInSequence');
     }
 
     
