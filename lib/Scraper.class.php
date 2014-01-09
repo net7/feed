@@ -230,7 +230,7 @@ class Scraper {
         */
         
         // TODO: get the type of the resource from the RDF, and not with a string match!
-        if ($this->format == "image/jpeg") {
+        if ($this->format == "image/jpeg" || $this->format == "http://onto.dm2e.eu/schemas/dm2e/1.1/mime-types/image/jpeg") {
             $this->punditContent = '
                <div class="pundit-content" about="'.$this->url.'">
                  <div class="pundit-content" about="'.$this->annotableVersionAt.'">
