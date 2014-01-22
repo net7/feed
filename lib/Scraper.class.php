@@ -279,10 +279,12 @@ class Scraper {
              ';
         } else {
             $this->punditContent .= '
-                 <div class="pundit-content" about="'.$this->object.'">
-                   <img src="'.$this->object.'" class="annotable-image" />
-                 </div>';
-                 $cont = 2;
+                        <div class="pundit-content" about="' . $this->url .'">
+                             <div class="pundit-content" about="'.$this->object.'">
+                                 <img src="'.$this->object.'" class="annotable-image" />
+                             </div>
+                        </div>';
+            $cont = 1;
             foreach ($this->pages as $page) {                    
                  $pageNumber = substr( $page, strrpos( $page, '/' ) +1 );
 
