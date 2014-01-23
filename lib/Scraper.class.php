@@ -284,6 +284,7 @@ class Scraper {
                                  <img src="'.$this->object.'" class="annotable-image" />
                              </div>
                         </div>';
+        /*
             $cont = 1;
             foreach ($this->pages as $page) {                    
                  $pageNumber = substr( $page, strrpos( $page, '/' ) +1 );
@@ -310,7 +311,7 @@ class Scraper {
                  }
 
             }    
-            
+            */
             
         }
         
