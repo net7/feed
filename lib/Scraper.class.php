@@ -167,7 +167,7 @@ class Scraper {
         curl_setopt($request, CURLOPT_URL, $requestUrl);
 
         // TODO: shouldnt it be "Accept" instead of "Content-type" ??!
-        // curl_setopt($request, CURLOPT_HTTPHEADER, array("Content-Type: {$contentType}"));
+        curl_setopt($request, CURLOPT_HTTPHEADER, array("X-Forwarded-For: " . $_SERVER['REMOTE_ADDR'] . ', ' . $_SERVER['SERVER_ADDR']));
         curl_setopt($request, CURLOPT_HTTPHEADER, array("Accept: {$contentType}"));
         curl_setopt($request, CURLOPT_CONNECTTIMEOUT, 20);
         curl_setopt($request, CURLOPT_RETURNTRANSFER, 1);
