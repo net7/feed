@@ -6,7 +6,7 @@ var punditConfig = {
        'http://manager.korbo.org/107?jsonp=_PUNDIT.vocab.initJsonpVocab',
        'http://manager.korbo.org/109?jsonp=_PUNDIT.vocab.initJsonpVocab'
     ],
-    
+    useBasicRelations: false,
     
     modules: {
         
