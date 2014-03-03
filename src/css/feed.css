@@ -67,6 +67,11 @@ img.resize{
 }
 
 .right-content {
+    width: 50%;
+    float: left;
+}
+
+.right-content-details {
     width: 20%;
     padding: 5px;
     float: left;
