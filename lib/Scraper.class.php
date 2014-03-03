@@ -512,8 +512,11 @@ class Scraper {
         if ($issued != null) {
             $this->dm2eGraph->load($issued);
             $date = $this->dm2eGraph->get($issued, 'skos:prefLabel');    
+            return $date;
+        } else {
+            return null;
         }
-        return $date;
+        
     }
 
     private function getDm2eTOC($url) {
