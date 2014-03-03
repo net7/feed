@@ -464,7 +464,7 @@ class Scraper {
     
 
     private function getDm2eAuthors($url) {
-        $result;
+        $result = '';
         $cont = 0; 
         $authors = $this->dm2eGraph->allResources($url, 'spar:author');
         foreach ($authors as $auth) {
