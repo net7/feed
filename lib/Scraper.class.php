@@ -90,7 +90,7 @@ class Scraper {
         if ($this->getBookMetadata() != '' && $this->getBookMetadata() != null) {
             return '<div class="left-menu-content">' . $this->getBookMetadata() .'</div>'.
                 '<div class="page-content">' . $this->getPunditContent() . '</div>'.
-                '<div class="right-content">' . $this->getPageMetadata() . '</div>';
+                '<div class="right-content-details">' . $this->getPageMetadata() . '</div>';
         } else {
             return $this->getPunditContent();
         }
