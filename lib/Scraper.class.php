@@ -227,7 +227,7 @@ class Scraper {
         $this->dm2eGraph = EasyRdf_Graph::newAndLoad($url);
 
         EasyRdf_Namespace::set('edm','http://www.europeana.eu/schemas/edm/');
-        EasyRdf_Namespace::set('dm2e','http://onto.dm2e.eu/schemas/dm2e/1.1/');
+        EasyRdf_Namespace::set('dm2e','http://onto.dm2e.eu/schemas/dm2e/');
         EasyRdf_Namespace::set('spar','http://purl.org/spar/pro/');
         EasyRdf_Namespace::set('skos','http://www.w3.org/2004/02/skos/core#');
         $this->nsDc = EasyRdf_Namespace::prefixOfUri('http://purl.org/dc/elements/1.1/');
@@ -248,9 +248,13 @@ class Scraper {
         $this->aggregatedCHO = $agg;
         
         $this->annotableVersionAt = $this->aggregatedCHO->get('dm2e:hasAnnotatableVersionAt');
-        
+
         if ($this->annotableVersionAt) {
-            $this->format = $this->annotableVersionAt->get($this->nsDc . ':format');    
+            $this->format = $this->annotableVersionAt->get($this->nsDc . ':format');
+            
+            if (!$this->format) {
+                $this->format = $this->aggregatedCHO->get($this->nsDc . ':format');
+            }
         }
 
         // Properties of Books
@@ -274,10 +278,9 @@ class Scraper {
         
         $this->object = $this->aggregatedCHO->getResource('edm:object');
         
-        
         $this->tableOfContents=$this->getDm2eTOC($this->book->getUri());
         
-        $this->dataprovider = $this->aggregatedCHO->getResource('edm:dataProvider');
+        $this->dataprovider = $this->getDM2eDataProvider($this->book->getUri());
         
         $this->hasMet = $this->dm2eGraph->all($url,'edm:hasMet');
         
@@ -290,15 +293,33 @@ class Scraper {
         
         
         // TODO: get the type of the resource from the RDF, and not with a string match!
-        if (isset($this->annotableVersionAt) && 
-                    ($this->format == "image/jpeg" || $this->format == "http://onto.dm2e.eu/schemas/dm2e/1.1/mime-types/image/jpeg") ) {
-            $this->punditContent .= '
-               <div class="pundit-content" about="' . $this->url .'">
-                 <div class="pundit-content" about="'. $this->annotableVersionAt . '">
-                   <img src="' . $this->annotableVersionAt . '" class="annotable-image" />
-                 </div>
-               </div>
-             ';
+        if (isset($this->annotableVersionAt)){
+            if (($this->format == "image/jpeg" || $this->format == "http://onto.dm2e.eu/schemas/dm2e/1.1/mime-types/image/jpeg")) {
+                $this->punditContent .= '
+                   <div class="pundit-content" about="' . $this->url .'">
+                     <div class="pundit-content" about="'. $this->annotableVersionAt . '">
+                       <img src="' . $this->annotableVersionAt . '" class="annotable-image" />
+                     </div>
+                   </div>
+                 ';
+            } else if ($this->format == "text/html") {
+
+                // We assume that there is only html and body element and only one pundit content
+                $content = $this->doCurlRequest('text/html', $this->annotableVersionAt);
+                $content = preg_replace('@<body>@', '', $content);
+                $content = preg_replace('@</body>@', '', $content);
+                $content = preg_replace('@<html>@', '', $content);
+                $content = preg_replace('@</html>@', '', $content);
+                
+                $this->punditContent .= '
+                   <div class="pundit-content" about="' . $this->url .'">
+                     <div class="pundit-content" about="'. $this->annotableVersionAt . '">'
+                       . "Pippo" .
+                     '</div>
+                   </div>
+                 ';
+            }
+            
         } else {
             $this->punditContent .= '
                 <div class="pundit-content" about="' . $this->url .'">
@@ -321,7 +342,7 @@ class Scraper {
             }
             if (isset($this->dataprovider) && $this->dataprovider != null) {
                 $this->bookMetadata .= '<p><strong>Data provider:</strong><br/>' .
-                                      urldecode(substr( $this->dataprovider, strrpos( $this->dataprovider, '/' )+1 )) . '</p><hr/>';    
+                                      $this->dataprovider . '</p><hr/>';    
             }
             if (isset($this->pages) && $this->pages != null) {
                 $this->bookMetadata .= '<div><p><strong>Browse pages</strong></p>';
@@ -478,12 +499,20 @@ class Scraper {
         return $result;
     }
     
+    private function getDm2eDataProvider($url) {
+        $aggregatedCHO = $this->getEDMAggregationOf($url);
+        $provider = $aggregatedCHO->getResource('edm:dataProvider');
+        $this->dm2eGraph->load($provider);
+        $label = $this->dm2eGraph->get($provider,'skos:prefLabel');
+        return $label;
+    }
+    
     private function getDm2eDate($url) {
         $issued = $this->dm2eGraph->getResource($url,$this->nsDct . ":issued");
-
-        $this->dm2eGraph->load($issued);
-        $date = $this->dm2eGraph->get($issued, 'skos:prefLabel');
-
+        if ($issued != null) {
+            $this->dm2eGraph->load($issued);
+            $date = $this->dm2eGraph->get($issued, 'skos:prefLabel');    
+        }
         return $date;
     }
 
