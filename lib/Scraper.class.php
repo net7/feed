@@ -6,6 +6,7 @@ require_once "easyrdf-0.8.0/lib/EasyRdf.php";
 class Scraper {
 
     private $url;
+    public $type;
     private $resolvedUrl;
     private $urlType;
     private $label;
@@ -15,7 +16,8 @@ class Scraper {
     private $aggregatedCHO;
     private $domain;
     private $punditContent;
-    private $contentMetadata;
+    private $bookMetadata;
+    private $pageMetadata;
     private $prev = false;
     private $next = false;
     private $dm2ePrev = false;
@@ -27,6 +29,11 @@ class Scraper {
     private $object;
     private $dataprovider;
     private $tableOfContents;
+    private $pageLabel;
+    private $date;
+    private $shownBy;
+    private $pageShownBy;
+    
 
     /**
      * Public contructor set URL to be scraped
@@ -74,21 +81,26 @@ class Scraper {
         return $this->punditContent;
     }
 
-    public function getContentMetadata() {
-        return $this->contentMetadata;
+    public function getBookMetadata() {
+        return $this->bookMetadata;
+    }
+    
+    public function getPageMetadata() {
+        return $this->pageMetadata;
     }
     
     public function getContent() {
-        if ($this->getContentMetadata() != '' && $this->getContentMetadata() != null) {
-            return '<div class="left-menu-content">' . $this->getContentMetadata() .'</div>'.
-                '<div class="page-content">' . $this->getPunditContent() . '</div>';
+        if ($this->getBookMetadata() != '' && $this->getBookMetadata() != null) {
+            return '<div class="left-menu-content">' . $this->getBookMetadata() .'</div>'.
+                '<div class="page-content">' . $this->getPunditContent() . '</div>'.
+                '<div class="right-content-details">' . $this->getPageMetadata() . '</div>';
         } else {
             return $this->getPunditContent();
         }
     }
 
     public function getLabel() {
-        return $this->label;
+        return $this->bookLabel;
     }
     
     public function getLinkToDM2EPage($page) {
@@ -211,130 +223,193 @@ class Scraper {
 
     private function retrievePunditContentDm2e() {
         
+        $this->url = str_replace('+','%2B',$this->url);
+        
         $url = $this->url;
 
         $this->dm2eGraph = EasyRdf_Graph::newAndLoad($url);
 
         EasyRdf_Namespace::set('edm','http://www.europeana.eu/schemas/edm/');
-        EasyRdf_Namespace::set('dm2e','http://onto.dm2e.eu/schemas/dm2e/1.1/');
+        EasyRdf_Namespace::set('dm2e','http://onto.dm2e.eu/schemas/dm2e/');
+        EasyRdf_Namespace::set('spar','http://purl.org/spar/pro/');
+        EasyRdf_Namespace::set('skos','http://www.w3.org/2004/02/skos/core#');
         $this->nsDc = EasyRdf_Namespace::prefixOfUri('http://purl.org/dc/elements/1.1/');
         $this->nsDct = EasyRdf_Namespace::prefixOfUri('http://purl.org/dc/terms/');
-        $this->nsSpar = EasyRdf_Namespace::prefixOfUri('http://purl.org/spar/pro/');
 
-        $this->annotableVersionAt = $this->extractDm2eAnnotableVersionByDom();
-        $this->aggregatedCHO = $this->extractDm2eAggregatedCHO();
-        $this->format = $this->extractDm2eAnnotableFormatByDom();
-        $this->label = $this->extractDm2eTitle();
-        $this->comment = $this->extractDm2eCommentByDom();
-        $this->dm2eNext = $this->extractDm2eNextByDom();
-        $this->dm2ePrev = $this->extractDm2ePrevByDom();
-        $this->pages = $this->extractDm2ePages();
-        $this->book = $this->extractDm2eBook();
-        $this->author = $this->extractDm2eAuthor();
-        $this->object = $this->extractDm2eObject();
-        $this->tableOfContents=$this->extractDm2eTOC();
-        $this->dataprovider = $this->extractDm2eDataProvider();
         
-        /*  TODO uncomment this
-        $rdf = $this->doCurlRequest('application/rdf+xml');
-        $dom = new DOMDocument();
-        $dom->loadXML($rdf);
+        $types = $this->dm2eGraph->allResources($url, $this->nsDc . ':type');
+        foreach ($types as $type) {
+            if ($type->getUri()=='http://onto.dm2e.eu/schemas/dm2e/1.1/Page' || $type->getUri()=='http://onto.dm2e.eu/schemas/dm2e/Page' || $type->getUri()=='http://purl.org/spar/fabio/#Page') {
+                $this->type = 'Page';
+            } else if ($type->getUri()=='http://purl.org/ontology/bibo/Book' || $type->getUri()=='http://onto.dm2e.eu/schemas/dm2e/Manuscript') {
+                $this->type = 'Book';
+            }
+        }
 
-
-        $this->aggregatedCHO = $this->extractDm2eAggregatedCHO($dom);
-        $this->annotableVersionAt = $this->extractDm2eAnnotableVersionByDom($dom);
-        $this->format = $this->extractDm2eAnnotableFormatByDom($dom);
-        $this->label = $this->extractDm2eTitleByDom($dom);
-        $this->comment = $this->extractDm2eCommentByDom($dom);
-        $this->dm2eNext = $this->extractDm2eNextByDom($dom);
-        $this->dm2ePrev = $this->extractDm2ePrevByDom($dom);
-
-        */
-        // TODO: get next and prev, comment?
-        // http://lelystad.informatik.uni-mannheim.de:3000/direct/html/ingested/item/onb/codices/AL00070711-31
+        // Get the aggregation object...
+        $agg = $this->getEDMAggregationOf($this->url);
+        $this->aggregatedCHO = $agg;
         
-        /*
-        // TODO: debug what is happening with this:
-        $this->punditContent = 
-            "url = ". $url . "<br/>" .
-            "CHO = ".$this->aggregatedCHO . "<br/>" .
-            "Annotable = ".$this->annotableVersionAt . "<br/>" .
-            "Title = ".$this->label . "<br/>" .
-            "Comment = ".$this->comment . "<br/>" .
-            "Format = ".$this->format . "<br/>" .
-            "Next = ".$this->next . "<br/>" .
-            "Prev = ".$this->prev . "<br/>" .
-            "<pre>". htmlentities($rdf) . "<pre><br/>";
-        */
+        $this->annotableVersionAt = $this->aggregatedCHO->get('dm2e:hasAnnotatableVersionAt');
+
+        if ($this->annotableVersionAt) {
+            $this->format = $this->annotableVersionAt->get($this->nsDc . ':format');
+            
+            if (!$this->format) {
+                $this->format = $this->aggregatedCHO->get($this->nsDc . ':format');
+            }
+        }
+
+        // Properties of Books
+        if ($this->type=='Page') {
+            $this->dm2eNext = $this->getDm2eNextInSequence();
+            $this->dm2ePrev = $this->getDm2ePrevInSequence();
+            $this->book = $this->dm2eGraph->getResource($this->url, $this->nsDct . ':isPartOf');
+            $this->dm2eGraph->load($this->book);
+        } else if ($this->type == 'Book') {
+            $this->book = $this->dm2eGraph->resource($this->url);
+        }
+        
+        
+        $this->bookLabel = $this->dm2eGraph->get($this->book->getUri(), $this->nsDc . ':title');
+        
+        $this->comment =  $this->dm2eGraph->get($this->book->getUri(), $this->nsDc . ':description');
+
+        $this->pages = $this->getDm2ePages();
+        
+        $this->author = $this->getDm2eAuthors($this->book->getUri());
+        
+        $this->object = $this->aggregatedCHO->getResource('edm:object');
+        
+        $this->tableOfContents=$this->getDm2eTOC($this->book->getUri());
+        
+        $this->dataprovider = $this->getDM2eDataProvider($this->book->getUri());
+        
+        $this->hasMet = $this->dm2eGraph->all($url,'edm:hasMet');
+        
+        $this->date = $this->getDm2eDate($this->book->getUri());
+
+        $this->shownBy = $this->aggregatedCHO->getResource('edm:isShownBy');
+
+        // Properties of the Page
+        
+        $this->pageLabel = $this->dm2eGraph->get($this->url, $this->nsDc . ':description');
+        
+        $this->shownBy = $this->aggregatedCHO->getResource('edm:isShownBy');
+        
+        if (!$this->shownBy) {
+            $this->shownBy = $this->aggregatedCHO->getResource('edm:isShownAt');
+        }
+        
         
         // TODO: get the type of the resource from the RDF, and not with a string match!
-        if (isset($this->annotableVersionAt) && 
-                    ($this->format == "image/jpeg" || $this->format == "http://onto.dm2e.eu/schemas/dm2e/1.1/mime-types/image/jpeg") ) {
-            $this->punditContent .= '
-               <div class="pundit-content" about="' . $this->url .'">
-                 <div class="pundit-content" about="'. $this->annotableVersionAt . '">
-                   <img src="' . $this->annotableVersionAt . '" class="annotable-image" />
-                 </div>
-               </div>
-             ';
+        if (isset($this->annotableVersionAt)){
+            if (($this->format == "image/jpeg" || $this->format == "http://onto.dm2e.eu/schemas/dm2e/1.1/mime-types/image/jpeg")) {
+                $this->punditContent .= '
+                   <div class="pundit-content" about="' . $this->url .'">
+                     <div class="pundit-content" about="'. $this->annotableVersionAt . '">
+                       <img src="' . $this->annotableVersionAt . '" class="annotable-image" />
+                     </div>
+                   </div>
+                 ';
+            } else if ($this->format == "text/html") {
+
+                // We assume that there is only html and body element and only one pundit content
+                $content = $this->doCurlRequest('text/html', $this->annotableVersionAt);
+                $content = preg_replace('@<body>@', '', $content);
+                $content = preg_replace('@</body>@', '', $content);
+                $content = preg_replace('@<html>@', '', $content);
+                $content = preg_replace('@</html>@', '', $content);
+                
+                $this->punditContent .= '
+                   <div class="pundit-content" about="' . $this->url .'">
+                     <div class="pundit-content" about="'. $this->annotableVersionAt . '">'
+                       . $content .
+                     '</div>
+                   </div>
+                 ';
+            } else {
+                $this->punditContent .= '
+                   <div class="pundit-content" about="' . $this->url .'">
+                     <div class="pundit-content" about="'. $this->annotableVersionAt . '">
+                       <img src="' . $this->annotableVersionAt . '" class="annotable-image" />
+                     </div>
+                   </div>
+                 ';
+            }
+            
         } else {
             $this->punditContent .= '
-                        <div class="pundit-content" about="' . $this->url .'">
-                             <div class="pundit-content" about="'.$this->object.'">
-                                 <img src="'.$this->object.'" class="annotable-image" />
-                             </div>
-                        </div>';
-        /*
-            $cont = 1;
-            foreach ($this->pages as $page) {                    
-                 $pageNumber = substr( $page, strrpos( $page, '/' ) +1 );
-
-                 $this->dm2eGraph->load($page);
-                 
-                 $ag = $this->dm2eGraph->resourcesMatching('edm:aggregatedCHO',$page);
-                 $annotable = $this->dm2eGraph->getResource($ag[0], 'dm2e:hasAnnotatableVersionAt');
-                 $annotableFormat = $annotable->get($this->nsDc . ':format');
-                 
-                 if (isset($annotable) && 
-                             ($annotableFormat == "image/jpeg" || $annotableFormat == "http://onto.dm2e.eu/schemas/dm2e/1.1/mime-types/image/jpeg") ) {
-                     $this->punditContent .= '
-                        <div class="pundit-content" about="' . $page .'">
-                          <div class="pundit-content" about="'. $annotable . '">
-                            <img src="' . $annotable . '" class="annotable-image" />
-                          </div>
-                        </div>
-                      ';
-                 }
-                 $cont--;
-                 if ($cont<0) {
-                     break;
-                 }
-
-            }    
-            */
+                <div class="pundit-content" about="' . $this->url .'">
+                     <div class="pundit-content" about="'.$this->object.'">';
+            $this->punditContent .= '<img class="resize" src="'.$this->object.'"  />';
+            $this->punditContent .= '</div></div>';
             
         }
         
-        if (isset($this->pages) && count($this->pages)>0) {
-            $this->contentMetadata .= '<h2>' . $this->label . '</h2><hr/>';
-            $this->contentMetadata .= '<h3>By ' . $this->author . '</h3><hr/>';
-            $this->contentMetadata .= '<h4>Data provider: ' .
-                                  urldecode(substr( $this->dataprovider, strrpos( $this->dataprovider, '/' )+1 )) . '</h4><hr/>';
-            $this->contentMetadata .= '<div><p>Browse pages</p>';
-            $this->contentMetadata .= '<form action="http://' . $_SERVER['HTTP_HOST'] . '" method="get">';
-            $this->contentMetadata .= '<select name="dm2e">';
-            foreach ($this->pages as $page) {                    
-                $pageNumber = substr( $page, strrpos( $page, '/' ) +1 );
-                $this->contentMetadata .= '<option value="' . $page . '">' . $pageNumber . '</option>';
+        
+            
+            if (isset($this->bookLabel) && $this->bookLabel != null) {
+                $this->bookMetadata .= '<h3>' . $this->bookLabel . '</h3><hr/>';
             }
-            $this->contentMetadata .= '</select>';    
-            $this->contentMetadata .= '<input type="hidden" name="conf" value="' . $_REQUEST['conf'] . '" />';    
-            $this->contentMetadata .= '<div><input type="submit" value="Go to page" /></div>';    
-            $this->contentMetadata .= '<h4>Table of Contents</h4><p>' . $this->tableOfContents . '</p><hr/>';
-            $this->contentMetadata .= '</form>';    
-            $this->contentMetadata .= '</div>';
+            if (isset($this->author) && $this->author != null) {
+                $this->bookMetadata .= '<strong>Author(s): </strong><br/>' . $this->author . '<hr/>';
+            }
+            if (isset($this->date) && $this->date != null) {
+                $this->bookMetadata .= '<strong>Issued: </strong><br/>' . $this->date . '<hr/>';
+            }
+            if (isset($this->dataprovider) && $this->dataprovider != null) {
+                $this->bookMetadata .= '<p><strong>Data provider:</strong><br/>' .
+                                      $this->dataprovider . '</p><hr/>';    
+            }
+            if (isset($this->pages) && $this->pages != null) {
+                $this->bookMetadata .= '<div><p><strong>Browse pages</strong></p>';
+                $this->bookMetadata .= '<form action="http://' . $_SERVER['HTTP_HOST'] . '" method="get">';
+                $this->bookMetadata .= '<select name="dm2e">';
+                foreach ($this->pages as $page) {                    
+                    $pageNumber = substr( $page, strrpos( $page, '/' ) +1 );
+                    $this->bookMetadata .= '<option value="' . $page . '">' . $pageNumber . '</option>';
+                }
+                $this->bookMetadata .= '</select>';    
+                $this->bookMetadata .= '<input type="hidden" name="conf" value="' . $_REQUEST['conf'] . '" />';    
+                $this->bookMetadata .= '<div><input type="submit" value="Go to page" /></div>';
+            
+                $this->bookMetadata .= '</form>';    
+                $this->bookMetadata .= '</div>';   
+            }
+            if (isset($this->hasMet) && $this->hasMet != null) {
+                $this->bookMetadata .= '<strong>Related persons:</strong><hr/>';
+                foreach ($this->hasMet as $met) {
+                    $this->bookMetadata .= $this->getPersonDetails($met);    
+                }
+                
+            }
+            if ($this->tableOfContents != null) {
+                $this->bookMetadata .= '<h4>Table of Contents</h4><p>' . $this->tableOfContents . '</p><hr/>';    
+            }
+            
+        
+        if ($this->type=="Page") {
+            
+            if (isset($this->pageLabel) && $this->pageLabel != null) {
+                $this->pageMetadata .= '<h3>This page:</h3><br/><strong>Title: </strong>' . $this->pageLabel . '<hr/>';
+                
+            }
+            
         }
 
+        if ($this->shownBy) {
+                $this->pageMetadata .= '<strong><a href="' . $this->shownBy . '" target="_blank">See object in its original Digital Library</strong><hr/>';
+        }
+        $this->pageMetadata .= '<small><a href="' . $this->url . '" target="_blank">See the RDF data</small>';
+
+    }
+    
+    private function getPersonDetails($url) {
+        $this->dm2eGraph->load($url);
+        $label = $this->dm2eGraph->get($url, 'skos:prefLabel');
+        return '<strong>' . $label . '</strong>'.
+               '<>';
     }
     
     private function retrievePunditContentDefault() {
@@ -342,7 +417,7 @@ class Scraper {
         $dom = new DOMDocument();
         $dom->loadXML($rdf);
 
-        $this->label = $this->extractLabelByDom($dom);
+        $this->bookLabel = $this->extractLabelByDom($dom);
         $this->next = $this->extractNextResourceByDom($dom);
         $this->prev = $this->extractPrevResourceByDom($dom);
         $this->stylesheet = $this->extractStylesheetByDom($dom);
@@ -362,7 +437,7 @@ class Scraper {
     }
 
     private function retrievePunditContentImg() {
-        $this->label = 'Web image : '.$this->url;
+        $this->bookLabel = 'Web image : '.$this->url;
         $this->comment = 'Single image pundit annotator';
         $url_info = parse_url($this->url);
         $this->domain = $url_info['host'];
@@ -378,85 +453,31 @@ class Scraper {
         return $this->extractTagValueByDom($dom, 'label');
     }
 
-    private function extractDm2eTitle() {
-        return $this->dm2eGraph->get($this->url, $this->nsDc . ':title');
-    }
-
-    private function extractDm2eCommentByDom() {
-        return $this->dm2eGraph->get($this->url, $this->nsDc . ':description');
-    }
     
     private function extractCommentByDom(DOMDocument $dom) {
         return $this->extractTagValueByDom($dom, 'comment');
     }
-    
-    private function extractDm2ePages() {
-        $parts = $this->dm2eGraph->resourcesMatching($this->nsDct . ':isPartOf');
-        $pages = array();
-        foreach ($parts as $part) {
-            if ($part != $this->url) {
-                        array_push($pages, $part);
+        
+
+
+    //DM2E functions
+
+    private function getEDMAggregationOf($url) {
+        
+        $aggs = $this->dm2eGraph->resourcesMatching('edm:aggregatedCHO');
+        foreach ($aggs as $agg) {
+            $cho = $agg->getResource('edm:aggregatedCHO');
+//            echo str_replace('+','%2B',$cho->getUri());
+//            echo str_replace('+','%2B',$url);
+            if ($cho->getUri() == $url) {
+                return $agg;
             }
         }
-        sort($pages);
-        return $pages;
-    }
-    private function extractDm2eBook() {
-        return $this->dm2eGraph->get($this->url, $this->nsDct . ':isPartOf');
-    }
-    
-    private function extractDm2eAuthor() {
-        $result;
-        $size = count($arrayName);
-        $cont = 0;
-        $authorsArray = $this->dm2eGraph->resourcesMatching($this->nsSpar . ':author');
-        foreach ($authorsArray as $author) {
-            $result .= $author;
-            $cont++;
-            if ($cont != $size) { $result.= ', ';}
-        }
-        return $result;
-    }
-    
-    private function extractDm2eObject() {
-        $aggs = $this->dm2eGraph->resourcesMatching('edm:aggregatedCHO');
-        return $aggs[0]->getResource('edm:object');
-    }
-    private function extractDm2eDataProvider() {
-        $aggs = $this->dm2eGraph->resourcesMatching('edm:aggregatedCHO');
-        return $aggs[0]->getResource('edm:dataProvider');
-    }
-    
-    private function extractDm2eTOC() {
-        $toc = $this->dm2eGraph->get($this->url, $this->nsDct . ':tableOfContents');
-        return str_replace(' | ','<br></br>',$toc);
-        //return $toc;
-    }
-    
-    private function extractDm2eAnnotableVersionByDom() {
-        $aggs = $this->dm2eGraph->resourcesMatching('edm:aggregatedCHO');
-
-        return  $aggs[0]->get('dm2e:hasAnnotatableVersionAt');
+        return null;
     }
 
-    private function extractDm2eAnnotableFormatByDom() {
-        $aggs = $this->dm2eGraph->resourcesMatching('edm:aggregatedCHO');
-        $annotableVersion = $aggs[0]->get('dm2e:hasAnnotatableVersionAt');
-        if (isset($annotableVersion)) {
-            return $annotableVersion->get($this->nsDc . ':format');    
-        }  else {
-            return "no format";
-        }
-        
-    }
-
-    private function extractDm2eAggregatedCHO() {
-        $aggs = $this->dm2eGraph->resourcesMatching('edm:aggregatedCHO');
-
-        return $aggs[0];
-    }
-    
-    private function extractDm2eNextByDom() {
+    //Hack. Easy RDF library does not suppot a simple way to get triples specifying the object...
+    private function getDm2eNextInSequence() {
         $next = false;
         $nexts = $this->dm2eGraph->resourcesMatching('edm:isNextInSequence');
 
@@ -468,9 +489,67 @@ class Scraper {
         }
         return $next;
     }
-
-    private function extractDm2ePrevByDom() {
+    
+    private function getDm2ePrevInSequence() {
         return $this->dm2eGraph->get($this->url, 'edm:isNextInSequence');
+    }
+
+    // returns an array of Pages connected to the CHO via the dcterms:isPartOf relation
+    private function getDm2ePages() {
+        $parts = $this->dm2eGraph->resourcesMatching($this->nsDct . ':isPartOf');
+        $pages = array();
+        foreach ($parts as $part) {
+            if ($part != $this->url) {
+                        array_push($pages, $part);
+            }
+        }
+        sort($pages);
+        return $pages;
+    }
+    
+
+    private function getDm2eAuthors($url) {
+        $result = '';
+        $cont = 0; 
+        $authors = $this->dm2eGraph->allResources($url, 'spar:author');
+        foreach ($authors as $auth) {
+            try {
+                $this->dm2eGraph->load($auth);         
+            } catch(Exception $e) {
+                //echo 'Message: ' .$e->getMessage();
+            }
+            
+            $authorLabel = $this->dm2eGraph->get($auth, 'skos:prefLabel');     
+            $result .= $authorLabel;
+            $cont++;
+            if ($cont < count($authors)) { $result .= ',<br/>';}
+     
+        }
+        return $result;
+    }
+    
+    private function getDm2eDataProvider($url) {
+        $aggregatedCHO = $this->getEDMAggregationOf($url);
+        $provider = $aggregatedCHO->getResource('edm:dataProvider');
+        $this->dm2eGraph->load($provider);
+        $label = $this->dm2eGraph->get($provider,'skos:prefLabel');
+        return $label;
+    }
+    
+    private function getDm2eDate($url) {
+        $date = null;
+        $issued = $this->dm2eGraph->getResource($url,$this->nsDct . ":issued");
+        if ($issued != null) {
+            $this->dm2eGraph->load($issued);
+            $date = $this->dm2eGraph->get($issued, 'skos:prefLabel');    
+        }
+        return $date;
+    }
+
+    private function getDm2eTOC($url) {
+        $toc = $this->dm2eGraph->get($url, $this->nsDct . ':tableOfContents');
+        return str_replace('; ','<br></br>',str_replace(' | ','<br></br>',$toc));
+        //return $toc;
     }
 
     
@@ -511,7 +590,8 @@ class Scraper {
      * TODO: Test
      */
     private function isUrlValid() {
-        return filter_var($this->url, FILTER_VALIDATE_URL);
+        return true;
+        //return filter_var($this->url, FILTER_VALIDATE_URL);
     }
 
     public function getUrl() {

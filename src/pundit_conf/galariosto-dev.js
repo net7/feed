@@ -57,28 +57,28 @@ var punditConfig = {
                     queryType: 'http://purl.org/galassiariosto/types/Azione',
                     name: 'murucaazioni',
                     label: 'Azioni',
-                    murucaReconURL: "http://dev.galassiaariosto.netseven.it/reconcile",
+                    murucaReconURL: "http://dev.galassiaariosto.netseven.it/backend.php/reconcile",
                     active: true
                 },
                 {
                     queryType: 'http://purl.org/galassiariosto/types/Scena',
                     name: 'murucascene',
                     label: 'Scene',
-                    murucaReconURL: "http://dev.galassiaariosto.netseven.it/reconcile",
+                    murucaReconURL: "http://dev.galassiaariosto.netseven.it/backend.php/reconcile",
                     active: true
                 },
                 {
                     queryType: 'http://purl.org/galassiariosto/types/Ecphrasis',
                     name: 'murucaecphrasis',
                     label: 'Ecphrasis',
-                    murucaReconURL: "http://dev.galassiaariosto.netseven.it/reconcile",
+                    murucaReconURL: "http://dev.galassiaariosto.netseven.it/backend.php/reconcile",
                     active: true
                 },
 		        {
                     queryType: 'http://purl.org/galassiariosto/types/Paratesto',
                     name: 'murucaparatesto',
                     label: 'Paratesto',
-                    murucaReconURL: "http://dev.galassiaariosto.netseven.it/reconcile",
+                    murucaReconURL: "http://dev.galassiaariosto.netseven.it/backend.php/reconcile",
                     active: true
                 }
             ]
