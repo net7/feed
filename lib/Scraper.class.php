@@ -537,6 +537,7 @@ class Scraper {
     }
     
     private function getDm2eDate($url) {
+        $date = null;
         $issued = $this->dm2eGraph->getResource($url,$this->nsDct . ":issued");
         if ($issued != null) {
             $this->dm2eGraph->load($issued);
