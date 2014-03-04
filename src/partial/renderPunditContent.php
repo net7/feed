@@ -10,7 +10,7 @@ function renderPunditContent ($s, $pos = null) {
                 <a href="<?php echo $prev ?>"><i class="icon-chevron-left"></i>Previous</a>
             </span>
         <?php } ?>
-        <?php if ($book = $s->getBookLink()) { ?>
+        <?php if ($s->type=='Page' && $book = $s->getBookLink()) { ?>
             <span class="label label-important prev">
                 <a href="<?php echo $book ?>"><i class="icon-chevron-up"></i>Entire work</a>
             </span>
