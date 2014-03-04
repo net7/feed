@@ -31,6 +31,9 @@ class Scraper {
     private $tableOfContents;
     private $pageLabel;
     private $date;
+    private $shownBy;
+    private $pageShownBy;
+    
 
     /**
      * Public contructor set URL to be scraped
@@ -286,10 +289,17 @@ class Scraper {
         
         $this->date = $this->getDm2eDate($this->book->getUri());
 
+        $this->shownBy = $this->aggregatedCHO->getResource('edm:isShownBy');
+
         // Properties of the Page
         
         $this->pageLabel = $this->dm2eGraph->get($this->url, $this->nsDc . ':description');
         
+        $this->shownBy = $this->aggregatedCHO->getResource('edm:isShownBy');
+        
+        if (!$this->shownBy) {
+            $this->shownBy = $this->aggregatedCHO->getResource('edm:isShownAt');
+        }
         
         
         // TODO: get the type of the resource from the RDF, and not with a string match!
@@ -314,8 +324,16 @@ class Scraper {
                 $this->punditContent .= '
                    <div class="pundit-content" about="' . $this->url .'">
                      <div class="pundit-content" about="'. $this->annotableVersionAt . '">'
-                       . "Pippo" .
+                       . $content .
                      '</div>
+                   </div>
+                 ';
+            } else {
+                $this->punditContent .= '
+                   <div class="pundit-content" about="' . $this->url .'">
+                     <div class="pundit-content" about="'. $this->annotableVersionAt . '">
+                       <img src="' . $this->annotableVersionAt . '" class="annotable-image" />
+                     </div>
                    </div>
                  ';
             }
@@ -324,7 +342,7 @@ class Scraper {
             $this->punditContent .= '
                 <div class="pundit-content" about="' . $this->url .'">
                      <div class="pundit-content" about="'.$this->object.'">';
-            $this->punditContent .= '<img src="'.$this->object.'"  />';
+            $this->punditContent .= '<img class="resize" src="'.$this->object.'"  />';
             $this->punditContent .= '</div></div>';
             
         }
@@ -332,7 +350,7 @@ class Scraper {
         
             
             if (isset($this->bookLabel) && $this->bookLabel != null) {
-                $this->bookMetadata .= '<h2>' . $this->bookLabel . '</h2><hr/>';
+                $this->bookMetadata .= '<h3>' . $this->bookLabel . '</h3><hr/>';
             }
             if (isset($this->author) && $this->author != null) {
                 $this->bookMetadata .= '<strong>Author(s): </strong><br/>' . $this->author . '<hr/>';
@@ -373,11 +391,17 @@ class Scraper {
         
         if ($this->type=="Page") {
             
-            if (isset($this->bookLabel) && $this->bookLabel != null) {
-                $this->pageMetadata .= '<p><h3>This page:</h3><br/><strong>Title: </strong>' . $this->pageLabel . '</p><hr/>';
+            if (isset($this->pageLabel) && $this->pageLabel != null) {
+                $this->pageMetadata .= '<h3>This page:</h3><br/><strong>Title: </strong>' . $this->pageLabel . '<hr/>';
+                
             }
             
         }
+
+        if ($this->shownBy) {
+                $this->pageMetadata .= '<strong><a href="' . $this->shownBy . '" target="_blank">See object in its original Digital Library</strong><hr/>';
+        }
+        $this->pageMetadata .= '<small><a href="' . $this->url . '" target="_blank">See the RDF data</small>';
 
     }
     
@@ -489,7 +513,12 @@ class Scraper {
         $cont = 0; 
         $authors = $this->dm2eGraph->allResources($url, 'spar:author');
         foreach ($authors as $auth) {
-            $this->dm2eGraph->load($auth);     
+            try {
+                $this->dm2eGraph->load($auth);         
+            } catch(Exception $e) {
+                //echo 'Message: ' .$e->getMessage();
+            }
+            
             $authorLabel = $this->dm2eGraph->get($auth, 'skos:prefLabel');     
             $result .= $authorLabel;
             $cont++;
@@ -512,11 +541,8 @@ class Scraper {
         if ($issued != null) {
             $this->dm2eGraph->load($issued);
             $date = $this->dm2eGraph->get($issued, 'skos:prefLabel');    
-            return $date;
-        } else {
-            return null;
         }
-        
+        return $date;
     }
 
     private function getDm2eTOC($url) {
