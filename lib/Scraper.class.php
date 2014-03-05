@@ -11,7 +11,6 @@ class Scraper {
     private $urlType;
     private $label;
     private $comment;
-    private $format;
     private $annotableVersionAt;
     private $aggregatedCHO;
     private $domain;
@@ -241,7 +240,7 @@ class Scraper {
         foreach ($types as $type) {
             if ($type->getUri()=='http://onto.dm2e.eu/schemas/dm2e/1.1/Page' || $type->getUri()=='http://onto.dm2e.eu/schemas/dm2e/Page' || $type->getUri()=='http://purl.org/spar/fabio/#Page') {
                 $this->type = 'Page';
-            } else if ($type->getUri()=='http://purl.org/ontology/bibo/Book' || $type->getUri()=='http://onto.dm2e.eu/schemas/dm2e/Manuscript') {
+            } else if ($type->getUri()=='http://purl.org/spar/fabio/Article' || $type->getUri()=='http://purl.org/ontology/bibo/Book' || $type->getUri()=='http://onto.dm2e.eu/schemas/dm2e/Manuscript') {
                 $this->type = 'Book';
             }
         }
@@ -250,15 +249,7 @@ class Scraper {
         $agg = $this->getEDMAggregationOf($this->url);
         $this->aggregatedCHO = $agg;
         
-        $this->annotableVersionAt = $this->aggregatedCHO->get('dm2e:hasAnnotatableVersionAt');
-
-        if ($this->annotableVersionAt) {
-            $this->format = $this->annotableVersionAt->get($this->nsDc . ':format');
-            
-            if (!$this->format) {
-                $this->format = $this->aggregatedCHO->get($this->nsDc . ':format');
-            }
-        }
+        $this->annotableVersionAt = $this->aggregatedCHO->allResources('dm2e:hasAnnotatableVersionAt');
 
         // Properties of Books
         if ($this->type=='Page') {
@@ -304,45 +295,152 @@ class Scraper {
         
         // TODO: get the type of the resource from the RDF, and not with a string match!
         if (isset($this->annotableVersionAt)){
-            if (($this->format == "image/jpeg" || $this->format == "http://onto.dm2e.eu/schemas/dm2e/1.1/mime-types/image/jpeg")) {
-                $this->punditContent .= '
-                   <div class="pundit-content" about="' . $this->url .'">
-                     <div class="pundit-content" about="'. $this->annotableVersionAt . '">
-                       <img src="' . $this->annotableVersionAt . '" class="annotable-image" />
-                     </div>
-                   </div>
-                 ';
-            } else if ($this->format == "text/html") {
-
-                // We assume that there is only html and body element and only one pundit content
-                $content = $this->doCurlRequest('text/html', $this->annotableVersionAt);
-                $content = preg_replace('@<body>@', '', $content);
-                $content = preg_replace('@</body>@', '', $content);
-                $content = preg_replace('@<html>@', '', $content);
-                $content = preg_replace('@</html>@', '', $content);
+            $punditImageContent = null;
+            $punditTextContent = null;
+            
+            foreach($this->annotableVersionAt as $version) {
+                $format = $version->get($this->nsDc . ':format');
+                /*
+                if (!$format) {
+                    $format = $this->aggregatedCHO->get($this->nsDc . ':format');
+                }
+                */
                 
-                $this->punditContent .= '
-                   <div class="pundit-content" about="' . $this->url .'">
-                     <div class="pundit-content" about="'. $this->annotableVersionAt . '">'
-                       . $content .
-                     '</div>
-                   </div>
-                 ';
+                if (($format == "image/jpeg" || $format == "http://onto.dm2e.eu/schemas/dm2e/1.1/mime-types/image/jpeg")) {
+                    $punditImageContent .= '
+                         <div class="pundit-content" about="'. $version . '">
+                           <img src="' . $version . '" class="annotable-image" />
+                         </div>
+                     ';
+                } else if ($format == "text/html") {
+
+                    // We assume that there is only html and body element and only one pundit content
+
+                    $content = $this->doCurlRequest('text/html', $version);
+                    $dom = new DOMDocument();
+                    $dom->loadHTML($content);
+                
+                    $links = $dom->getElementsByTagName('head');
+                    for ($i=0; $i<$links->length; $i++) {
+                        $node = $links->item($i);
+                        if ($node->parentNode)
+                            $node->parentNode->removeChild($node);
+                    }
+                                    
+                    $spans = $dom->getElementsByTagName('span');
+                    for ($i=0; $i<$spans->length; $i++) {
+                        $node = $spans->item($i);
+                        $class = $node->getAttribute('class');
+                        if ( ($class == 'nodictionary orig') ) {
+                            //$dom->removeChild($node);
+                            //$node->textContent = '';
+                            //$node->nodeValue = '';
+                            $node->parentNode->removeChild($node);
+                        }
+                    }
+                    $spans = $dom->getElementsByTagName('span');
+                    for ($i=0; $i<$spans->length; $i++) {
+                        $node = $spans->item($i);
+                        $class = $node->getAttribute('class');
+                        if ( ($class == 'nodictionary norm') ) {
+                            //$dom->removeChild($node);
+                            //$node->textContent = '';
+                            //$node->nodeValue = '';
+                            $node->parentNode->removeChild($node);
+                        }
+                    }
+                    $spans = $dom->getElementsByTagName('span');
+                    for ($i=0; $i<$spans->length; $i++) {
+                        $node = $spans->item($i);
+                        $class = $node->getAttribute('class');
+                        if ( ($class == 'nodictionary reg') ) {
+                            //$dom->removeChild($node);
+                            //$node->textContent = '';
+                            //$node->nodeValue = '';
+                            $node->parentNode->removeChild($node);
+                        }
+                    }
+                    $spans = $dom->getElementsByTagName('span');
+                    for ($i=0; $i<$spans->length; $i++) {
+                        $node = $spans->item($i);
+                        $class = $node->getAttribute('class');
+                        if ( ($class == 'orig') ) {
+                            //$dom->removeChild($node);
+                            //$node->textContent = '';
+                            //$node->nodeValue = '';
+                            $node->parentNode->removeChild($node);
+                        }
+                    }
+                    $spans = $dom->getElementsByTagName('span');
+                    for ($i=0; $i<$spans->length; $i++) {
+                        $node = $spans->item($i);
+                        $class = $node->getAttribute('class');
+                        if ( ($class == 'reg') ) {
+                            //$dom->removeChild($node);
+                            //$node->textContent = '';
+                            //$node->nodeValue = '';
+                            $node->parentNode->removeChild($node);
+                        }
+                    }
+                
+                    $spans = $dom->getElementsByTagName('span');
+                    for ($i=0; $i<$spans->length; $i++) {
+                        $node = $spans->item($i);
+                        $class = $node->getAttribute('class');
+                        if ( ($class == 'norm') ) {
+                            //$dom->removeChild($node);
+                            //$node->textContent = '';
+                            //$node->nodeValue = '';
+                            $anchor = $node->parentNode;
+                            if ($anchor->tagName=='a') {
+                                    $anchor->setAttribute('target', '_blank');
+                            }
+                        }
+                    }
+                
+                    $content = $dom->saveHTML();
+
+                    $content = preg_replace('@<body>@', '', $content);
+                    $content = preg_replace('@</body>@', '', $content);
+                    $content = preg_replace('@<html>@', '', $content);
+                    $content = preg_replace('@</html>@', '', $content);
+                
+                    $punditTextContent .= '
+                         <div class="pundit-content" about="'. $version . '">'
+                           . $content .
+                         '</div>
+                     ';
+                } else {
+                    $punditImageContent .= '
+                         <div class="pundit-content" about="'. $version . '">
+                           <img src="' . $version . '" class="annotable-image" />
+                         </div>
+                     ';
+                }
+                
+            }
+                    
+            if (isset($punditImageContent) && isset($punditTextContent)) {
+                    $this->punditContent = '<h3>Facsimile</h3>' . '<div class="pundit-content" about="' . $this->url .'">' . 
+                        $punditImageContent . '<h3>Transcription</h3>' . $punditTextContent .'</div>';
+            } else if (isset($punditImageContent)) {
+                $this->punditContent = '<div class="pundit-content" about="' . $this->url .'">' . $punditImageContent .'</div>';
+            } else if (isset($punditTextContent)) {
+                $this->punditContent = '<div class="pundit-content" about="' . $this->url .'">' . $punditTextContent .'</div>';
             } else {
                 $this->punditContent .= '
-                   <div class="pundit-content" about="' . $this->url .'">
-                     <div class="pundit-content" about="'. $this->annotableVersionAt . '">
-                       <img src="' . $this->annotableVersionAt . '" class="annotable-image" />
-                     </div>
-                   </div>
-                 ';
-            }
+                    <div class="pundit-content" about="' . $this->url .'">
+                         <div class="pundit-content" about="'.$this->object.'">';
+                $this->punditContent .= '<img src="'.$this->object.'"  />';
+                $this->punditContent .= '</div></div>';
+            } 
+            
             
         } else {
             $this->punditContent .= '
                 <div class="pundit-content" about="' . $this->url .'">
                      <div class="pundit-content" about="'.$this->object.'">';
-            $this->punditContent .= '<img class="resize" src="'.$this->object.'"  />';
+            $this->punditContent .= '<img src="'.$this->object.'"  />';
             $this->punditContent .= '</div></div>';
             
         }
@@ -520,7 +618,7 @@ class Scraper {
             }
             
             $authorLabel = $this->dm2eGraph->get($auth, 'skos:prefLabel');     
-            $result .= $authorLabel;
+            $result .= '<div class="pundit-content" about="' . $auth . '">' . $authorLabel . '</div>';
             $cont++;
             if ($cont < count($authors)) { $result .= ',<br/>';}
      
