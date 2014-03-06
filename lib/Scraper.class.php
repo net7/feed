@@ -619,7 +619,7 @@ class Scraper {
             
             $authorLabel = $this->dm2eGraph->get($auth, 'skos:prefLabel');     
             $result .= '<div class="pundit-content" about="' . $auth . '">' . 
-                '<span class="pundit-ignore" rel="http://purl.org/pundit/ont/json-metadata" resource="http://feed.local/services/rdftojsonld.php?url=' . $auth . '" style="" width=""></span>' .
+                '<span class="pundit-ignore" rel="http://purl.org/pundit/ont/json-metadata" resource="http://feed.thepund.it/services/rdftojsonld.php?url=' . $auth . '" style="" width=""></span>' .
                 $authorLabel ;
             $cont++;
             $result .= '</div>';
