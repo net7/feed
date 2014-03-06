@@ -25,7 +25,8 @@ $nsDct = EasyRdf_Namespace::prefixOfUri('http://purl.org/dc/terms/');
 $label = $rdfGraph->get($url,'skos:prefLabel');
 $type = $rdfGraph->getResource($url,'rdf:type');
 $sameas = $rdfGraph->getResource($url,'owl:sameAs');
-
+$description = '';
+$picture = '';
 if ($sameas) {
     $rdfGraph->load($sameas);
     $bio = $rdfGraph->get($sameas, 'gndo:biographicalOrHistoricalInformation');
