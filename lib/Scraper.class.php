@@ -240,7 +240,7 @@ class Scraper {
         foreach ($types as $type) {
             if ($type->getUri()=='http://onto.dm2e.eu/schemas/dm2e/1.1/Page' || $type->getUri()=='http://onto.dm2e.eu/schemas/dm2e/Page' || $type->getUri()=='http://purl.org/spar/fabio/#Page') {
                 $this->type = 'Page';
-            } else if ($type->getUri()=='http://purl.org/spar/fabio/Article' || $type->getUri()=='http://purl.org/ontology/bibo/Book' || $type->getUri()=='http://onto.dm2e.eu/schemas/dm2e/Manuscript') {
+            } else if ($type->getUri()=='http://purl.org/spar/fabio/Article' || $type->getUri()=='http://purl.org/ontology/bibo/Issue' || $type->getUri()=='http://purl.org/spar/fabio/Article' || $type->getUri()=='http://purl.org/ontology/bibo/Book' || $type->getUri()=='http://onto.dm2e.eu/schemas/dm2e/Manuscript') {
                 $this->type = 'Book';
             }
         }
@@ -618,10 +618,11 @@ class Scraper {
             }
             
             $authorLabel = $this->dm2eGraph->get($auth, 'skos:prefLabel');     
-            $result .= '<div class="pundit-content" about="' . $auth . '">' . $authorLabel . '</div>';
+            $result .= '<div class="pundit-content" about="' . $auth . '">' . 
+                '<span class="pundit-ignore" rel="http://purl.org/pundit/ont/json-metadata" resource="http://feed.local/services/rdftojsonld.php?url=' . $auth . '" style="" width=""></span>' .
+                $authorLabel ;
             $cont++;
-            if ($cont < count($authors)) { $result .= ',<br/>';}
-     
+            $result .= '</div>';
         }
         return $result;
     }
