@@ -307,11 +307,23 @@ class Scraper {
                 */
                 
                 if (($format == "image/jpeg" || $format == "http://onto.dm2e.eu/schemas/dm2e/1.1/mime-types/image/jpeg")) {
+                    
+                    // XXX HACK for supporting RARA contentfrom MPIWG
+                    $suffix = 'http://digilib.mpiwg-berlin.mpg.de/digitallibrary/jquery/digilib.html?fn=/permanent/library/';
+                    $newsuffix = 'http://digilib.mpiwg-berlin.mpg.de/digitallibrary/servlet/Scaler?fn=/permanent/library/';
+                    $newpostfix = '&dw=1336&dh=680';
+                    if (strpos($version,$suffix) !== false) {
+                        $version = str_replace($suffix, $newsuffix, $version) . $newpostfix;
+
+                    }
+                    
                     $punditImageContent .= '
-                         <div class="pundit-content" about="'. $version . '">
-                           <img src="' . $version . '" class="annotable-image" />
-                         </div>
-                     ';
+                             <div class="pundit-content" about="'. $version . '">
+                               <img src="' . $version . '" class="annotable-image" />
+                             </div>
+                         ';    
+
+                    
                 } else if ($format == "text/html-named-content") {
                     
                     $content = $this->doCurlRequest('text/html', $version);
