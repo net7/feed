@@ -115,7 +115,7 @@ class Scraper {
         
         // Single page annotation
         if (isset($_REQUEST['dm2e'])) {
-            return 'http://'. $s .'/?dm2e='. $this->dm2eNext .'&conf='. $_REQUEST['conf'];
+            return 'http://'. $s .'/?dm2e='. urlencode($this->dm2eNext) .'&conf='. $_REQUEST['conf'];
         } else if (!isset($_REQUEST['lurl']) && !isset($_REQUEST['rurl'])) {
             return 'http://'. $s .'/?url='. $this->next .'&conf='. $_REQUEST['conf'];
 
@@ -134,7 +134,7 @@ class Scraper {
         
         // Single page annotation
         if (isset($_REQUEST['dm2e'])) {
-            return 'http://'. $s .'/?dm2e='. $this->dm2ePrev .'&conf='. $_REQUEST['conf'];
+            return 'http://'. $s .'/?dm2e='. urlencode($this->dm2ePrev) .'&conf='. $_REQUEST['conf'];
         } else if (!isset($_REQUEST['lurl']) && !isset($_REQUEST['rurl'])) {
             return 'http://'. $s .'/?url='. $this->prev .'&conf='. $_REQUEST['conf'];
         } else if ($pos == "left") {
@@ -238,13 +238,13 @@ class Scraper {
         
         $types = $this->dm2eGraph->allResources($url, $this->nsDc . ':type');
         foreach ($types as $type) {
-            if ($type->getUri()=='http://onto.dm2e.eu/schemas/dm2e/1.1/Page' || $type->getUri()=='http://onto.dm2e.eu/schemas/dm2e/Page' || $type->getUri()=='http://purl.org/spar/fabio/#Page') {
+            if ($type->getUri()=='http://onto.dm2e.eu/schemas/dm2e/1.1/Page' || $type->getUri()=='http://onto.dm2e.eu/schemas/dm2e/Page' || $type->getUri()=='http://purl.org/spar/fabio/#Page' || $type->getUri()=='http://onto.dm2e.eu/schemas/dm2e/Paragraph') {
                 $this->type = 'Page';
             } else if ($type->getUri()=='http://purl.org/spar/fabio/Article' || $type->getUri()=='http://purl.org/ontology/bibo/Issue' || $type->getUri()=='http://purl.org/spar/fabio/Article' || $type->getUri()=='http://purl.org/ontology/bibo/Book' || $type->getUri()=='http://onto.dm2e.eu/schemas/dm2e/Manuscript') {
                 $this->type = 'Book';
             }
         }
-
+        
         // Get the aggregation object...
         $agg = $this->getEDMAggregationOf($this->url);
         $this->aggregatedCHO = $agg;
@@ -255,7 +255,7 @@ class Scraper {
         if ($this->type=='Page') {
             $this->dm2eNext = $this->getDm2eNextInSequence();
             $this->dm2ePrev = $this->getDm2ePrevInSequence();
-            $this->book = $this->dm2eGraph->getResource($this->url, $this->nsDct . ':isPartOf');
+            $this->book = $this->getDM2EparentCHO($this->url);
             $this->dm2eGraph->load($this->book);
         } else if ($this->type == 'Book') {
             $this->book = $this->dm2eGraph->resource($this->url);
@@ -266,7 +266,7 @@ class Scraper {
         
         $this->comment =  $this->dm2eGraph->get($this->book->getUri(), $this->nsDc . ':description');
 
-        $this->pages = $this->getDm2ePages();
+        $this->pages = $this->getDm2ePages($this->book->getUri());
         
         $this->author = $this->getDm2eAuthors($this->book->getUri());
         
@@ -312,6 +312,17 @@ class Scraper {
                            <img src="' . $version . '" class="annotable-image" />
                          </div>
                      ';
+                } else if ($format == "text/html-named-content") {
+                    
+                    $content = $this->doCurlRequest('text/html', $version);
+                    
+                    $content = preg_replace('@<body>@', '', $content);
+                    $content = preg_replace('@</body>@', '', $content);
+                    $content = preg_replace('@<html>@', '', $content);
+                    $content = preg_replace('@</html>@', '', $content);
+                
+                    $punditTextContent .= $content;
+                    
                 } else if ($format == "text/html") {
 
                     // We assume that there is only html and body element and only one pundit content
@@ -420,9 +431,17 @@ class Scraper {
                 
             }
                     
+            if (!isset($punditImageContent) && $this->object) {
+                $punditImageContent = '
+                     <div class="pundit-content" about="'. $this->object . '">
+                       <img src="' . $this->object . '" class="annotable-image" />
+                     </div>
+                 ';
+            }
+                    
             if (isset($punditImageContent) && isset($punditTextContent)) {
-                    $this->punditContent = '<h3>Facsimile</h3>' . '<div class="pundit-content" about="' . $this->url .'">' . 
-                        $punditImageContent . '<h3>Transcription</h3>' . $punditTextContent .'</div>';
+                    $this->punditContent = '<div class="pundit-content" about="' . $this->url .'">' . '<h3>Transcription</h3>' . $punditTextContent . 
+                        '<hr/><h3>Facsimile</h3>' . $punditImageContent .'</div>';
             } else if (isset($punditImageContent)) {
                 $this->punditContent = '<div class="pundit-content" about="' . $this->url .'">' . $punditImageContent .'</div>';
             } else if (isset($punditTextContent)) {
@@ -465,7 +484,7 @@ class Scraper {
                 $this->bookMetadata .= '<form action="http://' . $_SERVER['HTTP_HOST'] . '" method="get">';
                 $this->bookMetadata .= '<select name="dm2e">';
                 foreach ($this->pages as $page) {                    
-                    $pageNumber = substr( $page, strrpos( $page, '/' ) +1 );
+                    $pageNumber = urldecode(substr( $page, strrpos( $page, '/' ) +1 ));
                     $this->bookMetadata .= '<option value="' . $page . '">' . $pageNumber . '</option>';
                 }
                 $this->bookMetadata .= '</select>';    
@@ -573,6 +592,14 @@ class Scraper {
         }
         return null;
     }
+    
+    private function getDM2EparentCHO($url) {
+        $parent = $this->dm2eGraph->allResources($url, $this->nsDct . ':isPartOf');
+        if (!$parent) {
+            $parent = $this->dm2eGraph->resourcesMatching($this->nsDct . ':hasPart');
+        }
+        return $parent[0];
+    }
 
     //Hack. Easy RDF library does not suppot a simple way to get triples specifying the object...
     private function getDm2eNextInSequence() {
@@ -589,17 +616,25 @@ class Scraper {
     }
     
     private function getDm2ePrevInSequence() {
+        //echo "previous: " . $this->dm2eGraph->get($this->url, 'edm:isNextInSequence');
         return $this->dm2eGraph->get($this->url, 'edm:isNextInSequence');
     }
 
     // returns an array of Pages connected to the CHO via the dcterms:isPartOf relation
-    private function getDm2ePages() {
+    private function getDm2ePages($url) {
+        //echo "getting pages for .. " . $url;
         $parts = $this->dm2eGraph->resourcesMatching($this->nsDct . ':isPartOf');
         $pages = array();
         foreach ($parts as $part) {
-            if ($part != $this->url) {
-                        array_push($pages, $part);
-            }
+            //echo "adding isPartOf ... " . $part;
+            array_push($pages, $part);
+        }
+        $parts = $this->dm2eGraph->allResources($url, $this->nsDct . ':hasPart');
+        foreach ($parts as $part) {
+            //echo "adding hasPart ... " . $part;
+            if (!in_array($part, $pages)) {
+                    array_push($pages, $part);
+            }                
         }
         sort($pages);
         return $pages;
@@ -619,7 +654,7 @@ class Scraper {
             
             $authorLabel = $this->dm2eGraph->get($auth, 'skos:prefLabel');     
             $result .= '<div class="pundit-content" about="' . $auth . '">' . 
-                '<span class="pundit-ignore" rel="http://purl.org/pundit/ont/json-metadata" resource="http://feed.thepund.it/services/rdftojsonld.php?url=' . $auth . '" style="" width=""></span>' .
+                '<span class="pundit-ignore" rel="http://purl.org/pundit/ont/json-metadata" resource="http://feed.local/services/rdftojsonld.php?url=' . $auth . '" style="" width=""></span>' .
                 $authorLabel ;
             $cont++;
             $result .= '</div>';
