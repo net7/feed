@@ -27,7 +27,32 @@ var punditConfig = {
             askBaseURL: 'http://ask.as.thepund.it/#/myNotebooks/'
         },
         
-        'selectors': {},
+        'selectors': {
+            
+            'Freebase': {
+                name: 'freebase', label: 'Freebase', active: true
+            },
+            'DBPedia': {
+                name: 'dbpedia', label: 'DBPedia', active: true
+            },
+            'KorboBasket': {
+                name: 'korbo', label: 'Korbo', active: false
+            },
+            'Wordnet': {
+                name: 'wordnet', label: 'Word Net', active: false
+            },
+            'Europeana': {
+                name: 'europeana', label: 'Europeana', active: false
+            },
+            'EuropeanaEDM': {
+                name: 'europeanaedm', label: 'Europeana EDM', active: false
+            },
+            // DEBUG: not ready for prime time, keep it active = false !
+            'BibServer': {
+                name: 'bibserver', label: 'BibServer', active: false
+            }
+            
+        },
         'annotators': {}
     }
 
