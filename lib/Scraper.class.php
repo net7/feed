@@ -224,7 +224,7 @@ class Scraper {
 
     private function retrievePunditContentDm2e() {
         
-        if ($_GET["pages"]) {
+        if (isset($_GET["pages"])) {
                 $this->showAllPages = $_GET["pages"];
         }
         
