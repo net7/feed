@@ -299,8 +299,7 @@ class Scraper {
             $this->shownBy = $this->aggregatedCHO->getResource('edm:isShownAt');
         }
         
-        
-        if ($this->showAllPages) {
+        if ($this->showAllPages == 'true') {
             
             $this->showPagesPreview($this->pages);
             
@@ -326,10 +325,26 @@ class Scraper {
             }
             
             if (isset($this->pages) && $this->pages != null) {
-                if ($this->showAllPages) {
-                    $this->bookMetadata .= '<div><a href="' . $_SERVER['REQUEST_URI'] . '&pages=false' . '"><strong>Show cover page</a></p></div><hr/>';
+                if ($this->showAllPages == 'true') {
+                    $url1 ='';
+                    if (!isset($_GET["pages"])) {
+                        $url1 = $_SERVER['REQUEST_URI'] . '&pages=false';
+                    } else if ($_GET["pages"] == 'true') {
+                        $url1 = str_replace('pages=true','pages=false',$_SERVER['REQUEST_URI']);
+                    } else if ($_GET["pages"] == 'false') {
+                        $url1 = $_SERVER['REQUEST_URI'];
+                    }
+                    $this->bookMetadata .= '<div><a href="' . $url1 . '"><strong>Show cover page</a></p></div><hr/>';
                 } else {
-                    $this->bookMetadata .= '<div><a href="' . $_SERVER['REQUEST_URI'] . '&pages=true' . '"><strong>Show all pages</a></p></div><hr/>';        
+                    $url2 ='';
+                    if (!isset($_GET["pages"])) {
+                        $url2 = $_SERVER['REQUEST_URI'] . '&pages=true';
+                    } else if ($_GET["pages"] == 'false') {
+                        $url2 = str_replace('pages=false','pages=true',$_SERVER['REQUEST_URI']);
+                    } else if ($_GET["pages"] == 'true') {
+                        $url2 = $_SERVER['REQUEST_URI'];
+                    }
+                    $this->bookMetadata .= '<div><a href="' . $url2 . '"><strong>Show all pages</a></p></div><hr/>';        
                 }
                 
                 $this->bookMetadata .= '<div><p><strong>Browse pages</strong></p>';
@@ -447,10 +462,7 @@ class Scraper {
             foreach($versions as $version) {
                 $format = $this->dm2eGraph->get($version, $this->nsDc . ':format');
                 if ($format == "image/jpeg" || $format == "http://onto.dm2e.eu/schemas/dm2e/1.1/mime-types/image/jpeg") {
-                    $this->punditContent .= '
-                        <div class="pundit-content" about="' . $version .'">';
-                    $this->punditContent .= '<img src="'.$version.'"  />';
-                    $this->punditContent .= '</div>';
+                    $this->punditContent .= $this->showDM2EImage($version);
                 }
             }
             $cont++;
@@ -476,21 +488,7 @@ class Scraper {
             
                 if (($format == "image/jpeg" || $format == "http://onto.dm2e.eu/schemas/dm2e/1.1/mime-types/image/jpeg")) {
                 
-                    // XXX HACK for supporting RARA contentfrom MPIWG
-                    $suffix = 'http://digilib.mpiwg-berlin.mpg.de/digitallibrary/jquery/digilib.html?fn=/permanent/library/';
-                    $newsuffix = 'http://digilib.mpiwg-berlin.mpg.de/digitallibrary/servlet/Scaler?fn=/permanent/library/';
-                    $newpostfix = '&dw=1336&dh=680';
-                    if (strpos($version,$suffix) !== false) {
-                        $version = str_replace($suffix, $newsuffix, $version) . $newpostfix;
-
-                    }
-                
-                    $punditImageContent .= '
-                             <div class="pundit-content" about="'. $version . '">
-                               <img src="' . $version . '" class="annotable-image" />
-                             </div>
-                         ';    
-
+                    $punditImageContent .= $this->showDM2EImage($version);    
                 
                 } else if ($format == "text/html-named-content") {
                 
@@ -617,6 +615,20 @@ class Scraper {
                        <img src="' . $this->object . '" class="annotable-image" />
                      </div>
                  ';
+            } else if (!isset($punditImageContent) && isset($this->pages) && count($this->pages)>0 && !$this->annotableVersionAt) {
+                $p = $this->pages[0];
+                $this->dm2eGraph->load($p);
+                $agg = $this->getEDMAggregationOf($p);
+                $versions = $this->dm2eGraph->allResources($agg, 'dm2e:hasAnnotatableVersionAt');
+                foreach ($versions as $version) {
+                    $format = $this->dm2eGraph->get($version, $this->nsDc . ':format');
+                    if ($format == "image/jpeg" || $format == "http://onto.dm2e.eu/schemas/dm2e/1.1/mime-types/image/jpeg") {
+                        $punditImageContent = $this->showDM2EImage($version);
+                             
+                    }
+                }
+                
+                
             }
                 
             if (isset($punditImageContent) && isset($punditTextContent)) {
@@ -681,6 +693,23 @@ class Scraper {
             }
         }
         return $next;
+    }
+    
+    private function showDM2eImage($version) {
+        // XXX HACK for supporting RARA contentfrom MPIWG
+        $suffix = 'http://digilib.mpiwg-berlin.mpg.de/digitallibrary/jquery/digilib.html?fn=/permanent/library/';
+        $newsuffix = 'http://digilib.mpiwg-berlin.mpg.de/digitallibrary/servlet/Scaler?fn=/permanent/library/';
+        $newpostfix = '&dw=1336&dh=680';
+        if (strpos($version,$suffix) !== false) {
+            $version = str_replace($suffix, $newsuffix, $version) . $newpostfix;
+
+        }
+    
+        return '
+                 <div class="pundit-content" about="'. $version . '">
+                   <img src="' . $version . '" class="annotable-image" />
+                 </div>
+             ';
     }
     
     private function getDm2ePrevInSequence() {
