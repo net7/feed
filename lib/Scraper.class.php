@@ -33,6 +33,8 @@ class Scraper {
     private $shownBy;
     private $pageShownBy;
     
+    private $showAllPages = false;
+    
 
     /**
      * Public contructor set URL to be scraped
@@ -222,6 +224,8 @@ class Scraper {
 
     private function retrievePunditContentDm2e() {
         
+        $this->showAllPages = $_GET["pages"];
+        
         $this->url = str_replace('+','%2B',$this->url);
         
         $url = $this->url;
@@ -240,7 +244,7 @@ class Scraper {
         foreach ($types as $type) {
             if ($type->getUri()=='http://onto.dm2e.eu/schemas/dm2e/1.1/Page' || $type->getUri()=='http://onto.dm2e.eu/schemas/dm2e/Page' || $type->getUri()=='http://purl.org/spar/fabio/#Page' || $type->getUri()=='http://onto.dm2e.eu/schemas/dm2e/Paragraph') {
                 $this->type = 'Page';
-            } else if ($type->getUri()=='http://purl.org/spar/fabio/Article' || $type->getUri()=='http://purl.org/ontology/bibo/Issue' || $type->getUri()=='http://purl.org/spar/fabio/Article' || $type->getUri()=='http://purl.org/ontology/bibo/Book' || $type->getUri()=='http://onto.dm2e.eu/schemas/dm2e/Manuscript') {
+            } else if ($type->getUri()=='http://purl.org/spar/fabio/Article' || $type->getUri()=='http://purl.org/ontology/bibo/Issue' || $type->getUri()=='http://purl.org/spar/fabio/Article' || $type->getUri()=='http://purl.org/ontology/bibo/Book' || $type->getUri()=='http://purl.org/ontology/bibo/Journal' || $type->getUri()=='http://onto.dm2e.eu/schemas/dm2e/Manuscript') {
                 $this->type = 'Book';
             }
         }
@@ -293,193 +297,23 @@ class Scraper {
         }
         
         
-        // TODO: get the type of the resource from the RDF, and not with a string match!
-        if (isset($this->annotableVersionAt)){
-            $punditImageContent = null;
-            $punditTextContent = null;
+        if ($this->showAllPages) {
             
-            foreach($this->annotableVersionAt as $version) {
-                $format = $version->get($this->nsDc . ':format');
-                /*
-                if (!$format) {
-                    $format = $this->aggregatedCHO->get($this->nsDc . ':format');
-                }
-                */
-                
-                if (($format == "image/jpeg" || $format == "http://onto.dm2e.eu/schemas/dm2e/1.1/mime-types/image/jpeg")) {
-                    
-                    // XXX HACK for supporting RARA contentfrom MPIWG
-                    $suffix = 'http://digilib.mpiwg-berlin.mpg.de/digitallibrary/jquery/digilib.html?fn=/permanent/library/';
-                    $newsuffix = 'http://digilib.mpiwg-berlin.mpg.de/digitallibrary/servlet/Scaler?fn=/permanent/library/';
-                    $newpostfix = '&dw=1336&dh=680';
-                    if (strpos($version,$suffix) !== false) {
-                        $version = str_replace($suffix, $newsuffix, $version) . $newpostfix;
-
-                    }
-                    
-                    $punditImageContent .= '
-                             <div class="pundit-content" about="'. $version . '">
-                               <img src="' . $version . '" class="annotable-image" />
-                             </div>
-                         ';    
-
-                    
-                } else if ($format == "text/html-named-content") {
-                    
-                    $content = $this->doCurlRequest('text/html', $version);
-                    
-                    $content = preg_replace('@<body>@', '', $content);
-                    $content = preg_replace('@</body>@', '', $content);
-                    $content = preg_replace('@<html>@', '', $content);
-                    $content = preg_replace('@</html>@', '', $content);
-                
-                    $punditTextContent .= $content;
-                    
-                } else if ($format == "text/html") {
-
-                    // We assume that there is only html and body element and only one pundit content
-
-                    $content = $this->doCurlRequest('text/html', $version);
-                    $dom = new DOMDocument();
-                    $dom->loadHTML($content);
-                
-                    $links = $dom->getElementsByTagName('head');
-                    for ($i=0; $i<$links->length; $i++) {
-                        $node = $links->item($i);
-                        if ($node->parentNode)
-                            $node->parentNode->removeChild($node);
-                    }
-                                    
-                    $spans = $dom->getElementsByTagName('span');
-                    for ($i=0; $i<$spans->length; $i++) {
-                        $node = $spans->item($i);
-                        $class = $node->getAttribute('class');
-                        if ( ($class == 'nodictionary orig') ) {
-                            //$dom->removeChild($node);
-                            //$node->textContent = '';
-                            //$node->nodeValue = '';
-                            $node->parentNode->removeChild($node);
-                        }
-                    }
-                    $spans = $dom->getElementsByTagName('span');
-                    for ($i=0; $i<$spans->length; $i++) {
-                        $node = $spans->item($i);
-                        $class = $node->getAttribute('class');
-                        if ( ($class == 'nodictionary norm') ) {
-                            //$dom->removeChild($node);
-                            //$node->textContent = '';
-                            //$node->nodeValue = '';
-                            $node->parentNode->removeChild($node);
-                        }
-                    }
-                    $spans = $dom->getElementsByTagName('span');
-                    for ($i=0; $i<$spans->length; $i++) {
-                        $node = $spans->item($i);
-                        $class = $node->getAttribute('class');
-                        if ( ($class == 'nodictionary reg') ) {
-                            //$dom->removeChild($node);
-                            //$node->textContent = '';
-                            //$node->nodeValue = '';
-                            $node->parentNode->removeChild($node);
-                        }
-                    }
-                    $spans = $dom->getElementsByTagName('span');
-                    for ($i=0; $i<$spans->length; $i++) {
-                        $node = $spans->item($i);
-                        $class = $node->getAttribute('class');
-                        if ( ($class == 'orig') ) {
-                            //$dom->removeChild($node);
-                            //$node->textContent = '';
-                            //$node->nodeValue = '';
-                            $node->parentNode->removeChild($node);
-                        }
-                    }
-                    $spans = $dom->getElementsByTagName('span');
-                    for ($i=0; $i<$spans->length; $i++) {
-                        $node = $spans->item($i);
-                        $class = $node->getAttribute('class');
-                        if ( ($class == 'reg') ) {
-                            //$dom->removeChild($node);
-                            //$node->textContent = '';
-                            //$node->nodeValue = '';
-                            $node->parentNode->removeChild($node);
-                        }
-                    }
-                
-                    $spans = $dom->getElementsByTagName('span');
-                    for ($i=0; $i<$spans->length; $i++) {
-                        $node = $spans->item($i);
-                        $class = $node->getAttribute('class');
-                        if ( ($class == 'norm') ) {
-                            //$dom->removeChild($node);
-                            //$node->textContent = '';
-                            //$node->nodeValue = '';
-                            $anchor = $node->parentNode;
-                            if ($anchor->tagName=='a') {
-                                    $anchor->setAttribute('target', '_blank');
-                            }
-                        }
-                    }
-                
-                    $content = $dom->saveHTML();
-
-                    $content = preg_replace('@<body>@', '', $content);
-                    $content = preg_replace('@</body>@', '', $content);
-                    $content = preg_replace('@<html>@', '', $content);
-                    $content = preg_replace('@</html>@', '', $content);
-                
-                    $punditTextContent .= '
-                         <div class="pundit-content" about="'. $version . '">'
-                           . $content .
-                         '</div>
-                     ';
-                } else {
-                    $punditImageContent .= '
-                         <div class="pundit-content" about="'. $version . '">
-                           <img src="' . $version . '" class="annotable-image" />
-                         </div>
-                     ';
-                }
-                
-            }
-                    
-            if (!isset($punditImageContent) && $this->object) {
-                $punditImageContent = '
-                     <div class="pundit-content" about="'. $this->object . '">
-                       <img src="' . $this->object . '" class="annotable-image" />
-                     </div>
-                 ';
-            }
-                    
-            if (isset($punditImageContent) && isset($punditTextContent)) {
-                    $this->punditContent = '<div class="pundit-content" about="' . $this->url .'">' . '<h3>Transcription</h3>' . $punditTextContent . 
-                        '<hr/><h3>Facsimile</h3>' . $punditImageContent .'</div>';
-            } else if (isset($punditImageContent)) {
-                $this->punditContent = '<div class="pundit-content" about="' . $this->url .'">' . $punditImageContent .'</div>';
-            } else if (isset($punditTextContent)) {
-                $this->punditContent = '<div class="pundit-content" about="' . $this->url .'">' . $punditTextContent .'</div>';
-            } else {
-                $this->punditContent .= '
-                    <div class="pundit-content" about="' . $this->url .'">
-                         <div class="pundit-content" about="'.$this->object.'">';
-                $this->punditContent .= '<img src="'.$this->object.'"  />';
-                $this->punditContent .= '</div></div>';
-            } 
+            $this->showPagesPreview($this->pages);
             
             
         } else {
-            $this->punditContent .= '
-                <div class="pundit-content" about="' . $this->url .'">
-                     <div class="pundit-content" about="'.$this->object.'">';
-            $this->punditContent .= '<img src="'.$this->object.'"  />';
-            $this->punditContent .= '</div></div>';
+            
+            $this->showSinglePage();
             
         }
         
         
+        
+        // Metadata Side bar ...
             
             if (isset($this->bookLabel) && $this->bookLabel != null) {
-                $this->bookMetadata .= '<h3>' . $this->bookLabel . '</h3><hr/>';
+                $this->bookMetadata .= 'Title<h4>' . $this->bookLabel . '</h4><hr/>';
             }
             if (isset($this->author) && $this->author != null) {
                 $this->bookMetadata .= '<strong>Author(s): </strong><br/>' . $this->author . '<hr/>';
@@ -487,11 +321,14 @@ class Scraper {
             if (isset($this->date) && $this->date != null) {
                 $this->bookMetadata .= '<strong>Issued: </strong><br/>' . $this->date . '<hr/>';
             }
-            if (isset($this->dataprovider) && $this->dataprovider != null) {
-                $this->bookMetadata .= '<p><strong>Data provider:</strong><br/>' .
-                                      $this->dataprovider . '</p><hr/>';    
-            }
+            
             if (isset($this->pages) && $this->pages != null) {
+                if ($this->showAllPages) {
+                    $this->bookMetadata .= '<div><a href="' . $_SERVER['REQUEST_URI'] . '&pages=false' . '"><strong>Show cover page</a></p></div><hr/>';
+                } else {
+                    $this->bookMetadata .= '<div><a href="' . $_SERVER['REQUEST_URI'] . '&pages=true' . '"><strong>Show all pages</a></p></div><hr/>';        
+                }
+                
                 $this->bookMetadata .= '<div><p><strong>Browse pages</strong></p>';
                 $this->bookMetadata .= '<form action="http://' . $_SERVER['HTTP_HOST'] . '" method="get">';
                 $this->bookMetadata .= '<select name="dm2e">';
@@ -505,6 +342,10 @@ class Scraper {
             
                 $this->bookMetadata .= '</form>';    
                 $this->bookMetadata .= '</div>';   
+            }
+            if (isset($this->dataprovider) && $this->dataprovider != null) {
+                $this->bookMetadata .= '<p><strong>Data provider:</strong><br/>' .
+                                      $this->dataprovider . '</p><hr/>';    
             }
             if (isset($this->hasMet) && $this->hasMet != null) {
                 $this->bookMetadata .= '<strong>Related persons:</strong><hr/>';
@@ -590,6 +431,218 @@ class Scraper {
 
 
     //DM2E functions
+    
+    private function showPagesPreview($pages) {
+        
+        $max = 30;
+        $cont = 0;
+        foreach ($pages as $page) {
+            if ($cont > $max) break;
+            $this->dm2eGraph->load($page);
+            $agg = $this->getEDMAggregationOf($page);
+            $versions = $this->dm2eGraph->allResources($agg,'dm2e:hasAnnotatableVersionAt');
+            foreach($versions as $version) {
+                $format = $this->dm2eGraph->get($version, $this->nsDc . ':format');
+                if ($format == "image/jpeg" || $format == "http://onto.dm2e.eu/schemas/dm2e/1.1/mime-types/image/jpeg") {
+                    $this->punditContent .= '
+                        <div class="pundit-content" about="' . $version .'">';
+                    $this->punditContent .= '<img src="'.$version.'"  />';
+                    $this->punditContent .= '</div>';
+                }
+            }
+            $cont++;
+            
+        }
+        
+    }
+    
+    private function showSinglePage() {
+        
+        // TODO: get the type of the resource from the RDF, and not with a string match!
+        if (isset($this->annotableVersionAt)){
+            $punditImageContent = null;
+            $punditTextContent = null;
+        
+            foreach($this->annotableVersionAt as $version) {
+                $format = $version->get($this->nsDc . ':format');
+                /*
+                if (!$format) {
+                    $format = $this->aggregatedCHO->get($this->nsDc . ':format');
+                }
+                */
+            
+                if (($format == "image/jpeg" || $format == "http://onto.dm2e.eu/schemas/dm2e/1.1/mime-types/image/jpeg")) {
+                
+                    // XXX HACK for supporting RARA contentfrom MPIWG
+                    $suffix = 'http://digilib.mpiwg-berlin.mpg.de/digitallibrary/jquery/digilib.html?fn=/permanent/library/';
+                    $newsuffix = 'http://digilib.mpiwg-berlin.mpg.de/digitallibrary/servlet/Scaler?fn=/permanent/library/';
+                    $newpostfix = '&dw=1336&dh=680';
+                    if (strpos($version,$suffix) !== false) {
+                        $version = str_replace($suffix, $newsuffix, $version) . $newpostfix;
+
+                    }
+                
+                    $punditImageContent .= '
+                             <div class="pundit-content" about="'. $version . '">
+                               <img src="' . $version . '" class="annotable-image" />
+                             </div>
+                         ';    
+
+                
+                } else if ($format == "text/html-named-content") {
+                
+                    $content = $this->doCurlRequest('text/html', $version);
+                
+                    $content = preg_replace('@<body>@', '', $content);
+                    $content = preg_replace('@</body>@', '', $content);
+                    $content = preg_replace('@<html>@', '', $content);
+                    $content = preg_replace('@</html>@', '', $content);
+            
+                    $punditTextContent .= $content;
+                
+                } else if ($format == "text/html") {
+
+                    // We assume that there is only html and body element and only one pundit content
+
+                    $content = $this->doCurlRequest('text/html', $version);
+                    $dom = new DOMDocument();
+                    $dom->loadHTML($content);
+            
+                    $links = $dom->getElementsByTagName('head');
+                    for ($i=0; $i<$links->length; $i++) {
+                        $node = $links->item($i);
+                        if ($node->parentNode)
+                            $node->parentNode->removeChild($node);
+                    }
+                                
+                    $spans = $dom->getElementsByTagName('span');
+                    for ($i=0; $i<$spans->length; $i++) {
+                        $node = $spans->item($i);
+                        $class = $node->getAttribute('class');
+                        if ( ($class == 'nodictionary orig') ) {
+                            //$dom->removeChild($node);
+                            //$node->textContent = '';
+                            //$node->nodeValue = '';
+                            $node->parentNode->removeChild($node);
+                        }
+                    }
+                    $spans = $dom->getElementsByTagName('span');
+                    for ($i=0; $i<$spans->length; $i++) {
+                        $node = $spans->item($i);
+                        $class = $node->getAttribute('class');
+                        if ( ($class == 'nodictionary norm') ) {
+                            //$dom->removeChild($node);
+                            //$node->textContent = '';
+                            //$node->nodeValue = '';
+                            $node->parentNode->removeChild($node);
+                        }
+                    }
+                    $spans = $dom->getElementsByTagName('span');
+                    for ($i=0; $i<$spans->length; $i++) {
+                        $node = $spans->item($i);
+                        $class = $node->getAttribute('class');
+                        if ( ($class == 'nodictionary reg') ) {
+                            //$dom->removeChild($node);
+                            //$node->textContent = '';
+                            //$node->nodeValue = '';
+                            $node->parentNode->removeChild($node);
+                        }
+                    }
+                    $spans = $dom->getElementsByTagName('span');
+                    for ($i=0; $i<$spans->length; $i++) {
+                        $node = $spans->item($i);
+                        $class = $node->getAttribute('class');
+                        if ( ($class == 'orig') ) {
+                            //$dom->removeChild($node);
+                            //$node->textContent = '';
+                            //$node->nodeValue = '';
+                            $node->parentNode->removeChild($node);
+                        }
+                    }
+                    $spans = $dom->getElementsByTagName('span');
+                    for ($i=0; $i<$spans->length; $i++) {
+                        $node = $spans->item($i);
+                        $class = $node->getAttribute('class');
+                        if ( ($class == 'reg') ) {
+                            //$dom->removeChild($node);
+                            //$node->textContent = '';
+                            //$node->nodeValue = '';
+                            $node->parentNode->removeChild($node);
+                        }
+                    }
+            
+                    $spans = $dom->getElementsByTagName('span');
+                    for ($i=0; $i<$spans->length; $i++) {
+                        $node = $spans->item($i);
+                        $class = $node->getAttribute('class');
+                        if ( ($class == 'norm') ) {
+                            //$dom->removeChild($node);
+                            //$node->textContent = '';
+                            //$node->nodeValue = '';
+                            $anchor = $node->parentNode;
+                            if ($anchor->tagName=='a') {
+                                    $anchor->setAttribute('target', '_blank');
+                            }
+                        }
+                    }
+            
+                    $content = $dom->saveHTML();
+
+                    $content = preg_replace('@<body>@', '', $content);
+                    $content = preg_replace('@</body>@', '', $content);
+                    $content = preg_replace('@<html>@', '', $content);
+                    $content = preg_replace('@</html>@', '', $content);
+            
+                    $punditTextContent .= '
+                         <div class="pundit-content" about="'. $version . '">'
+                           . $content .
+                         '</div>
+                     ';
+                } else {
+                    $punditImageContent .= '
+                         <div class="pundit-content" about="'. $version . '">
+                           <img src="' . $version . '" class="annotable-image" />
+                         </div>
+                     ';
+                }
+            
+            }
+                
+            if (!isset($punditImageContent) && $this->object) {
+                $punditImageContent = '
+                     <div class="pundit-content" about="'. $this->object . '">
+                       <img src="' . $this->object . '" class="annotable-image" />
+                     </div>
+                 ';
+            }
+                
+            if (isset($punditImageContent) && isset($punditTextContent)) {
+                    $this->punditContent = '<div class="pundit-content" about="' . $this->url .'">' . '<h3>Transcription</h3>' . $punditTextContent . 
+                        '<hr/><h3>Facsimile</h3>' . $punditImageContent .'</div>';
+            } else if (isset($punditImageContent)) {
+                $this->punditContent = '<div class="pundit-content" about="' . $this->url .'">' . $punditImageContent .'</div>';
+            } else if (isset($punditTextContent)) {
+                $this->punditContent = '<div class="pundit-content" about="' . $this->url .'">' . $punditTextContent .'</div>';
+            } else {
+                $this->punditContent .= '
+                    <div class="pundit-content" about="' . $this->url .'">
+                         <div class="pundit-content" about="'.$this->object.'">';
+                $this->punditContent .= '<img src="'.$this->object.'"  />';
+                $this->punditContent .= '</div></div>';
+            } 
+        
+        
+        } else {
+            $this->punditContent .= '
+                <div class="pundit-content" about="' . $this->url .'">
+                     <div class="pundit-content" about="'.$this->object.'">';
+            $this->punditContent .= '<img src="'.$this->object.'"  />';
+            $this->punditContent .= '</div></div>';
+        
+        }
+        
+    }
+    
 
     private function getEDMAggregationOf($url) {
         
