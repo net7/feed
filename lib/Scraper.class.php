@@ -458,7 +458,7 @@ class Scraper {
     
     private function showPagesPreview($pages) {
         $start = '';
-        if ($_GET["start"] != null)
+        if (isset($_GET["start"]))
             $start = $_GET["start"];
         else 
             $start = 0;
@@ -484,7 +484,7 @@ class Scraper {
             
         }
         $link = '';
-        if ($_GET['start'] != null) {
+        if (isset($_GET["start"])) {
             $next = $_GET['start'] + $max;
             $link = str_replace('start='.$_GET["start"],'start=' . $next,$_SERVER['REQUEST_URI']);
         } else {
