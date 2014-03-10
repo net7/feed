@@ -37,7 +37,7 @@ var punditConfig = {
         },
         
         'pundit.TooltipAnnotationViewer': {
-            active: true
+            active: true,
             allowAnnotationEdit: true
         },
         

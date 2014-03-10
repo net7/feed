@@ -276,7 +276,7 @@ class Scraper {
 
         $this->pages = $this->getDm2ePages($this->book->getUri());
         
-        $this->author = $this->getDm2eAuthors($this->book->getUri());
+        $this->author = $this->getDm2eResourceArray($this->book->getUri(),'spar:author');
         
         $this->object = $this->aggregatedCHO->getResource('edm:object');
         
@@ -290,7 +290,7 @@ class Scraper {
 
         $this->shownBy = $this->aggregatedCHO->getResource('edm:isShownBy');
         
-        $this->subject = $this->dm2eGraph->allResources($this->book, $this->nsDc . ':subject');
+        $this->subject = $this->getDM2EResourceArray($this->book, $this->nsDc . ':subject');
 
         // Properties of the Page
         
@@ -777,12 +777,11 @@ class Scraper {
         sort($pages);
         return $pages;
     }
-    
 
-    private function getDm2eAuthors($url) {
+    private function getDm2eResourceArray($url, $property) {
         $result = '';
         $cont = 0; 
-        $authors = $this->dm2eGraph->allResources($url, 'spar:author');
+        $authors = $this->dm2eGraph->allResources($url, $property);
         foreach ($authors as $auth) {
             try {
                 $this->dm2eGraph->load($auth);         
