@@ -32,6 +32,7 @@ class Scraper {
     private $date;
     private $shownBy;
     private $pageShownBy;
+    private $subjetc;
     
     private $showAllPages = false;
     
@@ -288,6 +289,8 @@ class Scraper {
         $this->date = $this->getDm2eDate($this->book->getUri());
 
         $this->shownBy = $this->aggregatedCHO->getResource('edm:isShownBy');
+        
+        $this->subject = $this->dm2eGraph->allResources($this->book, $this->nsDc . ':subject');
 
         // Properties of the Page
         
@@ -319,6 +322,9 @@ class Scraper {
             }
             if (isset($this->author) && $this->author != null) {
                 $this->bookMetadata .= '<strong>Author(s): </strong><br/>' . $this->author . '<hr/>';
+            }
+            if (isset($this->subject) && $this->subject != null) {
+                $this->bookMetadata .= '<strong>Subject(s): </strong><br/>' . $this->subject . '<hr/>';
             }
             if (isset($this->date) && $this->date != null) {
                 $this->bookMetadata .= '<strong>Issued: </strong><br/>' . $this->date . '<hr/>';
@@ -632,16 +638,29 @@ class Scraper {
             }
                 
             if (isset($punditImageContent) && isset($punditTextContent)) {
-                    $this->punditContent = '<div class="pundit-content" about="' . $this->url .'">' . '<h3>Transcription</h3>' . $punditTextContent . 
+                    $this->punditContent = '<div class="pundit-content" about="' . $this->url .'">' . 
+                        '<span class="pundit-ignore" rel="http://purl.org/pundit/ont/json-metadata" 
+                                resource="http://feed.local/services/rdftojsonld.php?url=' . $this->url . '"></span>' .
+                        '<h3>Transcription</h3>' . $punditTextContent . 
                         '<hr/><h3>Facsimile</h3>' . $punditImageContent .'</div>';
             } else if (isset($punditImageContent)) {
-                $this->punditContent = '<div class="pundit-content" about="' . $this->url .'">' . $punditImageContent .'</div>';
+                $this->punditContent = '<div class="pundit-content" about="' . $this->url .'">' . 
+                    '<span class="pundit-ignore" rel="http://purl.org/pundit/ont/json-metadata" 
+                            resource="http://feed.local/services/rdftojsonld.php?url=' . $this->url . '"></span>' .
+                    $punditImageContent .
+                    '</div>';
             } else if (isset($punditTextContent)) {
-                $this->punditContent = '<div class="pundit-content" about="' . $this->url .'">' . $punditTextContent .'</div>';
+                $this->punditContent = '<div class="pundit-content" about="' . $this->url .'">' . 
+                    '<span class="pundit-ignore" rel="http://purl.org/pundit/ont/json-metadata" 
+                            resource="http://feed.local/services/rdftojsonld.php?url=' . $this->url . '"></span>' .
+                    $punditTextContent .
+                    '</div>';
             } else {
                 $this->punditContent .= '
-                    <div class="pundit-content" about="' . $this->url .'">
-                         <div class="pundit-content" about="'.$this->object.'">';
+                    <div class="pundit-content" about="' . $this->url .'">' .
+                '<span class="pundit-ignore" rel="http://purl.org/pundit/ont/json-metadata" 
+                        resource="http://feed.local/services/rdftojsonld.php?url=' . $this->url . '"></span>' .
+                        '<div class="pundit-content" about="'.$this->object.'">';
                 $this->punditContent .= '<img src="'.$this->object.'"  />';
                 $this->punditContent .= '</div></div>';
             } 
@@ -649,8 +668,10 @@ class Scraper {
         
         } else {
             $this->punditContent .= '
-                <div class="pundit-content" about="' . $this->url .'">
-                     <div class="pundit-content" about="'.$this->object.'">';
+                <div class="pundit-content" about="' . $this->url .'">' . 
+                    '<span class="pundit-ignore" rel="http://purl.org/pundit/ont/json-metadata" 
+                        resource="http://feed.local/services/rdftojsonld.php?url=' . $this->url . '"></span>' .
+                    '<div class="pundit-content" about="'.$this->object.'">';
             $this->punditContent .= '<img src="'.$this->object.'"  />';
             $this->punditContent .= '</div></div>';
         

@@ -24,31 +24,62 @@ try {
     $nsDc = EasyRdf_Namespace::prefixOfUri('http://purl.org/dc/elements/1.1/');
     $nsDct = EasyRdf_Namespace::prefixOfUri('http://purl.org/dc/terms/');
     
-    $label = $rdfGraph->get($url,'skos:prefLabel');
     $type = $rdfGraph->getResource($url,'rdf:type');
-    $sameas = $rdfGraph->getResource($url,'owl:sameAs');
+    $dctype = $rdfGraph->getResource($url, $nsDc . ':type');
+    
+    $label = '';
     $description = '';
     $picture = '';
-    if ($sameas) {
-        $rdfGraph->load($sameas);
-        $bio = $rdfGraph->get($sameas, 'gndo:biographicalOrHistoricalInformation');
-        $sameases = $rdfGraph->allResources($sameas,'owl:sameAs');
-        foreach ($sameases as $sa) {
-                $rdfGraph->load($sa);
-                $picture = $rdfGraph->getResource($sa,'foaf:depiction');
-                $pedia = $rdfGraph->get($sa,'rdfs:comment','literal','en');
-                if (!$pedia) {
-                    $pedia = $rdfGraph->get($sa,'dbpedia:abstract','literal','en');
-                }
-                break;        
-        }
+
+    if ($type == 'http://xmlns.com/foaf/0.1/Person') {
+        $label = $rdfGraph->get($url,'skos:prefLabel');
+        $sameas = $rdfGraph->getResource($url,'owl:sameAs');   
+        if ($sameas) {
+            $rdfGraph->load($sameas);
+            $bio = $rdfGraph->get($sameas, 'gndo:biographicalOrHistoricalInformation');
+            $sameases = $rdfGraph->allResources($sameas,'owl:sameAs');
+            foreach ($sameases as $sa) {
+                    $rdfGraph->load($sa);
+                    $picture = $rdfGraph->getResource($sa,'foaf:depiction');
+                    $pedia = $rdfGraph->get($sa,'rdfs:comment','literal','en');
+                    if (!$pedia) {
+                        $pedia = $rdfGraph->get($sa,'dbpedia:abstract','literal','en');
+                    }
+                    break;        
+            }
     
-        if ($bio) {
-            $description .= '<b>Bio:</b><br/>' . $bio;
+            if ($bio) {
+                $description .= '<b>Bio:</b><br/>' . $bio;
+            }
+            if ($pedia)
+                $description .= '<br/><b>From DBpedia:</b><br/>' . $pedia;
+        } 
+    } else if ($type == 'http://www.europeana.eu/schemas/edm/ProvidedCHO' || $dctype == 'http://onto.dm2e.eu/schemas/dm2e/Page') {
+        $label = $rdfGraph->get($url, $nsDc . ':title');
+        $description = $rdfGraph->get($url, $nsDc . ':description');
+        if ($type =='' || $type == null) {
+            $type = $dctype;
         }
-        if ($pedia)
-            $description .= '<br/><b>From DBpedia:</b><br/>' . $pedia;
+        $agg = $rdfGraph->resourcesMatching('edm:aggregatedCHO');
+        if ($agg != null && count($agg)>0) {
+            $versions = $agg[0]->allResources('dm2e:hasAnnotatableVersionAt');
+            foreach($versions as $version) {
+                if ($version) {
+                    $format = $version->get($nsDc . ':format');
+                    if ($format == 'image/jpeg') {
+                        $picture = $version;
+                        //We take the first picture only ...
+                        break;
+                    }
+                }    
+            }
+            
+            
+        }
     }
+    
+    
+    
     echo $callback . '({
         "@id": "http://data.dm2e.eu/data/agent/onb/authority_gnd/10093630X",
         "@type": "' . $type . '",
