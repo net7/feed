@@ -19,12 +19,16 @@ var punditConfig = {
             introductionWindowTitle: 'Welcome to Pundit! :)',
             showIntroductionAtLogin: true
         },
-        'pundit.NotebookManager': { 
-            active: true, 
-            notebookSharing: false,
-            notebookActivation: false,
-            showFilteringOptions: false,
-            askBaseURL: 'http://ask.as.thepund.it/#/myNotebooks/'
+        
+        'pundit.NotebookManager': {
+            active: true,
+            notebookSharing: true,
+            notebookActivation: true,
+            showFilteringOptions: true,
+            defaultFilteringOption: 'all', // valid options: 'all' | 'active'
+            activateFromAnnotations: true,
+            askBaseURL: 'http://ask.as.thepund.it/#/myNotebooks/',
+            debug: false
         },
         
         'selectors': {},
