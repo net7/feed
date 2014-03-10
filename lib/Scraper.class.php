@@ -463,12 +463,15 @@ class Scraper {
         foreach ($pages as $page) {
             if ($cont > $max) break;
             $this->dm2eGraph->load($page);
+            $title = $this->dm2eGraph->get($page, $this->nsDc . ':title');
             $agg = $this->getEDMAggregationOf($page);
             $versions = $this->dm2eGraph->allResources($agg,'dm2e:hasAnnotatableVersionAt');
             foreach($versions as $version) {
                 $format = $this->dm2eGraph->get($version, $this->nsDc . ':format');
                 if ($format == "image/jpeg" || $format == "http://onto.dm2e.eu/schemas/dm2e/1.1/mime-types/image/jpeg") {
+                    $this->punditContent .= '<h3>Page: ' . $title . '<small> <a href="' . '?dm2e=' . $page . '&conf=dm2e.js">See this page only</a></small></h3>';
                     $this->punditContent .= $this->showDM2EImage($version);
+                    $this->punditContent .= '<hr/>';
                 }
             }
             $cont++;
