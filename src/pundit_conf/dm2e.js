@@ -31,6 +31,16 @@ var punditConfig = {
             debug: false
         },
         
+        'pundit.TooltipAnnotationViewer': {
+            active: true,
+            allowAnnotationEdit: true
+        },
+        
+        'pundit.TooltipAnnotationViewer': {
+            active: true
+            allowAnnotationEdit: true
+        },
+        
         'selectors': {},
         'annotators': {}
     }
