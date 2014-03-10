@@ -409,7 +409,6 @@ class Scraper {
     private function retrievePunditContentDefault() {
         $rdf = $this->doCurlRequest('application/rdf+xml');
         $dom = new DOMDocument();
-        echo $rdf;
         $dom->loadXML($rdf);
 
         $this->bookLabel = $this->extractLabelByDom($dom);
@@ -460,7 +459,7 @@ class Scraper {
     private function showPagesPreview($pages) {
         $max = 30;
         //sometime images are duplicated across different CHOs. We use a cache of URLs to check if it was already added.
-        $shownPagesSoFar;
+        $shownPagesSoFar = null;
         $cont = 0;
         foreach ($pages as $page) {
             if ($cont > $max) break;
