@@ -457,6 +457,7 @@ class Scraper {
     //DM2E functions
     
     private function showPagesPreview($pages) {
+        $start = null;
         if ($_GET["start"])
             $start = $_GET["start"];
         else 
