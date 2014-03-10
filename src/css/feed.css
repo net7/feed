@@ -61,7 +61,7 @@ img.resize{
 }
 
 .page-content {
-    width: 55%;
+    width: 75%;
     padding: 5px;
     float: left;
 }
@@ -72,7 +72,7 @@ img.resize{
 }
 
 .right-content-details {
-    width: 20%;
+    width: 10%;
     padding: 5px;
     float: right;
 }

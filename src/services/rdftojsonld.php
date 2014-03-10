@@ -83,8 +83,8 @@ try {
     echo $callback . '({
         "@id": "http://data.dm2e.eu/data/agent/onb/authority_gnd/10093630X",
         "@type": "' . $type . '",
-        "http://www.w3.org/2000/01/rdf-schema#label": "' . $label . '",
-        "http://purl.org/dc/elements/1.1/description": "' . $description . '",
+        "http://www.w3.org/2000/01/rdf-schema#label": "' . str_replace('"','\'',$label) . '",
+        "http://purl.org/dc/elements/1.1/description": "' . str_replace('"','\'',$description) . '",
         "http://xmlns.com/foaf/0.1/depiction": "' . $picture . '"
     })';    
 } catch (Exception $e) {

@@ -94,8 +94,8 @@ class Scraper {
     public function getContent() {
         if ($this->getBookMetadata() != '' && $this->getBookMetadata() != null) {
             return '<div class="left-menu-content">' . $this->getBookMetadata() .'</div>'.
-                '<div class="page-content">' . $this->getPunditContent() . '</div>'.
-                '<div class="right-content-details">' . $this->getPageMetadata() . '</div>';
+                '<div class="page-content">' . $this->getPunditContent() . '</div>';
+//            '<div class="right-content-details">' . $this->getPageMetadata() . '</div>'
         } else {
             return $this->getPunditContent();
         }
@@ -409,6 +409,7 @@ class Scraper {
     private function retrievePunditContentDefault() {
         $rdf = $this->doCurlRequest('application/rdf+xml');
         $dom = new DOMDocument();
+        echo $rdf;
         $dom->loadXML($rdf);
 
         $this->bookLabel = $this->extractLabelByDom($dom);
@@ -457,27 +458,44 @@ class Scraper {
     //DM2E functions
     
     private function showPagesPreview($pages) {
-        
         $max = 30;
+        //sometime images are duplicated across different CHOs. We use a cache of URLs to check if it was already added.
+        $shownPagesSoFar;
         $cont = 0;
         foreach ($pages as $page) {
             if ($cont > $max) break;
             $this->dm2eGraph->load($page);
-            $title = $this->dm2eGraph->get($page, $this->nsDc . ':title');
             $agg = $this->getEDMAggregationOf($page);
             $versions = $this->dm2eGraph->allResources($agg,'dm2e:hasAnnotatableVersionAt');
             foreach($versions as $version) {
-                $format = $this->dm2eGraph->get($version, $this->nsDc . ':format');
-                if ($format == "image/jpeg" || $format == "http://onto.dm2e.eu/schemas/dm2e/1.1/mime-types/image/jpeg") {
-                    $this->punditContent .= '<h3>Page: ' . $title . '<small> <a href="' . '?dm2e=' . $page . '&conf=dm2e.js">See this page only</a></small></h3>';
-                    $this->punditContent .= $this->showDM2EImage($version);
-                    $this->punditContent .= '<hr/>';
-                }
+                if ($shownPagesSoFar && in_array($version,$shownPagesSoFar)) continue;
+                $this->punditContent .=$this->showDM2EPage($page,$version);
             }
+            $shownPagesSoFar[$cont] = $version;
             $cont++;
             
         }
         
+    }
+    
+    private function showDM2EPage($page, $version) {
+        $header = '';
+        $title = $this->dm2eGraph->get($page, $this->nsDc . ':title');
+        if (!$title) {
+            $title = $this->dm2eGraph->get($page, $this->nsDc . ':description');    
+        }
+        $format = $this->dm2eGraph->get($version, $this->nsDc . ':format');
+        if ($format == "image/jpeg" || $format == "http://onto.dm2e.eu/schemas/dm2e/1.1/mime-types/image/jpeg") {
+            $header .= '<h4>Page: ' . $title . '</h4><small> <a href="' . '?dm2e=' . urlencode($page) . '&conf=dm2e.js">See this page only</a></small> | ';
+            if ($this->shownBy) {
+                    $header .= '<small><a href="' . $this->shownBy .
+                                 '" target="_blank">Go to original DL</small> | ';
+            }
+            $header .= '<small><a href="' . $this->url . '" target="_blank">See the RDF data</a></small> | ';
+            $header .= $this->showDM2EImage($version);
+            $header .= '<hr/>';
+        }
+        return $header;    
     }
     
     private function showSinglePage() {
@@ -497,7 +515,7 @@ class Scraper {
             
                 if (($format == "image/jpeg" || $format == "http://onto.dm2e.eu/schemas/dm2e/1.1/mime-types/image/jpeg")) {
                 
-                    $punditImageContent .= $this->showDM2EImage($version);    
+                    $punditImageContent .=$this->showDM2EPage($this->url,$version);
                 
                 } else if ($format == "text/html-named-content") {
                 
@@ -641,19 +659,19 @@ class Scraper {
             }
                 
             if (isset($punditImageContent) && isset($punditTextContent)) {
-                    $this->punditContent = '<div class="pundit-content" about="' . $this->url .'">' . 
+                    $this->punditContent .= '<div class="pundit-content" about="' . $this->url .'">' . 
                         '<span class="pundit-ignore" rel="http://purl.org/pundit/ont/json-metadata" 
                                 resource="http://feed.thepund.it/services/rdftojsonld.php?url=' . $this->url . '"></span>' .
-                        '<h3>Transcription</h3>' . $punditTextContent . 
-                        '<hr/><h3>Facsimile</h3>' . $punditImageContent .'</div>';
+                        $punditImageContent .'</div>' .
+                        '<hr/><h3>Transcription</h3>' . $punditTextContent;
             } else if (isset($punditImageContent)) {
-                $this->punditContent = '<div class="pundit-content" about="' . $this->url .'">' . 
+                $this->punditContent .= '<div class="pundit-content" about="' . $this->url .'">' . 
                     '<span class="pundit-ignore" rel="http://purl.org/pundit/ont/json-metadata" 
                             resource="http://feed.thepund.it/services/rdftojsonld.php?url=' . $this->url . '"></span>' .
                     $punditImageContent .
                     '</div>';
             } else if (isset($punditTextContent)) {
-                $this->punditContent = '<div class="pundit-content" about="' . $this->url .'">' . 
+                $this->punditContent .= '<div class="pundit-content" about="' . $this->url .'">' . 
                     '<span class="pundit-ignore" rel="http://purl.org/pundit/ont/json-metadata" 
                             resource="http://feed.thepund.it/services/rdftojsonld.php?url=' . $this->url . '"></span>' .
                     $punditTextContent .
