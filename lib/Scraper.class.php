@@ -457,7 +457,7 @@ class Scraper {
     //DM2E functions
     
     private function showPagesPreview($pages) {
-        $start = null;
+        $start = '';
         if ($_GET["start"])
             $start = $_GET["start"];
         else 
@@ -483,7 +483,7 @@ class Scraper {
             $cont++;
             
         }
-        $link = null;
+        $link = '';
         if ($_GET["start"]) {
             $next = $_GET["start"] + $max;
             $link = str_replace('start='.$_GET["start"],'start=' . $next,$_SERVER['REQUEST_URI']);
