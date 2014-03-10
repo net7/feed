@@ -640,26 +640,26 @@ class Scraper {
             if (isset($punditImageContent) && isset($punditTextContent)) {
                     $this->punditContent = '<div class="pundit-content" about="' . $this->url .'">' . 
                         '<span class="pundit-ignore" rel="http://purl.org/pundit/ont/json-metadata" 
-                                resource="http://feed.local/services/rdftojsonld.php?url=' . $this->url . '"></span>' .
+                                resource="http://feed.thepund.it/services/rdftojsonld.php?url=' . $this->url . '"></span>' .
                         '<h3>Transcription</h3>' . $punditTextContent . 
                         '<hr/><h3>Facsimile</h3>' . $punditImageContent .'</div>';
             } else if (isset($punditImageContent)) {
                 $this->punditContent = '<div class="pundit-content" about="' . $this->url .'">' . 
                     '<span class="pundit-ignore" rel="http://purl.org/pundit/ont/json-metadata" 
-                            resource="http://feed.local/services/rdftojsonld.php?url=' . $this->url . '"></span>' .
+                            resource="http://feed.thepund.it/services/rdftojsonld.php?url=' . $this->url . '"></span>' .
                     $punditImageContent .
                     '</div>';
             } else if (isset($punditTextContent)) {
                 $this->punditContent = '<div class="pundit-content" about="' . $this->url .'">' . 
                     '<span class="pundit-ignore" rel="http://purl.org/pundit/ont/json-metadata" 
-                            resource="http://feed.local/services/rdftojsonld.php?url=' . $this->url . '"></span>' .
+                            resource="http://feed.thepund.it/services/rdftojsonld.php?url=' . $this->url . '"></span>' .
                     $punditTextContent .
                     '</div>';
             } else {
                 $this->punditContent .= '
                     <div class="pundit-content" about="' . $this->url .'">' .
                 '<span class="pundit-ignore" rel="http://purl.org/pundit/ont/json-metadata" 
-                        resource="http://feed.local/services/rdftojsonld.php?url=' . $this->url . '"></span>' .
+                        resource="http://feed.thepund.it/services/rdftojsonld.php?url=' . $this->url . '"></span>' .
                         '<div class="pundit-content" about="'.$this->object.'">';
                 $this->punditContent .= '<img src="'.$this->object.'"  />';
                 $this->punditContent .= '</div></div>';
@@ -670,7 +670,7 @@ class Scraper {
             $this->punditContent .= '
                 <div class="pundit-content" about="' . $this->url .'">' . 
                     '<span class="pundit-ignore" rel="http://purl.org/pundit/ont/json-metadata" 
-                        resource="http://feed.local/services/rdftojsonld.php?url=' . $this->url . '"></span>' .
+                        resource="http://feed.thepund.it/services/rdftojsonld.php?url=' . $this->url . '"></span>' .
                     '<div class="pundit-content" about="'.$this->object.'">';
             $this->punditContent .= '<img src="'.$this->object.'"  />';
             $this->punditContent .= '</div></div>';
@@ -772,7 +772,7 @@ class Scraper {
             
             $authorLabel = $this->dm2eGraph->get($auth, 'skos:prefLabel');     
             $result .= '<div class="pundit-content" about="' . $auth . '">' . 
-                '<span class="pundit-ignore" rel="http://purl.org/pundit/ont/json-metadata" resource="http://feed.local/services/rdftojsonld.php?url=' . $auth . '" style="" width=""></span>' .
+                '<span class="pundit-ignore" rel="http://purl.org/pundit/ont/json-metadata" resource="http://feed.thepund.it/services/rdftojsonld.php?url=' . $auth . '" style="" width=""></span>' .
                 $authorLabel ;
             $cont++;
             $result .= '</div>';
