@@ -276,7 +276,7 @@ class Scraper {
 
         $this->pages = $this->getDm2ePages($this->book->getUri());
         
-        $this->author = $this->getDm2eResourceArray($this->book->getUri(),'spar:author');
+        $this->author = $this->getDm2eResourceArray($this->book->getUri(),'spar:author',true);
         
         $this->object = $this->aggregatedCHO->getResource('edm:object');
         
@@ -290,7 +290,7 @@ class Scraper {
 
         $this->shownBy = $this->aggregatedCHO->getResource('edm:isShownBy');
         
-        $this->subject = $this->getDM2EResourceArray($this->book, $this->nsDc . ':subject');
+        $this->subject = $this->getDM2EResourceArray($this->book, $this->nsDc . ':subject', false);
 
         // Properties of the Page
         
@@ -457,12 +457,20 @@ class Scraper {
     //DM2E functions
     
     private function showPagesPreview($pages) {
-        $max = 30;
+        if ($_GET["start"])
+            $start = $_GET["start"];
+        else 
+            $start = 0;
+        $max = 20;
         //sometime images are duplicated across different CHOs. We use a cache of URLs to check if it was already added.
         $shownPagesSoFar = null;
         $cont = 0;
         foreach ($pages as $page) {
-            if ($cont > $max) break;
+            if ($cont < $start) {
+                $cont++;
+                continue;
+            }
+            if ($cont > ($start + $max)) break;
             $this->dm2eGraph->load($page);
             $agg = $this->getEDMAggregationOf($page);
             $versions = $this->dm2eGraph->allResources($agg,'dm2e:hasAnnotatableVersionAt');
@@ -474,6 +482,14 @@ class Scraper {
             $cont++;
             
         }
+        $link = null;
+        if ($_GET["start"]) {
+            $next = $_GET["start"] + $max;
+            $link = str_replace('start='.$_GET["start"],'start=' . $next,$_SERVER['REQUEST_URI']);
+        } else {
+            $link = $_SERVER['REQUEST_URI'] . '&start=20';
+        }
+        $this->punditContent .= '<div><a href="' . $link . '">Next ' . $max . ' pages</a></div>';
         
     }
     
@@ -490,7 +506,7 @@ class Scraper {
                     $header .= '<small><a href="' . $this->shownBy .
                                  '" target="_blank">Go to original DL</small> | ';
             }
-            $header .= '<small><a href="' . $this->url . '" target="_blank">See the RDF data</a></small> | ';
+            $header .= '<small><a href="' . $page . '" target="_blank">See the RDF data</a></small> | ';
             $header .= $this->showDM2EImage($version);
             $header .= '<hr/>';
         }
@@ -778,7 +794,7 @@ class Scraper {
         return $pages;
     }
 
-    private function getDm2eResourceArray($url, $property) {
+    private function getDm2eResourceArray($url, $property, $withMetadata) {
         $result = '';
         $cont = 0; 
         $authors = $this->dm2eGraph->allResources($url, $property);
@@ -790,9 +806,11 @@ class Scraper {
             }
             
             $authorLabel = $this->dm2eGraph->get($auth, 'skos:prefLabel');     
-            $result .= '<div class="pundit-content" about="' . $auth . '">' . 
-                '<span class="pundit-ignore" rel="http://purl.org/pundit/ont/json-metadata" resource="http://feed.thepund.it/services/rdftojsonld.php?url=' . $auth . '" style="" width=""></span>' .
-                $authorLabel ;
+            $result .= '<div class="pundit-content" about="' . $auth . '">';
+            if ($withMetadata) {
+                $result .= '<span class="pundit-ignore" rel="http://purl.org/pundit/ont/json-metadata" resource="http://feed.thepund.it/services/rdftojsonld.php?url=' . $auth . '" style="" width=""></span>';
+            }
+            $result .= $authorLabel ;
             $cont++;
             $result .= '</div>';
         }
