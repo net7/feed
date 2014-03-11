@@ -44,7 +44,7 @@ var punditConfig = {
         },
 
         'pundit.NamedContentHandler': {
-            active: false
+            active: true
         },
         'pundit.NotebookManager': {
             showFilteringOptions: false,

@@ -16,7 +16,16 @@ function renderPunditContent ($s, $pos = null) {
             </span>
         <?php } ?>    
             <span>
-                <span class="label label-warning"><?php echo $s->getLabel() ?></span>
+                <!--<h3><?php echo $s->getLabel() ?></h3>-->
+                <span class="label label-warning">
+                    <?php 
+                        $label = $s->getLabel();
+                        if (strlen($label) > 100) {
+                            $label = substr($label,0,40) . '...';
+                        } 
+                        echo $label;
+                    ?>
+                </span>
                 <a href="#" rel="popover" title="<?php echo $s->getDomain() ?>" data-placement="right" data-content="<?php echo $s->getComment() ?>"><i class="icon-info-sign"></i></a>
             </span>
 
