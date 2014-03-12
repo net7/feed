@@ -59,6 +59,9 @@ try {
     } else if ($type == 'http://www.europeana.eu/schemas/edm/ProvidedCHO' || $dctype == 'http://onto.dm2e.eu/schemas/dm2e/Page') {
         $label = $rdfGraph->get($url, $nsDc . ':title');
         $description = $rdfGraph->get($url, $nsDc . ':description');
+        if ($description == null) {
+            $description = $rdfGraph->get($url, $nsDct . ':provenance');
+        }
         if ($type =='' || $type == null) {
             $type = $dctype;
         }
