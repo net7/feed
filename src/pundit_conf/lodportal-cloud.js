@@ -4,7 +4,9 @@ var punditConfig = {
     useBasicRelations: true,
     
     modules: {
-        
+        'pundit.PageHandler': {
+            active: false
+        },
         'pundit.NamedContentHandler': {
             active: false 
         },
