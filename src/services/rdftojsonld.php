@@ -7,7 +7,9 @@ require_once "easyrdf-0.8.0/lib/EasyRdf.php";
 try {
     $callback = $_GET["jsonp"];
 
-    $url = $_GET["url"];;
+    $url = $_GET["url"];
+    $url = str_replace ('+','%2B',$url);
+    
     $rdfGraph = EasyRdf_Graph::newAndLoad($url);
 
     EasyRdf_Namespace::set('edm','http://www.europeana.eu/schemas/edm/');
@@ -81,7 +83,7 @@ try {
     
     
     echo $callback . '({
-        "@id": "http://data.dm2e.eu/data/agent/onb/authority_gnd/10093630X",
+        "@id": "' . $url . '",
         "@type": "' . $type . '",
         "http://www.w3.org/2000/01/rdf-schema#label": "' . str_replace('"','\'',$label) . '",
         "http://purl.org/dc/elements/1.1/description": "' . str_replace('"','\'',$description) . '",
