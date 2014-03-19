@@ -1,6 +1,6 @@
 var punditConfig = {
     debugAllModules: false,
-    annotationServerBaseURL: "http://demo.as.thepund.it:8080/annotationserver/",
+    annotationServerBaseURL: "http://as.thepund.it:8080/annotationserver/",
     useBasicRelations: true,
     
     modules: {
