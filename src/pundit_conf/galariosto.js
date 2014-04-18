@@ -5,7 +5,7 @@ var punditConfig = {
     annotationServerBaseURL: "http://as.thepund.it:8080/annotationserver/",
 
     vocabularies: [
-        "http://manager.korbo.org/103?jsonp=_PUNDIT.vocab.initJsonpVocab",
+//        "http://manager.korbo.org/103?jsonp=_PUNDIT.vocab.initJsonpVocab",
         "http://manager.korbo.org/112?jsonp=_PUNDIT.vocab.initJsonpVocab"
     ],
     
