@@ -2,7 +2,6 @@
 function renderHead($renderPundit=1) {
 ?>
         <meta charset="UTF-8">
-        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 
         <script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

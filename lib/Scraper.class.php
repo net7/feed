@@ -888,4 +888,8 @@ class Scraper {
         return $this->url;
     }
 
+    public static function hasEE($conf) {
+        return ($conf == 'bur-debug.js' || $conf == 'burckhardt-dev.js');
+    }
+
 }
