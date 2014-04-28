@@ -12,6 +12,13 @@ var punditConfig = {
 
     modules: {
         
+        'pundit.ng.EntityEditorHelper': {
+            endpoint: "http://demo-cloud.api.korbo.org/v1",
+            basketID: 1,
+            active: true,
+            debug: true
+        },
+        
         'pundit.NamedContentHandler': {
             active: false 
         },
@@ -58,14 +65,6 @@ var punditConfig = {
         },
         
         'selectors': {
-            /*
-            'KorboBasket': {
-                name: 'korbo', 
-                label: 'Korbo search', 
-                active: true,
-                baskets: [82]
-            }
-            */
         },
         'annotators': {}
     }
