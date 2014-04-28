@@ -4,11 +4,11 @@ var punditConfig = {
 
     debugAllModules: false,
 
-    annotationServerBaseURL : 'http://as.thepund.it:8080/annotationserver/',
+    annotationServerBaseURL : 'http://demo-cloud.as.thepund.it:8080/annotationserver/',
 
     vocabularies: [
         //"http://manager.korbo.org/92?jsonp=_PUNDIT.vocab.initJsonpVocab",
-        //"http://manager.korbo.org/91?jsonp=_PUNDIT.vocab.initJsonpVocab"
+        "http://manager.korbo.org/91?jsonp=_PUNDIT.vocab.initJsonpVocab"
     ],
 
     useBasicRelations: false,
