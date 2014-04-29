@@ -74,17 +74,24 @@ var punditConfig = {
                     murucaReconURL: "http://demo2.galassiaariosto.netseven.it/backend.php/reconcile",
                     active: true
                 },
-		{
+		        {
                     queryType: 'http://purl.org/galassiariosto/types/Paratesto',
                     name: 'murucaparatesto',
                     label: 'Paratesto',
                     murucaReconURL: "http://demo2.galassiaariosto.netseven.it/backend.php/reconcile",
                     active: true
                 },
-		{
+		        {
                     queryType: 'http://purl.org/galassiariosto/types/RappresentazioneOriginale',
                     name: 'murucarapporiginale',
                     label: 'Rapp. Origin.',
+                    murucaReconURL: "http://demo2.galassiaariosto.netseven.it/backend.php/reconcile",
+                    active: true
+                },
+                {
+                    queryType: 'http://purl.org/galassiariosto/types/Influenza',
+                    name: 'murucainfluenza',
+                    label: 'Influenza',
                     murucaReconURL: "http://demo2.galassiaariosto.netseven.it/backend.php/reconcile",
                     active: true
                 }
