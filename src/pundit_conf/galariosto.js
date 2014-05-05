@@ -80,6 +80,20 @@ var punditConfig = {
                     label: 'Paratesto',
                     murucaReconURL: "http://galassiaariosto.netseven.it/backend.php/reconcile",
                     active: true
+                },
+                {
+                    queryType: 'http://purl.org/galassiariosto/types/RappresentazioneOriginale',
+                    name: 'murucarapporiginale',
+                    label: 'Rapp. Origin.',
+                    murucaReconURL: "http://galassiaariosto.netseven.it/backend.php/reconcile",
+                    active: true
+                },
+                {
+                    queryType: 'http://purl.org/galassiariosto/types/Influenza',
+                    name: 'murucainfluenza',
+                    label: 'Influenza',
+                    murucaReconURL: "http://galassiaariosto.netseven.it/backend.php/reconcile",
+                    active: true
                 }
             ]
 
