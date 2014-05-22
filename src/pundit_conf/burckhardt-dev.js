@@ -41,7 +41,7 @@ var punditConfig = {
                  label: 'Artwork',
                  state: false,
                  URI:'http://www.freebase.com/visual_art/artwork'
-               }
+               },
                {
                   label: 'Book',
                   state: false,

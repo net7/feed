@@ -16,7 +16,7 @@ function renderPunditInit() {
             <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
             <link rel="stylesheet" href="services/ee/css/6a53cf14.main.css" type="text/css" media="screen" title="no title" charset="utf-8">
             <script src="services/ee/scripts/10c165ed.libs.js" type="text/javascript" charset="utf-8"></script>
-            <script src="services/ee/scripts/45fffb9b.korbo-ee.js" type="text/javascript" charset="utf-8"></script>
+            <script src="services/ee/scripts/c04ee8dc.korbo-ee.js" type="text/javascript" charset="utf-8"></script>
         <?php else: ?>
             <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
         <?php endif; ?>
