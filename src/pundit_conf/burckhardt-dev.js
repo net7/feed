@@ -6,10 +6,10 @@ var punditConfig = {
 
     annotationServerBaseURL : 'http://demo-cloud.as.thepund.it:8080/annotationserver/',
 
-    vocabularies: [
+    //vocabularies: [
         //"http://manager.korbo.org/92?jsonp=_PUNDIT.vocab.initJsonpVocab",
-        "http://manager.korbo.org/91?jsonp=_PUNDIT.vocab.initJsonpVocab"
-    ],
+        //"http://manager.korbo.org/91?jsonp=_PUNDIT.vocab.initJsonpVocab"
+    //],
 
     useBasicRelations: false,
 
@@ -18,7 +18,36 @@ var punditConfig = {
             endpoint: "http://dev.korbo2.org/v1",
             basketID: 1,
             active: true,
-            debug: true
+            debug: false,        
+            globalObjectName : 'KK',
+            useOnlyCallback: true,
+            copyToKorboBeforeUse: true,
+            providers: {
+                freebase: true,
+                dbpedia: false
+            },
+            type: [
+            {
+               label: 'Person',
+               state: false,
+               URI:'http://www.freebase.com/people/person'
+             },
+             {
+                label: 'Location',
+                state: false,
+                URI:'http://www.freebase.com/location/location'
+              },
+              {
+                 label: 'Artwork',
+                 state: false,
+                 URI:'http://www.freebase.com/visual_art/artwork'
+               }
+               {
+                  label: 'Book',
+                  state: false,
+                  URI:'http://www.freebase.com/book/book'
+                }
+                    ],
         },
 
         'pundit.NamedContentHandler': {
