@@ -26,7 +26,7 @@ var punditConfig = {
                 freebase: true,
                 dbpedia: false
             },
-            type: [
+            types: [
             {
                label: 'Person',
                state: false,
