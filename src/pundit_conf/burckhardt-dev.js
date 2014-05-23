@@ -6,10 +6,10 @@ var punditConfig = {
 
     annotationServerBaseURL : 'http://demo-cloud.as.thepund.it:8080/annotationserver/',
 
-    //vocabularies: [
-        //"http://manager.korbo.org/92?jsonp=_PUNDIT.vocab.initJsonpVocab",
-        //"http://manager.korbo.org/91?jsonp=_PUNDIT.vocab.initJsonpVocab"
-    //],
+    vocabularies: [
+    // 92 @ korbo(1): Properties definition
+        "http://manager.korbo.org/91?jsonp=_PUNDIT.vocab.initJsonpVocab"
+    ],
 
     useBasicRelations: false,
 
