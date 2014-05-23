@@ -889,7 +889,7 @@ class Scraper {
     }
 
     public static function hasEE($conf) {
-        return ($conf == 'bur-debug.js' || $conf == 'burckhardt-dev.js');
+        return ($conf == 'bur-debug.js' || $conf == 'burckhardt-dev.js' || $conf = 'burckhardt.js' );
     }
 
 }
