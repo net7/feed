@@ -1,0 +1,7 @@
+dojo.io.script.jsonp_dojoIoScript5._jsonpCallback({
+    "@id": "http://data.dm2e.eu/data/agent/onb/authority_gnd/10093630X",
+    "@type": "http://xmlns.com/foaf/0.1/Person",
+    "http://www.w3.org/2000/01/rdf-schema#label": "Anastasius",
+    "http:\/\/www.w3.org\/2000\/01\/rdf-schema#comment": "Anastasius",
+})
+

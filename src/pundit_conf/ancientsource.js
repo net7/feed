@@ -6,7 +6,7 @@ var punditConfig = {
        'http://korbo.netseven.it/107?jsonp=_PUNDIT.vocab.initJsonpVocab',
        'http://korbo.netseven.it/109?jsonp=_PUNDIT.vocab.initJsonpVocab'
     ],
-    
+    useBasicRelations: false,
      modules: {     
 
         'pundit.NamedContentHandler': {

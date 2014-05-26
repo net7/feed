@@ -11,6 +11,12 @@
    Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 */
 
+img.resize{
+    width:400px; /* you can use % */
+    padding: 5px;
+    height: auto;
+}
+
 
 .feed-space {
     height: 50px;
@@ -49,18 +55,26 @@
 }
 
 .left-menu-content {
-    width: 30%;
+    width: 20%;
+    padding: 5px;
     float: left;
 }
 
 .page-content {
-    width: 60%;
+    width: 75%;
+    padding: 5px;
     float: left;
 }
 
 .right-content {
     width: 50%;
-    float: left;
+    float: right;
+}
+
+.right-content-details {
+    width: 10%;
+    padding: 5px;
+    float: right;
 }
 
 .left-content .feed-container {

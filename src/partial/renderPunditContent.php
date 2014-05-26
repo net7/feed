@@ -10,13 +10,22 @@ function renderPunditContent ($s, $pos = null) {
                 <a href="<?php echo $prev ?>"><i class="icon-chevron-left"></i>Previous</a>
             </span>
         <?php } ?>
-        <?php if ($book = $s->getBookLink()) { ?>
+        <?php if ($s->type=='Page' && $book = $s->getBookLink()) { ?>
             <span class="label label-important prev">
                 <a href="<?php echo $book ?>"><i class="icon-chevron-up"></i>Entire work</a>
             </span>
         <?php } ?>    
             <span>
-                <span class="label label-warning"><?php echo $s->getLabel() ?></span>
+                <!--<h3><?php echo $s->getLabel() ?></h3>-->
+                <span class="label label-warning">
+                    <?php 
+                        $label = $s->getLabel();
+                        if (strlen($label) > 100) {
+                            $label = substr($label,0,40) . '...';
+                        } 
+                        echo $label;
+                    ?>
+                </span>
                 <a href="#" rel="popover" title="<?php echo $s->getDomain() ?>" data-placement="right" data-content="<?php echo $s->getComment() ?>"><i class="icon-info-sign"></i></a>
             </span>
 
