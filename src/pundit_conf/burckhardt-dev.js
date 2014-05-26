@@ -21,6 +21,8 @@ var punditConfig = {
             debug: false,        
             globalObjectName : 'KK',
             useOnlyCallback: true,
+            visualizeCopyButton: ['freebase'],
+            visualizeEditButton: false, 
             copyToKorboBeforeUse: true,
             providers: {
                 freebase: true,
