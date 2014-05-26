@@ -29,27 +29,52 @@ var punditConfig = {
                 dbpedia: false
             },
             types: [
-            {
-               label: 'Person',
-               state: false,
-               URI:'http://www.freebase.com/people/person'
-             },
-             {
-                label: 'Location',
-                state: false,
-                URI:'http://www.freebase.com/location/location'
-              },
-              {
-                 label: 'Artwork',
-                 state: false,
-                 URI:'http://www.freebase.com/visual_art/artwork'
-               },
-               {
-                  label: 'Book',
-                  state: false,
-                  URI:'http://www.freebase.com/book/book'
-                }
-                    ],
+                  {
+                     label: 'Person',
+                     state: false,
+                     URI:'http://www.freebase.com/people/person'
+                   },
+                   {
+                      label: 'Location',
+                      state: false,
+                      URI:'http://www.freebase.com/location/location'
+                    },
+                    {
+                       label: 'Institution',
+                       state: false,
+                       URI:'http://www.freebase.com/organization/organization'
+                     },
+                    {
+                       label: 'Artwork',
+                       state: false,
+                       URI:'http://www.freebase.com/visual_art/artwork'
+                     },
+                     {
+                        label: 'Architecture',
+                        state: false,
+                        URI:'http://www.freebase.com/architecture/structure'
+                      },
+                      {
+                         label: 'Book',
+                         state: false,
+                         URI:'http://www.freebase.com/book/book'
+                       },
+                       {
+                          label: 'Periodical',
+                          state: false,
+                          URI:'http://www.freebase.com/periodicals/periodical'
+                        },
+                        {
+                           label: 'Journal',
+                           state: false,
+                           URI:'http://www.freebase.com/periodicals/journal'
+                         },
+                         {
+                            label: 'Newspaper',
+                            state: false,
+                            URI:'http://www.freebase.com/periodicals/newspaper'
+                          }
+                  ],
         },
 
         'pundit.NamedContentHandler': {
