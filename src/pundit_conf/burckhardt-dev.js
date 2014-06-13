@@ -15,7 +15,7 @@ var punditConfig = {
 
     modules: {
         'pundit.ng.EntityEditorHelper': {
-            endpoint: "http://dev.korbo2.org/v1",
+            endpoint: "http://dev2.korbo.org/v1",
             basketID: 1,
             active: true,
             debug: false,        
@@ -73,7 +73,12 @@ var punditConfig = {
                             label: 'Newspaper',
                             state: false,
                             URI:'http://www.freebase.com/periodicals/newspaper'
-                          }
+                          },
+                        {
+                           label: 'In-progress',
+                           state: false,
+                           URI:'http://purl.org/net7/korbo2/types/in-progress'
+                         }
                   ],
         },
 
