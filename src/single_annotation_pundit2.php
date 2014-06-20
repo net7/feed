@@ -11,6 +11,9 @@ $s=new Scraper($_GET['url2']);
 <!doctype html>
 <html>
     <head>
+      
+        <meta charset="UTF-8">
+        
         <?php if ($css = $s->getStylesheet()) { ?>
             <link rel="stylesheet" href="<?php echo $css; ?>" type="text/css">
         <?php } ?>
