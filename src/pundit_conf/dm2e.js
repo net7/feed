@@ -20,6 +20,11 @@ var punditConfig = {
             showIntroductionAtLogin: true
         },
         
+        'pundit.ng.ImageAnnotatorHelper': {
+            active: true,
+            debug: true
+        },
+        
         'pundit.NotebookManager': {
             active: true,
             notebookSharing: true,

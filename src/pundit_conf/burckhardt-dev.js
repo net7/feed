@@ -15,7 +15,7 @@ var punditConfig = {
 
     modules: {
         'pundit.ng.EntityEditorHelper': {
-            endpoint: "http://dev.korbo2.org/v1",
+            endpoint: "http://dev2.korbo.org/v1",
             basketID: 1,
             active: true,
             debug: false,        
@@ -29,27 +29,57 @@ var punditConfig = {
                 dbpedia: false
             },
             types: [
-            {
-               label: 'Person',
-               state: false,
-               URI:'http://www.freebase.com/people/person'
-             },
-             {
-                label: 'Location',
-                state: false,
-                URI:'http://www.freebase.com/location/location'
-              },
-              {
-                 label: 'Artwork',
-                 state: false,
-                 URI:'http://www.freebase.com/visual_art/artwork'
-               },
-               {
-                  label: 'Book',
-                  state: false,
-                  URI:'http://www.freebase.com/book/book'
-                }
-                    ],
+                  {
+                     label: 'Person',
+                     state: false,
+                     URI:'http://www.freebase.com/people/person'
+                   },
+                   {
+                      label: 'Location',
+                      state: false,
+                      URI:'http://www.freebase.com/location/location'
+                    },
+                    {
+                       label: 'Institution',
+                       state: false,
+                       URI:'http://www.freebase.com/organization/organization'
+                     },
+                    {
+                       label: 'Artwork',
+                       state: false,
+                       URI:'http://www.freebase.com/visual_art/artwork'
+                     },
+                     {
+                        label: 'Architecture',
+                        state: false,
+                        URI:'http://www.freebase.com/architecture/structure'
+                      },
+                      {
+                         label: 'Book',
+                         state: false,
+                         URI:'http://www.freebase.com/book/book'
+                       },
+                       {
+                          label: 'Periodical',
+                          state: false,
+                          URI:'http://www.freebase.com/periodicals/periodical'
+                        },
+                        {
+                           label: 'Journal',
+                           state: false,
+                           URI:'http://www.freebase.com/periodicals/journal'
+                         },
+                         {
+                            label: 'Newspaper',
+                            state: false,
+                            URI:'http://www.freebase.com/periodicals/newspaper'
+                          },
+                        {
+                           label: 'In-progress',
+                           state: false,
+                           URI:'http://purl.org/net7/korbo2/types/in-progress'
+                         }
+                  ],
         },
 
         'pundit.NamedContentHandler': {

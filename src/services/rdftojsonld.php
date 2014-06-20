@@ -1,6 +1,5 @@
-
 <?php
-
+header('Content-type: Script');
 require_once "easyrdf-0.8.0/lib/EasyRdf.php";
 
 
@@ -82,8 +81,6 @@ try {
             
         }
     }
-    
-    
     
     echo $callback . '({
         "@id": "' . $url . '",

@@ -478,8 +478,8 @@ class Scraper {
             foreach($versions as $version) {
                 if ($shownPagesSoFar && in_array($version,$shownPagesSoFar)) continue;
                 $this->punditContent .=$this->showDM2EPage($page,$version);
+                $shownPagesSoFar[$cont] = $version;
             }
-            $shownPagesSoFar[$cont] = $version;
             $cont++;
             
         }
