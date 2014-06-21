@@ -1,6 +1,6 @@
 <?php
 try {
-$s=new Scraper($_GET['url2']);
+$s=new Scraper($_GET['url2'],'advanced');
 }
  catch (Exception $e) {
      echo $e->getMessage();
