@@ -248,7 +248,7 @@ class Scraper {
         foreach ($types as $type) {
             if ($type->getUri()=='http://onto.dm2e.eu/schemas/dm2e/1.1/Page' || $type->getUri()=='http://onto.dm2e.eu/schemas/dm2e/Page' || $type->getUri()=='http://purl.org/spar/fabio/#Page' || $type->getUri()=='http://onto.dm2e.eu/schemas/dm2e/Paragraph') {
                 $this->type = 'Page';
-            } else if ($type->getUri()=='http://purl.org/spar/fabio/Article' || $type->getUri()=='http://purl.org/ontology/bibo/Issue' || $type->getUri()=='http://purl.org/spar/fabio/Article' || $type->getUri()=='http://purl.org/ontology/bibo/Book' || $type->getUri()=='http://purl.org/ontology/bibo/Journal' || $type->getUri()=='http://onto.dm2e.eu/schemas/dm2e/Manuscript') {
+            } else if ($type->getUri()=='http://purl.org/spar/fabio/Article' || $type->getUri()=='http://purl.org/ontology/bibo/Issue' || $type->getUri()=='http://purl.org/spar/fabio/Article' || $type->getUri()=='http://purl.org/ontology/bibo/Book' || $type->getUri()=='http://purl.org/ontology/bibo/Journal' || $type->getUri()=='http://onto.dm2e.eu/schemas/dm2e/Manuscript' || $type->getUri()=='http://purl.org/ontology/bibo/Letter') {
                 $this->type = 'Book';
             }
         }
@@ -258,6 +258,7 @@ class Scraper {
         $this->aggregatedCHO = $agg;
         
         $this->annotableVersionAt = $this->aggregatedCHO->allResources('dm2e:hasAnnotatableVersionAt');
+
 
         // Properties of Books
         if ($this->type=='Page') {
