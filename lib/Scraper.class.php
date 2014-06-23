@@ -72,7 +72,7 @@ class Scraper {
     }
 
     private function setUrlType($urlType) {
-        $allowed_types = array ('default', 'img', 'dm2e');
+        $allowed_types = array ('default', 'advanced', 'img', 'dm2e');
         if($urlType==null) $this->urlType = 'default';
         else if (in_array($urlType, $allowed_types))
             $this->urlType=$urlType;
@@ -207,20 +207,23 @@ class Scraper {
      * // TODO: ALL!!!!!
      */
     private function retrievePunditContent() {
-        switch ($this->urlType) {
-            case 'default':
-                $this->retrievePunditContentDefault();
-                break;
-            case 'img':
-                $this->retrievePunditContentImg();
-                break;
-            case 'dm2e':
-                $this->retrievePunditContentDm2e();
-                break;
-            default:
-                throw new Exception('Url type '.$this->urlType.' not supported.');
-                break;
-        }
+      switch ($this->urlType) {
+        case 'default':
+        $this->retrievePunditContentDefault();
+        break;
+        case 'advanced':
+        $this->retrievePunditContentAdvanced();
+        break;
+        case 'img':
+        $this->retrievePunditContentImg();
+        break;
+        case 'dm2e':
+        $this->retrievePunditContentDm2e();
+        break;
+        default:
+        throw new Exception('Url type '.$this->urlType.' not supported.');
+        break;
+      }
     }
 
     private function retrievePunditContentDm2e() {
@@ -429,6 +432,14 @@ class Scraper {
         $content = preg_replace('@<html>@', '', $content);
         $content = preg_replace('@</html>@', '', $content);
         $this->punditContent = $content;
+    }
+
+    /** Takes care of more cases and remove all header **/
+    private function retrievePunditContentAdvanced() {
+      $this->retrievePunditContentDefault();
+      $this->punditContent = preg_replace('@<body.*>@', '', $this->punditContent);
+      $this->punditContent = preg_replace('@<head>.*</head>@s', '', $this->punditContent);
+      $this->punditContent = preg_replace('@<html.*>@', '', $this->punditContent);
     }
 
     private function retrievePunditContentImg() {
