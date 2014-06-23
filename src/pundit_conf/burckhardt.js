@@ -73,7 +73,12 @@ var punditConfig = {
                           label: 'Newspaper',
                           state: false,
                           URI:'http://www.freebase.com/periodicals/newspaper'
-                        }
+                        },
+                        {
+                           label: 'In-progress',
+                           state: false,
+                           URI:'http://purl.org/net7/korbo2/types/in-progress'
+                         }
                 ],
       },
 

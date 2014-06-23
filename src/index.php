@@ -17,6 +17,8 @@ else if(isset ($_GET['img']))
     {    require_once 'img_annotation.php';}
 else if(isset ($_GET['dm2e'])) 
     {    require_once 'dm2e_annotation.php';}
+else if(isset ($_GET['url2'])) 
+    {    require_once 'single_annotation_pundit2.php';}
 else 
     { require_once('error.php');}
 
