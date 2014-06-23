@@ -72,7 +72,7 @@ class Scraper {
     }
 
     private function setUrlType($urlType) {
-        $allowed_types = array ('default', 'advanced', 'img', 'dm2e');
+        $allowed_types = array ('default', 'advanced', 'img', 'dm2e','bookmarklet');
         if($urlType==null) $this->urlType = 'default';
         else if (in_array($urlType, $allowed_types))
             $this->urlType=$urlType;
@@ -219,6 +219,9 @@ class Scraper {
         break;
         case 'dm2e':
         $this->retrievePunditContentDm2e();
+        break;
+        case 'bookmarklet':
+        $this->retrieveBookmarklet();
         break;
         default:
         throw new Exception('Url type '.$this->urlType.' not supported.');
@@ -432,6 +435,51 @@ class Scraper {
         $content = preg_replace('@<html>@', '', $content);
         $content = preg_replace('@</html>@', '', $content);
         $this->punditContent = $content;
+    }
+    
+    private function retrieveBookmarklet() {
+      $this->punditContent = $this->doCurlRequest('text/html');
+      
+        // =====================
+        // Tr1: Add Absolute URI
+        // =====================
+        $url = parse_url($this->url);
+        $domain = $url['host'];
+        $this->punditContent = preg_replace('%href="//%','href="http://',$this->punditContent);
+        $this->punditContent = preg_replace('%href="/%','href="http://'.$domain.'/',$this->punditContent);
+        $this->punditContent = preg_replace('%src="//%','src="http://',$this->punditContent);
+        $this->punditContent = preg_replace('%src="/%','src="http://'.$domain.'/',$this->punditContent);
+              
+        // ==================================
+        // Tr2: Add JS and CSS to end of HEAD
+        // ==================================
+        $punditCode = <<<EOF
+          <link rel="stylesheet" href="pundit2/pundit2.css" type="text/css">        
+          <script src="pundit2/libs.js" type="text/javascript" ></script>
+          <script src="pundit2/pundit2.js" type="text/javascript" ></script>
+          <script src="pundit2/pundit2_conf.js" type="text/javascript" ></script>
+EOF;
+        $this->punditContent = 
+          preg_replace('%<head>(.*)</head>%s','<head>$1 '.$punditCode.'</head>',$this->punditContent);
+  
+        // ====================================================
+        // Tr3: Add data-app-ng="Pundit2" attribute to BODY TAG
+        // ====================================================
+        
+        // BETA: if the page cointains at least one class="pundit-content" element
+        // DO NOT ADD the pundit class, else add it to the body with the same URL
+        
+        if (preg_match('%class="pundit-content"%',$this->punditContent)){        
+          $this->punditContent = 
+            preg_replace('%<body%','<body data-ng-app="Pundit2" ',$this->punditContent);
+        }
+        else {
+          $this->punditContent = 
+            preg_replace('%<body([^>]*)>%s','<body data-ng-app="Pundit2" $1><div class="pundit-content" about="'.$this->url.'">',$this->punditContent);          
+          $this->punditContent = 
+            preg_replace('%</body>%','</div></body>',$this->punditContent);
+        }
+      
     }
 
     /** Takes care of more cases and remove all header **/
