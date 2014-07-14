@@ -1,7 +1,7 @@
 var punditConfig = {
-        modules: {
-            'Client': {
-                active: true
-            }
+    modules: {
+        'Client': {
+            active: true
         }
     }
+}

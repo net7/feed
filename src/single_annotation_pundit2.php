@@ -20,10 +20,10 @@ $s=new Scraper($_GET['url2'],'advanced');
         
         <link rel="stylesheet" href="css/feed.css" type="text/css">        
         
-        <link rel="stylesheet" href="pundit2/pundit2.css" type="text/css">        
-        <script src="pundit2/libs.js" type="text/javascript" ></script>
-        <script src="pundit2/pundit2.js" type="text/javascript" ></script>
-        <script src="pundit2/pundit2_conf.js" type="text/javascript" ></script>
+        <link rel="stylesheet" href="http://dev.thepund.it/download/client/last-beta/pundit2.css" type="text/css">        
+        <script src="http://dev.thepund.it/download/client/last-beta/libs.js" type="text/javascript" ></script>
+        <script src="http://dev.thepund.it/download/client/last-beta/pundit2.js" type="text/javascript" ></script>
+        <script src="http://dev.thepund.it/download/client/last-beta/pundit2_conf.js" type="text/javascript" ></script>
         
     </head>
     <body data-ng-app="Pundit2" >
