@@ -115,7 +115,7 @@ class FusepoolScraper extends Scraper {
         //   And a pundit-content
         // ====================================================
 
-        $punditAboutCode = 'fusepool-' . md5($this->data);
+        $punditAboutCode = 'http://p3.fusepool.eu#punditcontent-' . md5($this->data);
 
         if (preg_match('%class="pundit-content"%',$this->punditContent)){
             $this->punditContent =
