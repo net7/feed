@@ -19,6 +19,7 @@ if (isset($_GET['punditSaveRequest'])) {
     $apiUrl = $asBaseUrl . 'api/open/metadata/search?scope=all&query={"resources":["' . $punditContent . '"]}';
 
     $annotations = callCURL($apiUrl, 'dealWithAnnotations');
+    print_r($annotations); die();
 
 } else {
     // we are entering Pundit, so we need to prepare all the data and instantiate it
@@ -85,7 +86,7 @@ function callCURL($apiUrl, $successFunction, $accept = 'json')
         default:
             // some errors occurred
             // TODO: ship useful errors.
-            quitWithError();
+            quitWithError($content);
             break;
 
     }
@@ -133,7 +134,7 @@ function returnInput($input)
     return $input;
 }
 
-function quitWithError()
+function quitWithError($content)
 {
-    FusepoolScraper::abortToFP();
+    FusepoolScraper::abortToFP($content);
 }
