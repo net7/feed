@@ -135,6 +135,7 @@ class FusepoolScraper extends Scraper {
         // ==================================
 
         $punditCode = <<<EOF
+          <link rel="stylesheet" href="css/feed.css" type="text/css">
           <link rel="stylesheet" href="pundit2/pundit2.css" type="text/css">
           <script src="pundit2/libs.js" type="text/javascript" ></script>
           <script src="pundit2/pundit2.js" type="text/javascript" ></script>
