@@ -5,36 +5,36 @@ require_once "easyrdf-0.8.0/lib/EasyRdf.php";
 
 class Scraper {
 
-    private $url;
+    protected $url;
     public $type;
-    private $resolvedUrl;
-    private $urlType;
-    private $label;
-    private $comment;
-    private $annotableVersionAt;
-    private $aggregatedCHO;
-    private $domain;
-    private $punditContent;
-    private $bookMetadata;
-    private $pageMetadata;
-    private $prev = false;
-    private $next = false;
-    private $dm2ePrev = false;
-    private $dm2eNext = false;
-    private $stylesheet = false;
-    private $dm2eGraph;
-    private $pages;
-    private $author;
-    private $object;
-    private $dataprovider;
-    private $tableOfContents;
-    private $pageLabel;
-    private $date;
-    private $shownBy;
-    private $pageShownBy;
-    private $subjetc;
-    
-    private $showAllPages = false;
+    protected $resolvedUrl;
+    protected $urlType;
+    protected $label;
+    protected $comment;
+    protected $annotableVersionAt;
+    protected $aggregatedCHO;
+    protected $domain;
+    protected $punditContent;
+    protected $bookMetadata;
+    protected $pageMetadata;
+    protected $prev = false;
+    protected $next = false;
+    protected $dm2ePrev = false;
+    protected $dm2eNext = false;
+    protected $stylesheet = false;
+    protected $dm2eGraph;
+    protected $pages;
+    protected $author;
+    protected $object;
+    protected $dataprovider;
+    protected $tableOfContents;
+    protected $pageLabel;
+    protected $date;
+    protected $shownBy;
+    protected $pageShownBy;
+    protected $subjetc;
+
+    protected $showAllPages = false;
     
 
     /**
