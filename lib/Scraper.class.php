@@ -452,12 +452,16 @@ class Scraper {
               
         // ==================================
         // Tr2: Add JS and CSS to end of HEAD
-        // ==================================
+        // ==================================        
+        
+        $conf="http://dev.thepund.it/download/client/last-beta/pundit2_conf.js";
+        if(isset($_GET['conf'])) $conf=$_GET['conf'];
+        
         $punditCode = <<<EOF
           <link rel="stylesheet" href="http://dev.thepund.it/download/client/last-beta/pundit2.css" type="text/css">        
           <script src="http://dev.thepund.it/download/client/last-beta/libs.js" type="text/javascript" ></script>
           <script src="http://dev.thepund.it/download/client/last-beta/pundit2.js" type="text/javascript" ></script>
-          <script src="http://dev.thepund.it/download/client/last-beta/pundit2_conf.js" type="text/javascript" ></script>
+          <script src="$conf" type="text/javascript" ></script>
 EOF;
         $this->punditContent = 
           preg_replace('%<head>(.*)</head>%s','<head>$1 '.$punditCode.'</head>',$this->punditContent);
