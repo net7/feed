@@ -459,10 +459,11 @@ class Scraper {
         // Thanks to:
         // http://stackoverflow.com/questions/9976844/convert-all-html-links-to-another-url-with-php-regex
         $pattern = "/<a([^>]+)href=\"http\:\/\/([a-z\d\-]+\.[a-z\d]+\.[a-z]{2,5}(\/[^\"]*)?)/i";
-        $replace = "<a$1href=\"http://$feed_base_url/?b=http://$2";
-        //if(isset($_GET['conf'])){
-          //$replace = '<a $1 href="http://'.$feed_base_url.'/?b=$2&conf='.$_GET['conf'].'" $3 >';
-          //}
+        $replace = "<a target=\"_self\" $1href=\"http://$feed_base_url/?b=http://$2";
+        if(isset($_GET['conf'])){
+          $conf=$_GET['conf'];
+          $replace = "<a target=\"_self\" $1href=\"http://$feed_base_url/?b=http://$2&conf=$conf";
+        }
         $this->punditContent = preg_replace($pattern,$replace,$this->punditContent);
         
         
