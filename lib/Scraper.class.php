@@ -445,11 +445,28 @@ class Scraper {
         // =====================
         $url = parse_url($this->url);
         $domain = $url['host'];
+        $feed_base_url=$_SERVER['SERVER_NAME'];
+        
         $this->punditContent = preg_replace('%href="//%','href="http://',$this->punditContent);
         $this->punditContent = preg_replace('%href="/%','href="http://'.$domain.'/',$this->punditContent);
         $this->punditContent = preg_replace('%src="//%','src="http://',$this->punditContent);
         $this->punditContent = preg_replace('%src="/%','src="http://'.$domain.'/',$this->punditContent);
               
+        
+        // =====================================
+        // Tr1.A: Add Feed URI to pages link
+        // =====================================
+        // Thanks to:
+        // http://stackoverflow.com/questions/9976844/convert-all-html-links-to-another-url-with-php-regex
+        $pattern = "/<a([^>]+)href=\"http\:\/\/([a-z\d\-]+\.[a-z\d]+\.[a-z]{2,5}(\/[^\"]*)?)/i";
+        $replace = "<a$1href=\"http://$feed_base_url/?b=http://$2";
+        //if(isset($_GET['conf'])){
+          //$replace = '<a $1 href="http://'.$feed_base_url.'/?b=$2&conf='.$_GET['conf'].'" $3 >';
+          //}
+        $this->punditContent = preg_replace($pattern,$replace,$this->punditContent);
+        
+        
+        
         // ==================================
         // Tr2: Add JS and CSS to end of HEAD
         // ==================================        
