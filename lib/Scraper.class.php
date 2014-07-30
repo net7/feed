@@ -493,11 +493,11 @@ EOF;
         
         if (preg_match('%class="pundit-content"%',$this->punditContent)){        
           $this->punditContent = 
-            preg_replace('%<body%','<body data-ng-app="Pundit2" ',$this->punditContent);
+            preg_replace('%<body([^>]*)>%s','<body$1><div data-ng-app="Pundit2"></div> ',$this->punditContent);
         }
         else {
           $this->punditContent = 
-            preg_replace('%<body([^>]*)>%s','<body data-ng-app="Pundit2" $1><div class="pundit-content" about="'.$this->url.'">',$this->punditContent);          
+            preg_replace('%<body([^>]*)>%s','<body$1><div data-ng-app="Pundit2"></div><div class="pundit-content" about="'.$this->url.'">',$this->punditContent);          
           $this->punditContent = 
             preg_replace('%</body>%','</div></body>',$this->punditContent);
         }
