@@ -72,7 +72,7 @@ class FusepoolScraper extends Scraper {
         $data = $this->data;
 
         $dom = new DOMDocument("1.0", "utf-8");
-        $dom->loadXML($data);
+        $dom->loadHTML($data);
 
         // Input can be an HTML or an RDF containing a tag with the HTML.
         // We look for said tag, if it's there then we use it, otherwise we take the whole input
@@ -158,7 +158,7 @@ EOF;
 
         // save the HTML in an hidden place so to be able to send it back to the FP platform at the end of the process
         $this->punditContent =
-            preg_replace('%</body>%s', '<div style="display:none" id="html-storage">' . htmlspecialchars($this->savedHTML). '</div></body>', $this->punditContent);
+            preg_replace('%</body>%s', '<div style="display:none" id="html-storage"><![CDATA[' .$this->savedHTML. ']]></div></body>', $this->punditContent);
 
 
     }
