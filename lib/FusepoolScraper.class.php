@@ -75,7 +75,7 @@ class FusepoolScraper extends Scraper {
 //        @$dom->loadHTML($data);
 
         libxml_use_internal_errors(true);
-        if(!$dom->loadHTML($this->punditContent)){
+        if(!$dom->loadHTML($data)){
             foreach (libxml_get_errors() as $error) {
                 var_dump($error);
             }
