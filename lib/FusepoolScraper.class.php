@@ -72,7 +72,17 @@ class FusepoolScraper extends Scraper {
         $data = $this->data;
 
         $dom = new DOMDocument("1.0", "utf-8");
-        $dom->loadHTML($data);
+//        @$dom->loadHTML($data);
+
+        libxml_use_internal_errors(true);
+        if(!$dom->loadHTML($this->punditContent)){
+            foreach (libxml_get_errors() as $error) {
+                var_dump($error);
+            }
+
+            libxml_clear_errors();
+        }
+
 
         // Input can be an HTML or an RDF containing a tag with the HTML.
         // We look for said tag, if it's there then we use it, otherwise we take the whole input
@@ -103,7 +113,23 @@ class FusepoolScraper extends Scraper {
         // Check if there's and HEAD section
         // ==================================
         $dom = new DOMDocument();
-        $dom->loadHTML($this->punditContent);
+//        @$dom->loadHTML($this->punditContent);
+
+
+//        $caller = new ErrorTrap(array($dom, 'loadHTML'));
+//        $caller->call($this->punditContent);
+//        if (!$caller->ok()){
+//            var_dump($caller->errors());
+//        }
+
+        libxml_use_internal_errors(true);
+    if(!$dom->loadHTML($this->punditContent)){
+        foreach (libxml_get_errors() as $error) {
+            var_dump($error);
+        }
+
+        libxml_clear_errors();
+    }
 
         $headNodeList = $dom->getElementsByTagName('head');
         $l = $headNodeList->length;
@@ -184,4 +210,33 @@ EOF;
         return false;
     }
 
+}
+
+class ErrorTrap {
+    protected $callback;
+    protected $errors = array();
+    function __construct($callback) {
+        $this->callback = $callback;
+    }
+    function call() {
+        $result = null;
+        set_error_handler(array($this, 'onError'));
+        try {
+            $result = call_user_func_array($this->callback, func_get_args());
+        } catch (Exception $ex) {
+            restore_error_handler();
+            throw $ex;
+        }
+        restore_error_handler();
+        return $result;
+    }
+    function onError($errno, $errstr, $errfile, $errline) {
+        $this->errors[] = array($errno, $errstr, $errfile, $errline);
+    }
+    function ok() {
+        return count($this->errors) === 0;
+    }
+    function errors() {
+        return $this->errors;
+    }
 }
