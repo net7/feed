@@ -21,6 +21,29 @@ if (isset($_GET['punditSaveRequest'])) {
     $annotations = callCURL($apiUrl, 'dealWithAnnotations');
     print_r($annotations); die();
 
+} else if (!isset($_GET['m'])){
+
+    $s = new FusepoolScraper();
+    $md5 = $s->doFirstTransformations();
+?>
+    <html>
+    <body>
+
+<form id="passOn" action="?fp=on&m=<?php echo $md5;?>" method="post">
+    <textarea style="display:none" name="data"><?php echo $_POST['data'];?></textarea>
+</form>
+
+<script>
+    document.getElementById("passOn").submit();
+
+</script>
+
+    </body>
+    </html>
+<?php
+
+    die();
+
 } else {
     // we are entering Pundit, so we need to prepare all the data and instantiate it
 

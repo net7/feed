@@ -74,6 +74,8 @@ class FusepoolScraper extends Scraper {
         $dom = new DOMDocument("1.0", "utf-8");
         $dom->loadXML($data);
 
+        // Input can be an HTML or an RDF containing a tag with the HTML.
+        // We look for said tag, if it's there then we use it, otherwise we take the whole input
         $FPhtmlNodeList = $dom->getElementsByTagNameNS($this->Fp3Ns, $this->RDFHtmlTag);
 
         if ($FPhtmlNodeList->length != 0){
@@ -89,11 +91,12 @@ class FusepoolScraper extends Scraper {
 
     }
 
-    private function retrievePunditContentDefault() {
+
+    public function doFirstTransformations(){
         $this->punditContent = $this->extractHtmlFromData();
 
         if (!$this->punditContent){
-            self::abortToFP();
+            self::abortToFP('Empty input');
         }
 
         // ==================================
@@ -103,7 +106,7 @@ class FusepoolScraper extends Scraper {
         $dom->loadHTML($this->punditContent);
 
         $headNodeList = $dom->getElementsByTagName('head');
-        $l =  $headNodeList->length;
+        $l = $headNodeList->length;
 
         if($l == 0){
             // we need to add an head section to the HTML
@@ -115,7 +118,14 @@ class FusepoolScraper extends Scraper {
         //   And a pundit-content
         // ====================================================
 
-        $punditAboutCode = 'http://purl.org/fp3/punditcontent-' . md5($this->data);
+        return   md5($this->data);
+
+
+    }
+
+    private function retrievePunditContentDefault() {
+
+        $punditAboutCode = 'http://purl.org/fp3/punditcontent-' . $this->doFirstTransformations();
 
         if (preg_match('%class="pundit-content"%',$this->punditContent)){
             $this->punditContent =
@@ -139,7 +149,7 @@ class FusepoolScraper extends Scraper {
           <link rel="stylesheet" href="pundit2/pundit2.css" type="text/css">
           <script src="pundit2/libs.js" type="text/javascript" ></script>
           <script src="pundit2/pundit2.js" type="text/javascript" ></script>
-          <script src="http://conf.thepund.it/V2/clients/fusepool.js" type="text/javascript" ></script>
+          <script src="http://conf.thepund.it/V2/clients/fusepool.local.js" type="text/javascript" ></script>
 EOF;
 
         $this->punditContent =
