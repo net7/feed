@@ -149,7 +149,7 @@ class FusepoolScraper extends Scraper {
           <link rel="stylesheet" href="pundit2/pundit2.css" type="text/css">
           <script src="pundit2/libs.js" type="text/javascript" ></script>
           <script src="pundit2/pundit2.js" type="text/javascript" ></script>
-          <script src="http://conf.thepund.it/V2/clients/fusepool.local.js" type="text/javascript" ></script>
+          <script src="http://conf.thepund.it/V2/clients/fusepool.js" type="text/javascript" ></script>
 EOF;
 
         $this->punditContent =
