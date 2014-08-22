@@ -21,6 +21,7 @@ if (isset($_GET['punditSaveRequest'])) {
     $annotations = callCURL($apiUrl, 'dealWithAnnotations');
     print_r($annotations); die();
 
+/*
 } else if (!isset($_GET['m'])){
 
     $s = new FusepoolScraper();
@@ -43,7 +44,7 @@ if (isset($_GET['punditSaveRequest'])) {
 <?php
 
     die();
-
+*/
 } else {
     // we are entering Pundit, so we need to prepare all the data and instantiate it
 
