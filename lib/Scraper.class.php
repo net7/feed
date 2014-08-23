@@ -475,10 +475,13 @@ class Scraper {
         $conf="http://dev.thepund.it/download/client/last-beta/pundit2_conf.js";
         if(isset($_GET['conf'])) $conf=$_GET['conf'];
         
+        $pndurl="http://dev.thepund.it/download/client/last-beta";
+        if(isset($_GET['pndurl'])) $pndurl=$_GET['pndurl'];
+        
         $punditCode = <<<EOF
-          <link rel="stylesheet" href="http://dev.thepund.it/download/client/last-beta/pundit2.css" type="text/css">        
-          <script src="http://dev.thepund.it/download/client/last-beta/libs.js" type="text/javascript" ></script>
-          <script src="http://dev.thepund.it/download/client/last-beta/pundit2.js" type="text/javascript" ></script>
+          <link rel="stylesheet" href="$pndurl/pundit2.css" type="text/css">        
+          <script src="$pndurl/libs.js" type="text/javascript" ></script>
+          <script src="$pndurl/pundit2.js" type="text/javascript" ></script>
           <script src="$conf" type="text/javascript" ></script>
 EOF;
         $this->punditContent = 
