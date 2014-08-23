@@ -72,8 +72,19 @@ class FusepoolScraper extends Scraper {
         $data = $this->data;
 
         $dom = new DOMDocument("1.0", "utf-8");
-        $dom->loadXML($data);
+//        @$dom->loadHTML($data);
 
+        libxml_use_internal_errors(true);
+        if(!$dom->loadHTML($data)){
+            foreach (libxml_get_errors() as $error) {
+                var_dump($error);
+            }
+            libxml_clear_errors();
+        }
+
+
+        // Input can be an HTML or an RDF containing a tag with the HTML.
+        // We look for said tag, if it's there then we use it, otherwise we take the whole input
         $FPhtmlNodeList = $dom->getElementsByTagNameNS($this->Fp3Ns, $this->RDFHtmlTag);
 
         if ($FPhtmlNodeList->length != 0){
@@ -89,21 +100,30 @@ class FusepoolScraper extends Scraper {
 
     }
 
-    private function retrievePunditContentDefault() {
+
+    public function doFirstTransformations(){
         $this->punditContent = $this->extractHtmlFromData();
 
         if (!$this->punditContent){
-            self::abortToFP();
+            self::abortToFP('Empty input');
         }
 
         // ==================================
         // Check if there's and HEAD section
         // ==================================
         $dom = new DOMDocument();
-        $dom->loadHTML($this->punditContent);
+//        @$dom->loadHTML($this->punditContent);
+
+        libxml_use_internal_errors(true);
+        if(!$dom->loadHTML($this->punditContent)){
+            foreach (libxml_get_errors() as $error) {
+                var_dump($error);
+            }
+            libxml_clear_errors();
+        }
 
         $headNodeList = $dom->getElementsByTagName('head');
-        $l =  $headNodeList->length;
+        $l = $headNodeList->length;
 
         if($l == 0){
             // we need to add an head section to the HTML
@@ -115,7 +135,13 @@ class FusepoolScraper extends Scraper {
         //   And a pundit-content
         // ====================================================
 
-        $punditAboutCode = 'http://purl.org/fp3/punditcontent-' . md5($this->data);
+        return   md5($this->data);
+
+    }
+
+    private function retrievePunditContentDefault() {
+
+        $punditAboutCode = 'http://purl.org/fp3/punditcontent-' . $this->doFirstTransformations();
 
         if (preg_match('%class="pundit-content"%',$this->punditContent)){
             $this->punditContent =
@@ -148,7 +174,7 @@ EOF;
 
         // save the HTML in an hidden place so to be able to send it back to the FP platform at the end of the process
         $this->punditContent =
-            preg_replace('%</body>%s', '<div style="display:none" id="html-storage">' . htmlspecialchars($this->savedHTML). '</div></body>', $this->punditContent);
+            preg_replace('%</body>%s', '<div style="display:none" id="html-storage"><![CDATA[' .$this->savedHTML. ']]></div></body>', $this->punditContent);
 
 
     }
