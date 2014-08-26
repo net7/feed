@@ -107,7 +107,11 @@ class Scraper {
     
     public function getLinkToDM2EPage($page) {
         $s = $_SERVER['HTTP_HOST'];
-        return 'http://'. $s .'/?dm2e='. $page .'&conf='. $_REQUEST['conf'];
+        if (isset($_GET['dm2e'])) {
+           return 'http://'. $s .'/?dm2e='. $page .'&conf='. $_REQUEST['conf'];
+        } else if (isset($_GET['dm2epnd2'])) {
+          return 'http://'. $s .'/?dm2epnd2='. $page .'&conf='. $_REQUEST['conf'];          
+        }
     }
         
     public function getNext($pos = null) {
@@ -119,6 +123,8 @@ class Scraper {
         // Single page annotation
         if (isset($_REQUEST['dm2e'])) {
             return 'http://'. $s .'/?dm2e='. urlencode($this->dm2eNext) .'&conf='. $_REQUEST['conf'];
+        } else if (isset($_REQUEST['dm2epnd2'])) {
+            return 'http://'. $s .'/?dm2epnd2='. urlencode($this->dm2eNext) .'&conf='. $_REQUEST['conf'];
         } else if (!isset($_REQUEST['lurl']) && !isset($_REQUEST['rurl'])) {
             return 'http://'. $s .'/?url='. $this->next .'&conf='. $_REQUEST['conf'];
 
@@ -138,6 +144,8 @@ class Scraper {
         // Single page annotation
         if (isset($_REQUEST['dm2e'])) {
             return 'http://'. $s .'/?dm2e='. urlencode($this->dm2ePrev) .'&conf='. $_REQUEST['conf'];
+        } else if (isset($_REQUEST['dm2epnd2'])) {
+            return 'http://'. $s .'/?dm2epnd2='. urlencode($this->dm2ePrev) .'&conf='. $_REQUEST['conf'];
         } else if (!isset($_REQUEST['lurl']) && !isset($_REQUEST['rurl'])) {
             return 'http://'. $s .'/?url='. $this->prev .'&conf='. $_REQUEST['conf'];
         } else if ($pos == "left") {
@@ -362,7 +370,9 @@ class Scraper {
                 
                 $this->bookMetadata .= '<div><p><strong>Browse pages</strong></p>';
                 $this->bookMetadata .= '<form action="http://' . $_SERVER['HTTP_HOST'] . '" method="get">';
-                $this->bookMetadata .= '<select name="dm2e">';
+                  if (isset($_GET['dm2e'])) { $scraperName='dm2e';}
+                  else if (isset($_GET['dm2epnd2'])) { $scraperName='dm2epnd2';}
+                $this->bookMetadata .= '<select name="'.$scraperName.'">';
                 foreach ($this->pages as $page) {                    
                     $pageNumber = urldecode(substr( $page, strrpos( $page, '/' ) +1 ));
                     $this->bookMetadata .= '<option value="' . $page . '">' . $pageNumber . '</option>';
@@ -587,7 +597,9 @@ EOF;
         }
         $format = $this->dm2eGraph->get($version, $this->nsDc . ':format');
         if ($format == "image/jpeg" || $format == "http://onto.dm2e.eu/schemas/dm2e/1.1/mime-types/image/jpeg") {
-            $header .= '<h4>Page: ' . $title . '</h4><small> <a href="' . '?dm2e=' . urlencode($page) . '&conf=dm2e.js">See this page only</a></small> | ';
+          if (isset($_GET['dm2e'])) { $scraperName='dm2e';}
+          else if (isset($_GET['dm2epnd2'])) { $scraperName='dm2epnd2';}
+            $header .= '<h4>Page: ' . $title . '</h4><small> <a href="' . '?'.$scraperName.'=' . urlencode($page) . '&conf=dm2e.js">See this page only</a></small> | ';
             if ($this->shownBy) {
                     $header .= '<small><a href="' . $this->shownBy .
                                  '" target="_blank">Go to original DL</small> | ';
