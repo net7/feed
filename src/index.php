@@ -7,6 +7,10 @@ if (isset($_GET['b']))
 else  if (isset($_GET['fp'])){
     // it's a fusepool request
        require_once('fusepool.php');
+} 
+else if (isset($_GET['dm2epnd2'])) {
+  require_once 'partial/renderPunditContent.php';  
+  require_once('dm2epnd2_annotation.php');
 } else {
 require_once 'partial/renderPunditContent.php';
 require_once 'partial/renderPunditInit.php';
