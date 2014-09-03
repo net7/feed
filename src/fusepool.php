@@ -1,9 +1,11 @@
 <?php
 
-require_once(dirname(__FILE__) . '/../lib/FusepoolScraper.class.php');
+require_once (dirname(__FILE__) . '/../lib/FusepoolScraper.class.php');
+require_once (dirname(__FILE__) . '/../lib/easyrdf-0.8.0/lib/EasyRdf.php');
 
-// When you click the "finish" button in pundit, it ships back all the data we need to exit and get back to
-// the Fusepool platform, via its APIs.
+
+// When you click the "finish" button in pundit, it ships back all the data.
+// We need to exit and get back to the Fusepool platform, via its APIs.
 //
 // if $_GET['punditSaveRequest'] is set, the user clicked the finish button.
 if (isset($_GET['punditSaveRequest'])) {
@@ -14,14 +16,12 @@ if (isset($_GET['punditSaveRequest'])) {
     $punditContent = $data['punditContent'];
     $html = htmlspecialchars_decode($data['punditPage']);
 
-    // TODO: pass it by thepund.it, taking it from the conf
-    $asBaseUrl = 'http://demo-cloud.as.thepund.it:8080/annotationserver/';
+    $asBaseUrl = $data['annotationServerBaseURL'];
     $apiUrl = $asBaseUrl . 'api/open/metadata/search?scope=all&query={"resources":["' . $punditContent . '"]}';
 
     $annotations = callCURL($apiUrl, 'dealWithAnnotations');
     print_r($annotations); die();
 
-/*
 } else if (!isset($_GET['m'])){
 
     $s = new FusepoolScraper();
@@ -44,7 +44,6 @@ if (isset($_GET['punditSaveRequest'])) {
 <?php
 
     die();
-*/
 } else {
     // we are entering Pundit, so we need to prepare all the data and instantiate it
 
@@ -119,7 +118,8 @@ function callCURL($apiUrl, $successFunction, $accept = 'json')
 }
 
 /**
- * @param $jsonContent
+ * @param $jsonContent The annotations list
+ * @return Annotation data in Turtle (text/turtle)
  *
  * Get the annotations data (in $jsonContent) and process them by calling the AS for each of them, and retrieving the graph,
  * the items and the metadata
