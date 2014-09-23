@@ -34,7 +34,8 @@ $s=new Scraper($_GET['url2'],'advanced');
 
       <?php endif; ?>        
     </head>
-    <body data-ng-app="Pundit2" >
+    <body>
+    <div data-ng-app="Pundit2" ></div>
         <?php renderPunditContent($s) ; ?>
     </body>
 </html>
