@@ -449,20 +449,19 @@ class Scraper {
     
     private function retrieveBookmarklet() {
       $this->punditContent = $this->doCurlRequest('text/html');
-      
         // =====================
         // Tr1: Add Absolute URI
         // =====================
         $url = parse_url($this->url);
         $domain = $url['host'];
         $feed_base_url=$_SERVER['SERVER_NAME'];
-        
+
         $this->punditContent = preg_replace('%href="//%','href="http://',$this->punditContent);
         $this->punditContent = preg_replace('%href="/%','href="http://'.$domain.'/',$this->punditContent);
         $this->punditContent = preg_replace('%src="//%','src="http://',$this->punditContent);
         $this->punditContent = preg_replace('%src="/%','src="http://'.$domain.'/',$this->punditContent);
-              
-        
+
+
         // =====================================
         // Tr1.A: Add Feed URI to pages link
         // =====================================
@@ -471,13 +470,14 @@ class Scraper {
         $pattern = "/<a([^>]+)href=\"http\:\/\/([a-z\d\-]+\.[a-z\d]+\.[a-z]{2,5}(\/[^\"]*)?)/i";
         $replace = "<a target=\"_self\" $1href=\"http://$feed_base_url/?b=http://$2";
         if(isset($_GET['conf'])){
-          $conf=$_GET['conf'];
-          $replace = "<a target=\"_self\" $1href=\"http://$feed_base_url/?b=http://$2&conf=$conf";
+            $conf=$_GET['conf'];
+            $replace = "<a target=\"_self\" $1href=\"http://$feed_base_url/?b=http://$2&conf=$conf";
         }
         $this->punditContent = preg_replace($pattern,$replace,$this->punditContent);
-        
-        
-        
+
+
+
+
         // ==================================
         // Tr2: Add JS and CSS to end of HEAD
         // ==================================        
@@ -494,9 +494,14 @@ class Scraper {
           <script src="$pndurl/pundit2.js" type="text/javascript" ></script>
           <script src="$conf" type="text/javascript" ></script>
 EOF;
-        $this->punditContent = 
-          preg_replace('%<head>(.*)</head>%s','<head>$1 '.$punditCode.'</head>',$this->punditContent);
-  
+
+//        $this->punditContent =
+//            preg_replace('%<head>(.*)</head>%s','<head>$1 '.$punditCode.'</head>',$this->punditContent);
+
+          $this->punditContent =
+            preg_replace('%</head>%s', $punditCode . '</head>', $this->punditContent);
+
+
         // ====================================================
         // Tr3: Add data-app-ng="Pundit2" attribute to BODY TAG
         // ====================================================
@@ -514,7 +519,7 @@ EOF;
           $this->punditContent = 
             preg_replace('%</body>%','</div></body>',$this->punditContent);
         }
-      
+//        die ($this->punditContent . '  <<<2 2') ;
     }
 
     /** Takes care of more cases and remove all header **/
